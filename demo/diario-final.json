@@ -1,0 +1,219 @@
+{
+  "versao": 1,
+  "perfil": {
+    "titulo": "Mentoria do Rafa",
+    "pessoa": "Especialista sênior de dados",
+    "meta": "Staff engineer de dados",
+    "prazo_meta": "12 meses",
+    "mentoria": "Helena Duarte, mentora externa, sessões 1:1 quinzenais",
+    "modo_privacidade": "Contexto",
+    "revisao_semanal": "Sexta à tarde"
+  },
+  "sessoes": [
+    {
+      "id": "S2026-09-12",
+      "data": "2026-09-12",
+      "tema": "Meta e mapa de decisão",
+      "notas": "Helena: O que é staff para a Orbital? Rafa: Ter escopo de plataforma, não de projeto. Helena: Então escreva isso em três fatos. E mapeie quem decide: Júlia propõe, Marcos aprova.",
+      "licoes": [
+        {
+          "id": "S2026-09-12-L1",
+          "texto": "Staff se prova com escopo de plataforma, não com mais projetos."
+        },
+        {
+          "id": "S2026-09-12-L2",
+          "texto": "Júlia propõe a promoção; Marcos aprova. Os dois precisam ver o trabalho."
+        },
+        {
+          "id": "S2026-09-12-L3",
+          "texto": "Meta escrita em fatos observáveis vira critério de conversa com a gestora."
+        }
+      ],
+      "acoes": [
+        {
+          "id": "S2026-09-12-A1",
+          "descricao": "Escrever a meta de staff em três fatos e validar com a Júlia",
+          "responsavel": "Rafa",
+          "prazo": "2026-09-19",
+          "prazo_inferido": false,
+          "status": "Feito"
+        },
+        {
+          "id": "S2026-09-12-A2",
+          "descricao": "Listar os três projetos com maior impacto no último ano",
+          "responsavel": "Rafa",
+          "prazo": "2026-09-24",
+          "prazo_inferido": false,
+          "status": "Feito"
+        }
+      ],
+      "perguntas": [
+        "Qual é o calendário do ciclo de promoção da Orbital?"
+      ]
+    },
+    {
+      "id": "S2026-09-26",
+      "data": "2026-09-26",
+      "tema": "Visibilidade com a diretoria",
+      "notas": "Helena: O Marcos sabe do Banco Lumen? Rafa: Acho que não. Helena: Então ele não sabe que você existe. Resumo de uma página, quinzenal, para a Júlia, que repassa. Rafa: E o time de risco? Helena: Converse com eles antes do comitê, 30 minutos.",
+      "licoes": [
+        {
+          "id": "S2026-09-26-L1",
+          "texto": "Se o diretor não conhece o caso, o caso não existe para a promoção."
+        },
+        {
+          "id": "S2026-09-26-L2",
+          "texto": "Resumo de uma página, quinzenal, chega mais longe do que apresentação longa."
+        },
+        {
+          "id": "S2026-09-26-L3",
+          "texto": "Aliado de outro time antes do comitê vale mais que slide bonito."
+        }
+      ],
+      "acoes": [
+        {
+          "id": "S2026-09-26-A1",
+          "descricao": "Enviar o primeiro resumo de uma página para a Júlia",
+          "responsavel": "Rafa",
+          "prazo": "2026-10-03",
+          "prazo_inferido": false,
+          "status": "Feito"
+        },
+        {
+          "id": "S2026-09-26-A2",
+          "descricao": "Conversa de 30 minutos com o time de risco",
+          "responsavel": "Rafa",
+          "prazo": "2026-09-30",
+          "prazo_inferido": true,
+          "status": "Aberto"
+        }
+      ],
+      "perguntas": [
+        "Quem no time de risco tem mais influência no comitê?"
+      ]
+    },
+    {
+      "id": "S2026-10-09",
+      "data": "2026-10-09",
+      "tema": "Do técnico ao estratégico",
+      "notas": "Helena: Como foi a quinzena? Rafa: Mandei o resumo de uma página para a Júlia, ela encaminhou ao Marcos, e o Marcos pediu para eu apresentar o caso do Banco Lumen no comitê de arquitetura do dia 30. Helena: É exatamente o que queríamos: o diretor pedindo. Rafa: Coloco o número? O projeto economizou R$ 1,8 mi por ano para o Banco Lumen. Helena: No comitê interno pode, mas confirme com a área comercial antes. Fora da empresa, nunca. Rafa: A conversa com o time de risco ainda não aconteceu. Helena: Está atrasada desde o fim de setembro. Marque esta semana, 30 minutos, e pergunte a meta deles no trimestre. Na apresentação, abra com o problema de negócio; arquitetura é o slide 5. Ensaie com a Júlia, ela conhece o comitê. Rafa: Posso mandar o deck por e-mail para a Júlia revisar? Helena: Mande pelo canal interno. [incompreensível] Combinado. Para a próxima: deck pronto até dia 23, ensaio com a Júlia até dia 28.",
+      "licoes": [
+        {
+          "id": "S2026-10-09-L1",
+          "texto": "Quando o diretor pede, a visibilidade virou resultado: é a evidência mais forte."
+        },
+        {
+          "id": "S2026-10-09-L2",
+          "texto": "Número de cliente só no comitê interno, confirmado com a área comercial; fora da empresa, nunca."
+        },
+        {
+          "id": "S2026-10-09-L3",
+          "texto": "Apresentação para liderança abre com o problema de negócio; arquitetura vem depois."
+        },
+        {
+          "id": "S2026-10-09-L4",
+          "texto": "Ensaiar com quem conhece o comitê reduz o risco da apresentação."
+        }
+      ],
+      "acoes": [
+        {
+          "id": "S2026-10-09-A1",
+          "descricao": "Montar o deck do caso Banco Lumen para o comitê de arquitetura",
+          "responsavel": "Rafa",
+          "prazo": "2026-10-23",
+          "prazo_inferido": false,
+          "status": "Aberto"
+        },
+        {
+          "id": "S2026-10-09-A2",
+          "descricao": "Ensaiar a apresentação com a Júlia",
+          "responsavel": "Rafa",
+          "prazo": "2026-10-28",
+          "prazo_inferido": false,
+          "status": "Aberto"
+        },
+        {
+          "id": "S2026-10-09-A3",
+          "descricao": "Confirmar com a área comercial se o número do Banco Lumen pode ir ao comitê",
+          "responsavel": "Rafa",
+          "prazo": "",
+          "prazo_inferido": false,
+          "status": "A confirmar"
+        }
+      ],
+      "perguntas": [
+        "O que a Helena disse depois do corte de áudio?",
+        "Quanto tempo de apresentação o comitê dá?"
+      ]
+    }
+  ],
+  "evidencias": [
+    {
+      "id": "E1",
+      "data": "2026-10-03",
+      "tipo": "Texto lido",
+      "descricao": "Júlia leu o resumo e encaminhou ao Marcos",
+      "quem": "Júlia Tanaka",
+      "sessao": "S2026-09-26"
+    },
+    {
+      "id": "E2",
+      "data": "2026-10-08",
+      "tipo": "Pedido da liderança",
+      "descricao": "Marcos pediu a apresentação do caso Banco Lumen no comitê de arquitetura do dia 30",
+      "quem": "Marcos Prado",
+      "sessao": "S2026-10-09"
+    },
+    {
+      "id": "E3",
+      "data": "2026-10-10",
+      "tipo": "Pedido da liderança",
+      "descricao": "Júlia leu o segundo resumo quinzenal na reunião de time e pediu para eu apresentar o formato aos outros especialistas",
+      "quem": "Júlia Tanaka",
+      "sessao": "S2026-10-09"
+    }
+  ],
+  "pilares": [
+    {
+      "nome": "Visibilidade com quem decide",
+      "licoes": [
+        "S2026-09-26-L1",
+        "S2026-09-26-L2",
+        "S2026-10-09-L1",
+        "S2026-09-12-L2"
+      ],
+      "o_que_muda": "Resumo quinzenal à gestora, que leva o trabalho até o diretor."
+    },
+    {
+      "nome": "Linguagem de negócio",
+      "licoes": [
+        "S2026-10-09-L3",
+        "S2026-09-12-L1"
+      ],
+      "o_que_muda": "Abrir toda apresentação pelo problema e pelo impacto."
+    },
+    {
+      "nome": "Aliados antes do comitê",
+      "licoes": [
+        "S2026-09-26-L3",
+        "S2026-10-09-L4"
+      ],
+      "o_que_muda": "Conversar com risco e ensaiar com a gestora antes de apresentar."
+    },
+    {
+      "nome": "Cuidado com dados de cliente",
+      "licoes": [
+        "S2026-10-09-L2"
+      ],
+      "o_que_muda": "Confirmar com a área comercial antes de citar números."
+    }
+  ],
+  "prioridade": "Fazer a conversa atrasada com o time de risco esta semana: ela prepara o comitê do dia 30.",
+  "proximos_30_dias": [
+    "Conversa de 30 minutos com o time de risco (atrasada)",
+    "Deck do caso pronto até 23/10",
+    "Ensaio com a Júlia até 28/10",
+    "Confirmar o número com a área comercial",
+    "Apresentar no comitê de arquitetura em 30/10"
+  ]
+}

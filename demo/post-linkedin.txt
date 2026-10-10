@@ -1,0 +1,2 @@
+/liliai-privacidade
+Semana boa! O Marcos Prado, diretor de engenharia aqui da Orbital Pagamentos, me chamou para apresentar no comitê de arquitetura o projeto que fizemos para o Banco Lumen. O projeto economizou R$ 1,8 mi por ano para o cliente e foi elogiado pela Júlia Tanaka. Quem quiser trocar ideia sobre plataforma de dados, me chama: rafa.moura@orbital-pagamentos.exemplo

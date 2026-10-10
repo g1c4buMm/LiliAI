@@ -1,0 +1,17 @@
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Seus dados da mentoria nunca entram no repositório.
+# Os exemplos fictícios ficam em exemplos/ e demo/, que não usam estes nomes.
+diario.json
+diario.md
+contexto.md
+instrucao.md
+painel-20*.html
+meus-dados/
+*.privado.*
+
+# Exceções: modelos vazios que fazem parte do kit
+!modelos/diario.json
+!skills/*/diario.json

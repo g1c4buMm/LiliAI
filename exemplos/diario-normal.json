@@ -1,0 +1,86 @@
+{
+  "versao": 1,
+  "perfil": {
+    "titulo": "Minha mentoria de carreira",
+    "pessoa": "Especialista sênior",
+    "meta": "Próximo nível na trilha de especialista",
+    "prazo_meta": "18 a 24 meses",
+    "mentoria": "Mentora externa, sessões 1:1 quinzenais",
+    "modo_privacidade": "Anônimo",
+    "revisao_semanal": "Sexta à tarde"
+  },
+  "sessoes": [
+    {
+      "id": "S2026-09-11",
+      "data": "2026-09-11",
+      "tema": "Ponto de partida e meta",
+      "notas": "Mentora: Qual é a meta, em fatos que alguém consegue ver? Eu: Ser promovido no próximo ciclo. Mentora: Isso é um cargo. Escreva três fatos que provariam que você está pronto. Mentora: E descubra quem decide e quando. Quem decide precisa ver o trabalho antes do ciclo.",
+      "licoes": [
+        {"id": "S2026-09-11-L1", "texto": "A meta precisa ser escrita em fatos observáveis, não em cargo."},
+        {"id": "S2026-09-11-L2", "texto": "Quem decide a promoção precisa ver o trabalho antes do ciclo, não durante."},
+        {"id": "S2026-09-11-L3", "texto": "Uma hora por semana bem usada vale mais que um plano grande."}
+      ],
+      "acoes": [
+        {"id": "S2026-09-11-A1", "descricao": "Escrever a meta em três fatos observáveis", "responsavel": "Eu", "prazo": "2026-09-18", "prazo_inferido": false, "status": "Feito"},
+        {"id": "S2026-09-11-A2", "descricao": "Mapear quem decide e quantos níveis até a decisão", "responsavel": "Eu", "prazo": "2026-09-25", "prazo_inferido": false, "status": "Feito"}
+      ],
+      "perguntas": ["Qual o calendário do próximo ciclo de promoção?"]
+    },
+    {
+      "id": "S2026-09-25",
+      "data": "2026-09-25",
+      "tema": "Influência sem autoridade",
+      "notas": "Mentora: Influência vem de resolver o problema de quem decide. Antes de propor, pergunte o que o outro time precisa entregar no trimestre. Eu: Tenho casos que escalaram para outros times. Mentora: Registre. É a evidência mais forte que você tem.",
+      "licoes": [
+        {"id": "S2026-09-25-L1", "texto": "Influência vem de resolver o problema de quem decide, não o meu."},
+        {"id": "S2026-09-25-L2", "texto": "Antes de propor, perguntar o que o outro time precisa entregar no trimestre."},
+        {"id": "S2026-09-25-L3", "texto": "Registrar o que escalou para outros times: é a evidência mais forte."}
+      ],
+      "acoes": [
+        {"id": "S2026-09-25-A1", "descricao": "Listar três casos que escalaram para outros times", "responsavel": "Eu", "prazo": "2026-10-02", "prazo_inferido": false, "status": "Feito"},
+        {"id": "S2026-09-25-A2", "descricao": "Conversa de 30 minutos com um líder de time parceiro", "responsavel": "Eu", "prazo": "2026-10-08", "prazo_inferido": true, "status": "Aberto"}
+      ],
+      "perguntas": ["Qual time parceiro tem mais peso na decisão?"]
+    },
+    {
+      "id": "S2026-10-09",
+      "data": "2026-10-09",
+      "tema": "Visibilidade com a liderança",
+      "notas": "Mentora: Você entrega muito, mas ninguém lá em cima fica sabendo. Eu: No caso do Cliente A, fechamos [valor omitido] e o diretor regional nem soube. Mentora: Resumo de uma página, com problema, ação e resultado. Começa quinzenal, mas regular. A liderança quer impacto no negócio, não arquitetura. Peça 15 minutos com o diretor regional até o fim do mês e leve um caso só. Sobre o depoimento do cliente, pergunte antes à área de contas. Lição de casa: primeiro resumo antes da próxima sessão, dia 23.",
+      "licoes": [
+        {"id": "S2026-10-09-L1", "texto": "Entregar sem comunicar não gera visibilidade com quem decide."},
+        {"id": "S2026-10-09-L2", "texto": "O formato do resumo é uma página: problema, ação e resultado."},
+        {"id": "S2026-10-09-L3", "texto": "Regularidade pesa mais que frequência. Começar quinzenal."},
+        {"id": "S2026-10-09-L4", "texto": "A liderança lê impacto no negócio (risco e receita), não arquitetura."},
+        {"id": "S2026-10-09-L5", "texto": "Na conversa com o diretor regional, levar um caso só."},
+        {"id": "S2026-10-09-L6", "texto": "Pedido de depoimento a cliente passa antes pela área de contas."}
+      ],
+      "acoes": [
+        {"id": "S2026-10-09-A1", "descricao": "Escrever o primeiro resumo de uma página e enviar à mentora", "responsavel": "Eu", "prazo": "2026-10-23", "prazo_inferido": true, "status": "Aberto"},
+        {"id": "S2026-10-09-A2", "descricao": "Enviar o resumo ao gestor direto, a cada 15 dias", "responsavel": "Eu", "prazo": "", "prazo_inferido": false, "status": "Aberto"},
+        {"id": "S2026-10-09-A3", "descricao": "Pedir 15 minutos com o diretor regional, levando um caso", "responsavel": "Eu", "prazo": "2026-10-31", "prazo_inferido": true, "status": "Aberto"},
+        {"id": "S2026-10-09-A4", "descricao": "Consultar a área de contas sobre o depoimento do Cliente A", "responsavel": "Eu", "prazo": "", "prazo_inferido": false, "status": "A confirmar"}
+      ],
+      "perguntas": [
+        "O que a mentora disse depois do corte de áudio sobre o depoimento?",
+        "Quando começa o envio quinzenal ao gestor?",
+        "Qual caso levar ao diretor regional?"
+      ]
+    }
+  ],
+  "evidencias": [
+    {"id": "E1", "data": "2026-09-30", "tipo": "Texto lido", "descricao": "Lista de casos que escalaram, comentada pelo gestor direto", "quem": "Gestor direto", "sessao": "S2026-09-25"},
+    {"id": "E2", "data": "2026-10-06", "tipo": "Pedido da liderança", "descricao": "Gestor pediu um dos casos para a revisão mensal", "quem": "Gestor direto", "sessao": "S2026-09-25"}
+  ],
+  "pilares": [
+    {"nome": "Visibilidade com quem decide", "licoes": ["S2026-10-09-L1", "S2026-09-11-L2", "S2026-10-09-L3"], "o_que_muda": "Um resumo de uma página, quinzenal, para o gestor direto."},
+    {"nome": "Linguagem de negócio", "licoes": ["S2026-10-09-L4", "S2026-10-09-L2"], "o_que_muda": "Traduzir cada entrega técnica para risco e receita."},
+    {"nome": "Influência entre times", "licoes": ["S2026-09-25-L1", "S2026-09-25-L2", "S2026-09-25-L3"], "o_que_muda": "Perguntar a meta do outro time antes de propor."}
+  ],
+  "prioridade": "Escrever o primeiro resumo de uma página. Ele alimenta a mentora, o gestor e a conversa com o diretor regional.",
+  "proximos_30_dias": [
+    "Enviar o primeiro resumo à mentora até 23/10 (inferência)",
+    "Fazer a conversa atrasada com o líder de time parceiro",
+    "Pedir os 15 minutos com o diretor regional até 31/10 (inferência)"
+  ]
+}

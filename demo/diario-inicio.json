@@ -1,0 +1,112 @@
+{
+  "versao": 1,
+  "perfil": {
+    "titulo": "Mentoria do Rafa",
+    "pessoa": "Especialista sênior de dados",
+    "meta": "Staff engineer de dados",
+    "prazo_meta": "12 meses",
+    "mentoria": "Helena Duarte, mentora externa, sessões 1:1 quinzenais",
+    "modo_privacidade": "Contexto",
+    "revisao_semanal": "Sexta à tarde"
+  },
+  "sessoes": [
+    {
+      "id": "S2026-09-12",
+      "data": "2026-09-12",
+      "tema": "Meta e mapa de decisão",
+      "notas": "Helena: O que é staff para a Orbital? Rafa: Ter escopo de plataforma, não de projeto. Helena: Então escreva isso em três fatos. E mapeie quem decide: Júlia propõe, Marcos aprova.",
+      "licoes": [
+        {
+          "id": "S2026-09-12-L1",
+          "texto": "Staff se prova com escopo de plataforma, não com mais projetos."
+        },
+        {
+          "id": "S2026-09-12-L2",
+          "texto": "Júlia propõe a promoção; Marcos aprova. Os dois precisam ver o trabalho."
+        },
+        {
+          "id": "S2026-09-12-L3",
+          "texto": "Meta escrita em fatos observáveis vira critério de conversa com a gestora."
+        }
+      ],
+      "acoes": [
+        {
+          "id": "S2026-09-12-A1",
+          "descricao": "Escrever a meta de staff em três fatos e validar com a Júlia",
+          "responsavel": "Rafa",
+          "prazo": "2026-09-19",
+          "prazo_inferido": false,
+          "status": "Feito"
+        },
+        {
+          "id": "S2026-09-12-A2",
+          "descricao": "Listar os três projetos com maior impacto no último ano",
+          "responsavel": "Rafa",
+          "prazo": "2026-09-24",
+          "prazo_inferido": false,
+          "status": "Feito"
+        }
+      ],
+      "perguntas": [
+        "Qual é o calendário do ciclo de promoção da Orbital?"
+      ]
+    },
+    {
+      "id": "S2026-09-26",
+      "data": "2026-09-26",
+      "tema": "Visibilidade com a diretoria",
+      "notas": "Helena: O Marcos sabe do Banco Lumen? Rafa: Acho que não. Helena: Então ele não sabe que você existe. Resumo de uma página, quinzenal, para a Júlia, que repassa. Rafa: E o time de risco? Helena: Converse com eles antes do comitê, 30 minutos.",
+      "licoes": [
+        {
+          "id": "S2026-09-26-L1",
+          "texto": "Se o diretor não conhece o caso, o caso não existe para a promoção."
+        },
+        {
+          "id": "S2026-09-26-L2",
+          "texto": "Resumo de uma página, quinzenal, chega mais longe do que apresentação longa."
+        },
+        {
+          "id": "S2026-09-26-L3",
+          "texto": "Aliado de outro time antes do comitê vale mais que slide bonito."
+        }
+      ],
+      "acoes": [
+        {
+          "id": "S2026-09-26-A1",
+          "descricao": "Enviar o primeiro resumo de uma página para a Júlia",
+          "responsavel": "Rafa",
+          "prazo": "2026-10-03",
+          "prazo_inferido": false,
+          "status": "Feito"
+        },
+        {
+          "id": "S2026-09-26-A2",
+          "descricao": "Conversa de 30 minutos com o time de risco",
+          "responsavel": "Rafa",
+          "prazo": "2026-09-30",
+          "prazo_inferido": true,
+          "status": "Aberto"
+        }
+      ],
+      "perguntas": [
+        "Quem no time de risco tem mais influência no comitê?"
+      ]
+    }
+  ],
+  "evidencias": [
+    {
+      "id": "E1",
+      "data": "2026-10-03",
+      "tipo": "Texto lido",
+      "descricao": "Júlia leu o resumo e encaminhou ao Marcos",
+      "quem": "Júlia Tanaka",
+      "sessao": "S2026-09-26"
+    }
+  ],
+  "pilares": [],
+  "prioridade": "Fazer a conversa atrasada com o time de risco.",
+  "proximos_30_dias": [
+    "Conversa de 30 minutos com o time de risco",
+    "Enviar o segundo resumo quinzenal"
+  ]
+}

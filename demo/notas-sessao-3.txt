@@ -1,0 +1,18 @@
+/liliai-sessao
+Data: 2026-10-09
+Tema: Do técnico ao estratégico
+
+helena: e aí rafa, como foi a quinzena
+rafa: então, tipo, mandei o resumo de uma página pra Júlia como você falou
+rafa: e ela encaminhou pro Marcos. o Marcos respondeu pedindo pra eu apresentar o caso do Banco Lumen no comitê de arquitetura do dia 30
+helena: isso é ótimo. isso é exatamente o que a gente queria. o diretor pedindo
+rafa: só que eu fiquei na dúvida se coloco o número, o projeto economizou R$ 1,8 mi por ano pro Banco Lumen
+helena: no comitê interno pode, mas confirma com a área comercial antes. fora da empresa nunca
+rafa: beleza. e a conversa com o time de risco que eu tinha que fazer, não rolou ainda
+helena: hum. isso tá atrasado desde o fim de setembro né. marca essa semana, 30 minutos, e pergunta qual a meta deles no trimestre
+helena: outra coisa. na apresentação, abre com o problema de negócio. arquitetura é o slide 5, não o slide 1
+rafa: anotado. problema, impacto, aí como
+helena: e ensaia com a Júlia antes. ela conhece o comitê
+rafa: posso mandar o deck pro julia.tanaka@orbital-pagamentos.exemplo pra ela revisar?
+helena: manda pelo canal interno de vocês. e [áudio cortado] ... combinado
+helena: pra próxima: deck pronto até dia 23, ensaio com a júlia até dia 28

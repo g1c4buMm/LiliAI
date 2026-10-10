@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>LiliAI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: caderno de sessão. Coluna única de leitura, trilho de passos à esquerda, telas em moldura de janela. */
+:root{
+  --bg:#f6f5f3; --surface:#ffffff; --ink:#1c1916; --muted:#6b635b; --line:#e2ddd7;
+  --accent:#b9561c; --accent-soft:#f6e3d6; --ok:#2f7d55; --warn:#a66a00;
+  --display:"Familjen Grotesk","Helvetica Neue",Arial,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --r:10px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#13110f; --surface:#1d1a17; --ink:#ede7e0; --muted:#a59c92; --line:#332e29;
+  --accent:#ef7d3c; --accent-soft:#3a2416; --ok:#5cc08b; --warn:#e0a640; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#13110f; --surface:#1d1a17; --ink:#ede7e0; --muted:#a59c92; --line:#332e29;
+  --accent:#ef7d3c; --accent-soft:#3a2416; --ok:#5cc08b; --warn:#e0a640; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:400 16px/1.6 var(--body);-webkit-font-smoothing:antialiased}
+.wrap{max-width:960px;margin:0 auto;padding-inline:20px}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+h1,h2,h3{font-family:var(--display);line-height:1.15;text-wrap:balance;margin:0}
+h2{font-size:clamp(1.6rem,3.2vw,2.2rem);font-weight:700;letter-spacing:-.01em}
+h3{font-size:1.2rem;font-weight:600}
+p{margin:0}
+code,kbd{font-family:var(--mono);font-size:.9em}
+.eyebrow{font:500 .75rem/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+section{padding-block:72px;border-top:1px solid var(--line)}
+.lead{color:var(--muted);max-width:62ch;font-size:1.05rem}
+
+/* top bar */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:12px}
+.brand{font:600 1rem var(--mono);color:var(--ink);text-decoration:none}
+.brand b{color:var(--accent)}
+.nav{display:flex;gap:18px;flex-wrap:wrap}
+.nav a{color:var(--muted);text-decoration:none;font-size:.9rem}
+.nav a:hover{color:var(--ink)}
+
+/* hero */
+.hero{padding-block:64px 56px;border-top:0}
+.ascii{font:500 clamp(.42rem,1.55vw,.8rem)/1.05 var(--mono);color:var(--accent);margin:0 0 28px;white-space:pre;overflow-x:auto}
+.hero h1{font-size:clamp(2.1rem,5.6vw,3.6rem);font-weight:700;letter-spacing:-.02em;max-width:18ch}
+.hero .lead{margin-top:18px}
+.ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:999px;font:600 .95rem var(--body);text-decoration:none;border:1px solid var(--line);color:var(--ink);background:var(--surface);cursor:pointer}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn:hover{transform:translateY(-1px)}
+.facts{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:32px;font:500 .8rem var(--mono);color:var(--muted)}
+.facts span::before{content:"▸ ";color:var(--accent)}
+.disclaimer{margin-top:28px;font-size:.85rem;color:var(--muted);max-width:70ch;padding-left:14px;border-left:2px solid var(--line)}
+
+/* cycle */
+.cycle{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-top:32px}
+.node{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px;min-width:0}
+.node code{color:var(--accent);font-size:.82rem;word-break:break-word}
+.node p{font-size:.85rem;color:var(--muted);margin-top:6px}
+.node .when{font:500 .7rem var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--ink)}
+@media (max-width:900px){.cycle{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:560px){.cycle{grid-template-columns:1fr 1fr}}
+
+/* steps */
+.phase{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-top:40px}
+.phase .time{font:500 .8rem var(--mono);color:var(--muted)}
+.steps{list-style:none;margin:20px 0 0;padding:0;display:grid;gap:0}
+.step{display:grid;grid-template-columns:52px minmax(0,1fr);gap:18px;padding-block:22px;border-top:1px dashed var(--line)}
+.step:first-child{border-top:0}
+.num{font:600 1.05rem var(--mono);color:var(--accent);width:40px;height:40px;border:1.5px solid var(--accent);border-radius:50%;display:grid;place-items:center;font-variant-numeric:tabular-nums}
+.step h3{margin-top:7px}
+.step h3 code{color:var(--accent);font-size:.95em}
+.step .body{display:grid;gap:12px;margin-top:10px;min-width:0}
+.step ol,.step ul{margin:0;padding-left:1.2em;display:grid;gap:4px}
+.note{font-size:.88rem;color:var(--muted)}
+.shot{margin:4px 0 0;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--surface)}
+.shot img{display:block;width:100%;height:auto}
+.shot figcaption{font:500 .72rem var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:8px 12px;border-top:1px solid var(--line)}
+
+/* code blocks */
+.code{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);min-width:0}
+.code pre{margin:0;padding:16px 16px 16px;overflow-x:auto;font:400 .85rem/1.6 var(--mono)}
+.copy{position:absolute;top:8px;right:8px;font:500 .72rem var(--mono);padding:5px 10px;border-radius:6px;border:1px solid var(--line);background:var(--bg);color:var(--muted);cursor:pointer}
+.copy.done{color:var(--ok);border-color:var(--ok)}
+
+/* button mock */
+.mock{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:grid;gap:12px}
+.mock .q{font-weight:500}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:500 .85rem var(--body);padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent);color:var(--ink)}
+.chip.other{border-style:dashed;color:var(--muted)}
+.mock .out{font:400 .8rem var(--mono);color:var(--muted)}
+
+/* tables */
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--surface);min-width:0}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{text-align:left;padding:11px 14px;border-top:1px solid var(--line);vertical-align:top}
+thead th{border-top:0;font:500 .72rem var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--muted);background:var(--bg)}
+td code{color:var(--accent);white-space:nowrap}
+.tag{display:inline-block;font:500 .72rem var(--mono);padding:2px 8px;border-radius:999px;border:1px solid currentColor}
+.mode .tag{justify-self:start}
+.tag.ok{color:var(--ok)} .tag.warn{color:var(--warn)}
+
+/* modes */
+.modes{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px}
+.mode{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:grid;gap:12px;align-content:start;min-width:0}
+.mode.default{border-color:var(--accent)}
+.mode dl{margin:0;display:grid;gap:8px}
+.mode dt{font:500 .72rem var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.mode dd{margin:0}
+@media (max-width:680px){.modes{grid-template-columns:1fr}}
+.always{margin-top:16px;display:flex;flex-wrap:wrap;gap:8px 20px;font-size:.9rem}
+.always span::before{content:"✓ ";color:var(--ok);font-weight:600}
+
+/* faq */
+details{border-top:1px solid var(--line);padding-block:14px}
+details:last-child{border-bottom:1px solid var(--line)}
+summary{cursor:pointer;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:12px}
+summary::after{content:"+";font-family:var(--mono);color:var(--accent)}
+details[open] summary::after{content:"−"}
+details p{margin-top:8px;color:var(--muted);max-width:70ch}
+
+footer{border-top:1px solid var(--line);padding-block:32px;font-size:.85rem;color:var(--muted)}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+.grid2{display:grid;gap:18px;margin-top:28px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.btn:hover{transform:none}}
+</style>
+</head>
+<body>
+
+
+<header class="bar">
+  <div class="wrap">
+    <a class="brand" href="#topo">Lili<b>AI</b></a>
+    <nav class="nav" aria-label="Seções">
+      <a href="#montar">Montar</a>
+      <a href="#usar">Usar</a>
+      <a href="#comandos">Comandos</a>
+      <a href="#privacidade">Privacidade</a>
+      <a href="#demo">Demo</a>
+      <a href="#duvidas">Dúvidas</a>
+    </nav>
+  </div>
+</header>
+
+<main id="topo">
+  <div class="wrap">
+    <section class="hero">
+<pre class="ascii" aria-hidden="true">██╗     ██╗██╗     ██╗ █████╗ ██╗
+██║     ██║██║     ██║██╔══██╗██║
+██║     ██║██║     ██║███████║██║
+██║     ██║██║     ██║██╔══██║██║
+███████╗██║███████╗██║██║  ██║██║
+╚══════╝╚═╝╚══════╝╚═╝╚═╝  ╚═╝╚═╝</pre>
+      <h1>A mentoria falou. O Claude anotou.</h1>
+      <p class="lead">Cinco comandos para o Claude que transformam cada sessão de mentoria em lições, ações com prazo e evidências de que o seu trabalho chegou em quem decide. Porque "eu lembro depois" não é estratégia de carreira.</p>
+      <div class="ctas">
+        <a class="btn primary" href="#montar">Começar em 15 minutos</a>
+        <a class="btn" href="exemplos/painel-normal.html">Ver um painel de exemplo</a>
+        <a class="btn" href="https://github.com/g1c4buMm/LiliAI">GitHub</a>
+      </div>
+      <div class="facts">
+        <span>código zero</span><span>5 comandos /</span><span>entrevista de 5 minutos</span><span>anônimo por padrão</span><span>MIT</span>
+      </div>
+      <p class="disclaimer">Projeto não oficial, feito pela comunidade. Não tem vínculo com nenhum programa de mentoria, empresa ou mentor. Use com as suas próprias notas e siga a política da sua empresa para ferramentas de IA.</p>
+    </section>
+
+    <section aria-labelledby="ciclo-t">
+      <p class="eyebrow">O ciclo</p>
+      <h2 id="ciclo-t">Cinco comandos, um arquivo</h2>
+      <p class="lead" style="margin-top:12px">Todo comando lê e devolve o mesmo <code>diario.json</code>, que fica no seu Projeto. Você monta uma vez; depois, cada sessão leva cerca de dez minutos.</p>
+      <div class="cycle">
+        <div class="node"><span class="when">Uma vez</span><br><code>/liliai-entrevista</code><p>Meta, privacidade e o diário inicial.</p></div>
+        <div class="node"><span class="when">Após a sessão</span><br><code>/liliai-sessao</code><p>Lições, ações, evidências e métricas.</p></div>
+        <div class="node"><span class="when">Toda semana</span><br><code>/liliai-semana</code><p>Atrasos, evidências e a pauta da próxima.</p></div>
+        <div class="node"><span class="when">Quando quiser</span><br><code>/liliai-painel</code><p>Tudo num painel, pessoal ou anonimizado.</p></div>
+        <div class="node"><span class="when">Ao compartilhar</span><br><code>/liliai-privacidade</code><p>Texto checado e anonimizado.</p></div>
+      </div>
+    </section>
+
+    <section aria-labelledby="ev-t">
+      <p class="eyebrow">O que é medido</p>
+      <h2 id="ev-t">Esforço e resultado, separados</h2>
+      <div class="modes">
+        <div class="mode">
+          <span class="tag warn">esforço</span>
+          <h3>Ações</h3>
+          <p class="note">O que você combinou fazer: responsável, prazo e status. O painel mostra o que está em dia e o que atrasou.</p>
+        </div>
+        <div class="mode default">
+          <span class="tag ok">resultado</span>
+          <h3>Evidências de visibilidade</h3>
+          <p class="note">O que mudou em quem decide: um texto seu foi lido, você conseguiu agenda, a liderança pediu algo seu. É isso que pesa numa promoção.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="montar" aria-labelledby="montar-t">
+      <p class="eyebrow">Fase 1</p>
+      <div class="phase"><h2 id="montar-t">Montar uma vez</h2><span class="time">passos 1 a 6 · ~15 min</span></div>
+      <p class="lead" style="margin-top:12px">As telas são ilustrações com dados fictícios. Algumas mostram a versão por prompt colado; com as skills, você digita o comando do passo.</p>
+
+      <ol class="steps">
+        <li class="step">
+          <span class="num">1</span>
+          <div><h3>Baixe o kit e instale as skills</h3>
+            <div class="body">
+              <ol>
+                <li>No GitHub, clique em <b>Code › Download ZIP</b> e descompacte.</li>
+                <li>Abra <code>skills/dist/</code>: são cinco arquivos <code>.zip</code>, um por comando.</li>
+                <li>No Claude, abra <b>Configurações</b> e a área de <b>Skills</b> (em Capabilities na maioria dos planos). Envie os cinco zips e ative.</li>
+                <li>Teste: digite <code>/liliai</code> numa conversa. Os cinco comandos devem aparecer.</li>
+              </ol>
+              <p class="note">Sem Skills no plano? Use os prompts da pasta <code>prompts/</code>. Veja <a href="#sem-skills">Sem skills</a>.</p>
+            </div></div>
+        </li>
+        <li class="step">
+          <span class="num">2</span>
+          <div><h3>Crie um Projeto no Claude</h3>
+            <div class="body">
+              <p>Abra <b>Projetos › Novo projeto</b> e dê o nome da sua meta, por exemplo "Minha promoção".</p>
+              <figure class="shot"><img src="assets/screenshots/01-criar-projeto.png" alt="Tela de criação de um novo Projeto no Claude" loading="lazy" width="2360" height="968"><figcaption>Ilustração · dados fictícios</figcaption></figure>
+            </div></div>
+        </li>
+        <li class="step">
+          <span class="num">3</span>
+          <div><h3>Envie os arquivos de apoio</h3>
+            <div class="body">
+              <div class="tbl"><table>
+                <thead><tr><th>Arquivo</th><th>Por quê</th></tr></thead>
+                <tbody>
+                  <tr><td><code>onboarding/questionario.md</code></td><td>As perguntas da entrevista, com as opções dos botões</td></tr>
+                  <tr><td><code>modelos/painel.html</code></td><td>O modelo visual do painel</td></tr>
+                  <tr><td><code>prompts/</code></td><td>Só se você não instalou as skills</td></tr>
+                </tbody>
+              </table></div>
+              <figure class="shot"><img src="assets/screenshots/02-conhecimento-do-projeto.png" alt="Arquivos do kit no conhecimento do Projeto" loading="lazy" width="2360" height="1622"><figcaption>Ilustração · dados fictícios</figcaption></figure>
+            </div></div>
+        </li>
+        <li class="step">
+          <span class="num">4</span>
+          <div><h3>Faça a entrevista: <code>/liliai-entrevista</code></h3>
+            <div class="body">
+              <p>Primeiro a privacidade, com sim ou não. Depois o modo: <b>rápido</b> (10 perguntas, cerca de 5 minutos) ou <b>completo</b> (37). As respostas vêm em botões, sempre com um campo livre.</p>
+              <div class="mock" role="group" aria-labelledby="mock-q">
+                <p class="eyebrow">Experimente · pergunta P1</p>
+                <p class="q" id="mock-q">Você autoriza manter dados reais do seu contexto dentro do seu Projeto, para respostas mais precisas?</p>
+                <div class="chips">
+                  <button class="chip" type="button" id="chip-nao" aria-pressed="false" data-out="Modo Anônimo. Tudo é anonimizado antes de ser registrado.">Não, modo Anônimo</button>
+                  <button class="chip" type="button" id="chip-sim" aria-pressed="false" data-out="Modo Contexto. Vale só com a confirmação de que a política da sua empresa permite. Se a resposta do H3 contradisser, volta para Anônimo.">Sim, modo Contexto</button>
+                  <button class="chip other" type="button" id="chip-outro" aria-pressed="false" data-out="Outra resposta conta como não. Na dúvida, o modo é Anônimo.">Outro…</button>
+                </div>
+                <p class="out" id="mock-out" aria-live="polite">Clique numa opção para ver o efeito.</p>
+              </div>
+              <figure class="shot"><img src="assets/screenshots/03-entrevista.png" alt="Entrevista com perguntas e botões de resposta" loading="lazy" width="2360" height="1588"><figcaption>Ilustração · dados fictícios</figcaption></figure>
+            </div></div>
+        </li>
+        <li class="step">
+          <span class="num">5</span>
+          <div><h3>Receba os quatro itens</h3>
+            <div class="body">
+              <div class="tbl"><table>
+                <thead><tr><th>Bloco</th><th>O que fazer</th></tr></thead>
+                <tbody>
+                  <tr><td>Resumo do contexto</td><td>Salvar no conhecimento como <code>contexto.md</code></td></tr>
+                  <tr><td>Instrução do projeto</td><td>Colar no passo 6</td></tr>
+                  <tr><td>Termos bloqueados</td><td>Nada: já estão na instrução</td></tr>
+                  <tr><td><code>diario.json</code> inicial</td><td>Salvar no conhecimento como <code>diario.json</code></td></tr>
+                </tbody>
+              </table></div>
+              <figure class="shot"><img src="assets/screenshots/04-instrucao-gerada.png" alt="O Claude entrega a instrução do projeto e os termos bloqueados" loading="lazy" width="2360" height="1442"><figcaption>Ilustração · dados fictícios</figcaption></figure>
+            </div></div>
+        </li>
+        <li class="step">
+          <span class="num">6</span>
+          <div><h3>Cole a instrução</h3>
+            <div class="body">
+              <p>Copie a instrução para <b>Configurações do projeto › Instruções</b> e salve. A montagem acabou.</p>
+              <figure class="shot"><img src="assets/screenshots/05-colar-instrucao.png" alt="Colando a instrução nas configurações do Projeto" loading="lazy" width="2360" height="1166"><figcaption>Ilustração · dados fictícios</figcaption></figure>
+            </div></div>
+        </li>
+      </ol>
+    </section>
+
+    <section id="usar" aria-labelledby="usar-t">
+      <p class="eyebrow">Fase 2</p>
+      <div class="phase"><h2 id="usar-t">Usar</h2><span class="time">passos 7 a 12 · ~10 min por sessão</span></div>
+
+      <ol class="steps">
+        <li class="step">
+          <span class="num">7</span>
+          <div><h3>Registre a sessão: <code>/liliai-sessao</code></h3>
+            <div class="body">
+              <p>Logo depois da sessão, envie numa mensagem só:</p>
+              <div class="code"><button class="copy" type="button" id="copy-sessao" data-target="tpl-sessao">Copiar</button><pre id="tpl-sessao">/liliai-sessao
+Data: 2026-10-09
+Tema: Visibilidade com a liderança
+
+[cole aqui as notas brutas ou a transcrição]</pre></div>
+              <div class="tbl"><table>
+                <thead><tr><th>Etapa</th><th>O que o Claude faz</th></tr></thead>
+                <tbody>
+                  <tr><td>Privacidade</td><td>Lista nomes, e-mails e valores. No Anônimo troca por funções; no Contexto mantém e avisa</td></tr>
+                  <tr><td>Notas</td><td>Limpa o texto sem resumir nem inventar</td></tr>
+                  <tr><td>Lições e ações</td><td>Extrai com ids, responsável, prazo e status</td></tr>
+                  <tr><td>Ações antigas</td><td>Atualiza o status quando as notas disserem</td></tr>
+                  <tr><td>Evidências</td><td>Detecta quando quem decide leu, recebeu ou pediu algo seu</td></tr>
+                </tbody>
+              </table></div>
+              <figure class="shot"><img src="assets/screenshots/06-nova-sessao.png" alt="Registrando uma sessão com o comando /liliai-sessao" loading="lazy" width="2360" height="1766"><figcaption>Ilustração · dados fictícios</figcaption></figure>
+            </div></div>
+        </li>
+        <li class="step">
+          <span class="num">8</span>
+          <div><h3>Confirme e substitua o diário</h3>
+            <div class="body">
+              <p>Responda <b>ok</b> ou corrija. O Claude devolve o <code>diario.json</code> completo: <b>substitua o arquivo no conhecimento do Projeto</b>. É o único passo manual e leva dez segundos.</p>
+              <figure class="shot"><img src="assets/screenshots/07-extracao.png" alt="Lições e ações extraídas pelo Claude" loading="lazy" width="2360" height="1262"><figcaption>Ilustração · dados fictícios</figcaption></figure>
+            </div></div>
+        </li>
+        <li class="step">
+          <span class="num">9</span>
+          <div><h3>Registre evidências quando acontecerem</h3>
+            <div class="body">
+              <div class="code"><button class="copy" type="button" id="copy-ev" data-target="tpl-ev">Copiar</button><pre id="tpl-ev">/liliai-sessao evidência: o diretor pediu meu resumo para levar ao comitê</pre></div>
+              <div class="tbl"><table>
+                <thead><tr><th>Tipo</th><th>Exemplo</th></tr></thead>
+                <tbody>
+                  <tr><td>Texto lido</td><td>O gestor leu e repassou seu resumo</td></tr>
+                  <tr><td>Reunião com liderança</td><td>Você conseguiu 15 minutos com o diretor</td></tr>
+                  <tr><td>Pedido da liderança</td><td>A diretoria pediu sua opinião ou um material</td></tr>
+                </tbody>
+              </table></div>
+            </div></div>
+        </li>
+        <li class="step">
+          <span class="num">10</span>
+          <div><h3>Antes de compartilhar: <code>/liliai-privacidade</code></h3>
+            <div class="body">
+              <p>Cole o texto depois do comando. O Claude procura nomes, e-mails, valores, documentos internos e termos bloqueados, e devolve a versão reescrita. Vale nos dois modos.</p>
+              <p class="note">É uma segunda leitura, não uma garantia. Releia antes de enviar.</p>
+              <figure class="shot"><img src="assets/screenshots/09-privacidade.png" alt="Checagem de privacidade antes de compartilhar" loading="lazy" width="2360" height="1166"><figcaption>Ilustração · dados fictícios</figcaption></figure>
+            </div></div>
+        </li>
+        <li class="step">
+          <span class="num">11</span>
+          <div><h3>Veja tudo num painel: <code>/liliai-painel</code></h3>
+            <div class="body">
+              <p>O Claude pergunta se o painel é <b>para você</b> ou <b>para compartilhar</b>. A versão para compartilhar troca nomes por funções, tira valores e notas e passa pela checagem de privacidade.</p>
+              <div class="tbl"><table>
+                <thead><tr><th>Bloco</th><th>O que mostra</th></tr></thead>
+                <tbody>
+                  <tr><td>Números</td><td>Sessões, lições, % concluídas, atrasadas, próximo prazo, evidências</td></tr>
+                  <tr><td>Visibilidade</td><td>Evidências por tipo e as mais recentes</td></tr>
+                  <tr><td>Compromissos</td><td>Todas as ações, com filtro e dias de atraso</td></tr>
+                  <tr><td>Pilares</td><td>Temas que se repetem e o que cada um pede para mudar</td></tr>
+                  <tr><td>Histórico</td><td>Todas as sessões; notas só na versão pessoal</td></tr>
+                </tbody>
+              </table></div>
+              <figure class="shot"><img src="assets/screenshots/10-painel.png" alt="Painel da mentoria com números, visibilidade e compromissos" loading="lazy" width="2360" height="1682"><figcaption>Exemplo · dados fictícios</figcaption></figure>
+              <div class="ctas" style="margin-top:0">
+                <a class="btn" href="exemplos/painel-normal.html">Painel de exemplo</a>
+                <a class="btn" href="exemplos/painel-atrasos.html">Exemplo com atrasos</a>
+              </div>
+            </div></div>
+        </li>
+        <li class="step">
+          <span class="num">12</span>
+          <div><h3>Toda semana: <code>/liliai-semana</code></h3>
+            <div class="body">
+              <p>Dez minutos: o que vence e o que atrasou, botões para atualizar status, evidências da semana e a <b>pauta da próxima sessão</b>, com três entregas, três perguntas e uma decisão.</p>
+              <p class="note">Se o seu Claude cria tarefas agendadas, a entrevista oferece agendar a revisão no seu horário.</p>
+            </div></div>
+        </li>
+      </ol>
+    </section>
+
+    <section id="comandos" aria-labelledby="cmd-t">
+      <p class="eyebrow">Referência</p>
+      <h2 id="cmd-t">Os cinco comandos</h2>
+      <div class="grid2">
+        <div class="tbl"><table>
+          <thead><tr><th>Quando</th><th>Comando</th><th>Você recebe</th></tr></thead>
+          <tbody>
+            <tr><td>Uma vez</td><td><code>/liliai-entrevista</code></td><td>Instrução, contexto, termos bloqueados e <code>diario.json</code> inicial</td></tr>
+            <tr><td>Após cada sessão</td><td><code>/liliai-sessao</code></td><td><code>diario.json</code> atualizado e métricas</td></tr>
+            <tr><td>Toda semana</td><td><code>/liliai-semana</code></td><td>Atrasos, evidências e pauta da próxima sessão</td></tr>
+            <tr><td>Quando quiser ver ou mostrar</td><td><code>/liliai-painel</code></td><td>Painel pessoal ou anonimizado</td></tr>
+            <tr><td>Antes de compartilhar</td><td><code>/liliai-privacidade</code></td><td>Texto checado e anonimizado</td></tr>
+          </tbody>
+        </table></div>
+
+        <div id="sem-skills">
+          <h3>Sem skills? Use os prompts</h3>
+          <p class="note" style="margin-top:6px">Gerados das skills, dão o mesmo resultado. Abra o arquivo, copie o bloco e cole na conversa do Projeto.</p>
+        </div>
+        <div class="tbl"><table>
+          <thead><tr><th>Em vez de</th><th>Cole</th></tr></thead>
+          <tbody>
+            <tr><td><code>/liliai-entrevista</code></td><td><code>prompts/00-entrevista.md</code></td></tr>
+            <tr><td><code>/liliai-sessao</code></td><td><code>prompts/01-sessao.md</code></td></tr>
+            <tr><td><code>/liliai-semana</code></td><td><code>prompts/02-semana.md</code></td></tr>
+            <tr><td><code>/liliai-painel</code></td><td><code>prompts/03-painel.md</code></td></tr>
+            <tr><td><code>/liliai-privacidade</code></td><td><code>prompts/04-privacidade.md</code></td></tr>
+          </tbody>
+        </table></div>
+      </div>
+    </section>
+
+    <section id="privacidade" aria-labelledby="priv-t">
+      <p class="eyebrow">Privacidade</p>
+      <h2 id="priv-t">Dois modos, escolhidos por você</h2>
+      <p class="lead" style="margin-top:12px">A primeira pergunta da entrevista pede um sim ou não explícito. Na dúvida, o modo é Anônimo.</p>
+      <div class="modes">
+        <div class="mode default">
+          <span class="tag ok">padrão · resposta "não"</span>
+          <h3>Anônimo</h3>
+          <dl>
+            <div><dt>No diário</dt><dd>Só funções, sem nomes nem valores</dd></div>
+            <div><dt>Precisão</dt><dd>Boa</dd></div>
+          </dl>
+        </div>
+        <div class="mode">
+          <span class="tag warn">opt-in · resposta "sim"</span>
+          <h3>Contexto</h3>
+          <dl>
+            <div><dt>No diário</dt><dd>Dados reais, dentro do seu Projeto</dd></div>
+            <div><dt>Precisão</dt><dd>Maior: o Claude conhece pessoas e casos pelo nome</dd></div>
+            <div><dt>Condição</dt><dd>A política da empresa precisa permitir. Se o H3 contradisser, volta para Anônimo</dd></div>
+            <div><dt>Para voltar</dt><dd>Diga "mudar para anônimo"</dd></div>
+          </dl>
+        </div>
+      </div>
+      <div class="always" aria-label="Vale nos dois modos">
+        <span>O que sai do Projeto sai anonimizado</span>
+        <span>"Nunca registrar" nunca é registrado</span>
+        <span>O <code>.gitignore</code> bloqueia seus dados num fork</span>
+      </div>
+    </section>
+
+    <section id="demo" aria-labelledby="demo-t">
+      <p class="eyebrow">Demo</p>
+      <h2 id="demo-t">Mostre para o seu grupo em 20 minutos</h2>
+      <p class="lead" style="margin-top:12px">A pasta <code>demo/</code> tem um cenário fictício completo: Rafa, especialista sênior de dados, na terceira sessão de mentoria. O roteiro passa por todos os comandos, com falas, tempos e plano B.</p>
+      <div class="tbl" style="margin-top:20px"><table>
+        <thead><tr><th>Ato</th><th>Tempo</th><th>O que a plateia vê</th></tr></thead>
+        <tbody>
+          <tr><td>Entrevista rápida</td><td>4 min</td><td>Botões, consentimento e checagem de política</td></tr>
+          <tr><td>Registrar a sessão 3</td><td>5 min</td><td>Tabela de privacidade, lições, ações e evidência detectada</td></tr>
+          <tr><td>Evidência avulsa</td><td>1 min</td><td>Registro em uma linha</td></tr>
+          <tr><td>Revisão semanal</td><td>3 min</td><td>Atraso, botões e pauta</td></tr>
+          <tr><td>Painel pessoal e para compartilhar</td><td>3 min</td><td>O mesmo diário, com e sem nomes</td></tr>
+          <tr><td>Checagem de um post</td><td>1 min</td><td>Texto reescrito sem dados sensíveis</td></tr>
+        </tbody>
+      </table></div>
+      <div class="ctas">
+        <a class="btn" href="demo/painel-final.html">Painel da demo</a>
+        <a class="btn" href="demo/painel-final-compartilhar.html">Versão para compartilhar</a>
+      </div>
+    </section>
+
+    <section id="duvidas" aria-labelledby="faq-t">
+      <p class="eyebrow">Dúvidas comuns</p>
+      <h2 id="faq-t">Quando algo não sai como esperado</h2>
+      <div style="margin-top:24px">
+        <details><summary>O comando /liliai não aparece</summary><p>Confira se os zips foram enviados e ativados na área de Skills das Configurações. Sem Skills no plano, use os prompts.</p></details>
+        <details><summary>A entrevista veio sem botões</summary><p>Depende da versão do Claude. As opções aparecem numeradas e você responde com o número ou com texto livre.</p></details>
+        <details><summary>O painel mostra dados antigos</summary><p>Substitua o <code>diario.json</code> no conhecimento do Projeto pela última versão que o Claude devolveu.</p></details>
+        <details><summary>Tenho um diario.md da versão anterior</summary><p>Deixe no Projeto e rode <code>/liliai-sessao</code>: ele converte para JSON.</p></details>
+        <details><summary>Meus dados vão para o GitHub?</summary><p>Não. O repositório só tem o kit, e o <code>.gitignore</code> bloqueia <code>diario.json</code>, <code>contexto.md</code> e painéis gerados.</p></details>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>LiliAI · licença MIT · as telas usam dados fictícios</span>
+    <a href="https://github.com/g1c4buMm/LiliAI">github.com/g1c4buMm/LiliAI</a>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var chips=document.querySelectorAll('.chip'), out=document.getElementById('mock-out');
+  chips.forEach(function(c){c.addEventListener('click',function(){
+    chips.forEach(function(x){x.setAttribute('aria-pressed','false')});
+    c.setAttribute('aria-pressed','true'); out.textContent=c.getAttribute('data-out');
+  })});
+  document.querySelectorAll('.copy').forEach(function(b){b.addEventListener('click',function(){
+    var el=document.getElementById(b.getAttribute('data-target')), txt=el.textContent;
+    function ok(){b.textContent='Copiado';b.classList.add('done');setTimeout(function(){b.textContent='Copiar';b.classList.remove('done')},1600)}
+    function fallback(){var r=document.createRange();r.selectNodeContents(el);var s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='Selecionado'}
+    try{navigator.clipboard.writeText(txt).then(ok,fallback)}catch(e){fallback()}
+  })});
+})();
+</script>
+
+</body>
+</html>

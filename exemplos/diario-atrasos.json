@@ -1,0 +1,220 @@
+{
+  "versao": 1,
+  "perfil": {
+    "titulo": "Mentoria com atrasos",
+    "pessoa": "Analista pleno",
+    "meta": "Sênior em 12 meses",
+    "prazo_meta": "12 meses",
+    "mentoria": "Mentor interno, sessões mensais",
+    "modo_privacidade": "Anônimo",
+    "revisao_semanal": "Segunda de manhã"
+  },
+  "sessoes": [
+    {
+      "id": "S2026-07-03",
+      "data": "2026-07-03",
+      "tema": "Diagnóstico",
+      "notas": "",
+      "licoes": [
+        {
+          "id": "S2026-07-03-L1",
+          "texto": "Sem meta escrita não há como medir progresso."
+        },
+        {
+          "id": "S2026-07-03-L2",
+          "texto": "O gestor não sabe o que eu quero."
+        }
+      ],
+      "acoes": [
+        {
+          "id": "S2026-07-03-A1",
+          "descricao": "Escrever a meta e mostrar ao gestor",
+          "responsavel": "Eu",
+          "prazo": "2026-07-10",
+          "prazo_inferido": false,
+          "status": "Feito"
+        }
+      ],
+      "perguntas": []
+    },
+    {
+      "id": "S2026-07-31",
+      "data": "2026-07-31",
+      "tema": "Conversa com o gestor",
+      "notas": "",
+      "licoes": [
+        {
+          "id": "S2026-07-31-L1",
+          "texto": "Pedir feedback com exemplo concreto rende mais que pedir feedback geral."
+        },
+        {
+          "id": "S2026-07-31-L2",
+          "texto": "Combinar critério de sucesso por escrito."
+        }
+      ],
+      "acoes": [
+        {
+          "id": "S2026-07-31-A1",
+          "descricao": "Enviar critérios combinados por e-mail ao gestor",
+          "responsavel": "Eu",
+          "prazo": "2026-08-07",
+          "prazo_inferido": false,
+          "status": "Feito"
+        },
+        {
+          "id": "S2026-07-31-A2",
+          "descricao": "Escolher um projeto de vitrine",
+          "responsavel": "Eu",
+          "prazo": "2026-08-31",
+          "prazo_inferido": false,
+          "status": "Aberto"
+        }
+      ],
+      "perguntas": []
+    },
+    {
+      "id": "S2026-08-28",
+      "data": "2026-08-28",
+      "tema": "Projeto de vitrine",
+      "notas": "",
+      "licoes": [
+        {
+          "id": "S2026-08-28-L1",
+          "texto": "Projeto de vitrine precisa de patrocinador acima do gestor."
+        },
+        {
+          "id": "S2026-08-28-L2",
+          "texto": "Escopo pequeno entregue vence escopo grande atrasado."
+        }
+      ],
+      "acoes": [
+        {
+          "id": "S2026-08-28-A1",
+          "descricao": "Encontrar patrocinador para o projeto",
+          "responsavel": "Eu",
+          "prazo": "2026-09-15",
+          "prazo_inferido": true,
+          "status": "Aberto"
+        },
+        {
+          "id": "S2026-08-28-A2",
+          "descricao": "Reduzir escopo para entregar em 6 semanas",
+          "responsavel": "Eu",
+          "prazo": "2026-09-10",
+          "prazo_inferido": false,
+          "status": "Feito"
+        }
+      ],
+      "perguntas": [
+        "Quem pode patrocinar?"
+      ]
+    },
+    {
+      "id": "S2026-09-25",
+      "data": "2026-09-25",
+      "tema": "Comunicação",
+      "notas": "",
+      "licoes": [
+        {
+          "id": "S2026-09-25-L1",
+          "texto": "Atualização semanal curta evita surpresa ruim."
+        },
+        {
+          "id": "S2026-09-25-L2",
+          "texto": "Mostrar risco cedo constrói confiança."
+        }
+      ],
+      "acoes": [
+        {
+          "id": "S2026-09-25-A1",
+          "descricao": "Mandar atualização semanal ao patrocinador",
+          "responsavel": "Eu",
+          "prazo": "2026-10-02",
+          "prazo_inferido": false,
+          "status": "A confirmar"
+        },
+        {
+          "id": "S2026-09-25-A2",
+          "descricao": "Apresentar o projeto no fórum de arquitetura",
+          "responsavel": "Eu",
+          "prazo": "2026-10-05",
+          "prazo_inferido": true,
+          "status": "Aberto"
+        }
+      ],
+      "perguntas": []
+    },
+    {
+      "id": "S2026-10-08",
+      "data": "2026-10-08",
+      "tema": "Revisão do trimestre",
+      "notas": "",
+      "licoes": [
+        {
+          "id": "S2026-10-08-L1",
+          "texto": "Ações atrasadas acumulam e travam as próximas."
+        },
+        {
+          "id": "S2026-10-08-L2",
+          "texto": "Cortar o que não cabe é decisão, não fracasso."
+        }
+      ],
+      "acoes": [
+        {
+          "id": "S2026-10-08-A1",
+          "descricao": "Revisar e cortar ações atrasadas",
+          "responsavel": "Eu",
+          "prazo": "2026-10-15",
+          "prazo_inferido": false,
+          "status": "Aberto"
+        }
+      ],
+      "perguntas": [
+        "O fórum de arquitetura ainda faz sentido?"
+      ]
+    }
+  ],
+  "evidencias": [
+    {
+      "id": "E1",
+      "data": "2026-08-08",
+      "tipo": "Texto lido",
+      "descricao": "Critérios de sucesso aceitos pelo gestor",
+      "quem": "Gestor direto",
+      "sessao": "S2026-07-31"
+    }
+  ],
+  "pilares": [
+    {
+      "nome": "Combinar o jogo por escrito",
+      "licoes": [
+        "S2026-07-03-L1",
+        "S2026-07-31-L2",
+        "S2026-07-03-L2"
+      ],
+      "o_que_muda": "Toda meta e critério vira e-mail confirmado."
+    },
+    {
+      "nome": "Entregar pequeno e cedo",
+      "licoes": [
+        "S2026-08-28-L2",
+        "S2026-09-25-L2",
+        "S2026-10-08-L2"
+      ],
+      "o_que_muda": "Cortar escopo antes de atrasar."
+    },
+    {
+      "nome": "Patrocínio acima do gestor",
+      "licoes": [
+        "S2026-08-28-L1"
+      ],
+      "o_que_muda": "Ter um patrocinador antes de começar."
+    }
+  ],
+  "prioridade": "Destravar as três ações atrasadas: cortar ou replanejar até 15/10.",
+  "proximos_30_dias": [
+    "Revisar e cortar ações atrasadas até 15/10",
+    "Confirmar se a atualização semanal está sendo lida",
+    "Decidir sobre o fórum de arquitetura"
+  ]
+}

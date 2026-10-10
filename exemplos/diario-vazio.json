@@ -1,0 +1,17 @@
+{
+  "versao": 1,
+  "perfil": {
+    "titulo": "Minha mentoria de carreira",
+    "pessoa": "Analista pleno",
+    "meta": "Sênior em 12 meses",
+    "prazo_meta": "12 meses",
+    "mentoria": "Mentor interno, sessões mensais",
+    "modo_privacidade": "Anônimo",
+    "revisao_semanal": "Segunda de manhã"
+  },
+  "sessoes": [],
+  "evidencias": [],
+  "pilares": [],
+  "prioridade": "",
+  "proximos_30_dias": []
+}

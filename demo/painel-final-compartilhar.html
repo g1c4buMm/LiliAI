@@ -1,0 +1,564 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Painel da mentoria</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<!--
+  MODELO DO PAINEL LILIAI
+  Para gerar o seu painel: copie este arquivo inteiro e troque SOMENTE o conteúdo
+  do bloco <script type="application/json" id="dados">, que tem este formato:
+  {"exibicao": {"hoje": "AAAA-MM-DD", "audiencia": "pessoal|compartilhar", "exemplo": false},
+   "diario": { ...o conteúdo inteiro do seu diario.json... }}
+  Contagens, atrasos, gráficos, pilares e filtros são calculados a partir desses dados.
+-->
+<style>
+/* Layout: painel de leitura única. Resumo no topo, compromissos no meio, histórico completo embaixo. */
+:root{
+  --bg:#f6f5f3; --surface:#ffffff; --ink:#1c1916; --muted:#6b635b; --line:#e2ddd7;
+  --accent:#b9561c; --accent-soft:#f6e3d6;
+  --ok:#2f7d55; --ok-soft:#dcefe4; --warn:#9a6200; --warn-soft:#f6ead2; --crit:#b3261e; --crit-soft:#f8dedb;
+  --open:#3d5a80; --open-soft:#dde6f1;
+  --display:"Familjen Grotesk","Helvetica Neue",Arial,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --r:10px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#13110f; --surface:#1d1a17; --ink:#ede7e0; --muted:#a59c92; --line:#332e29;
+  --accent:#ef7d3c; --accent-soft:#3a2416;
+  --ok:#5cc08b; --ok-soft:#173326; --warn:#e0a640; --warn-soft:#3a2c10; --crit:#f07167; --crit-soft:#3d1a17;
+  --open:#8fb3e0; --open-soft:#1c2a3b; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#13110f; --surface:#1d1a17; --ink:#ede7e0; --muted:#a59c92; --line:#332e29;
+  --accent:#ef7d3c; --accent-soft:#3a2416;
+  --ok:#5cc08b; --ok-soft:#173326; --warn:#e0a640; --warn-soft:#3a2c10; --crit:#f07167; --crit-soft:#3d1a17;
+  --open:#8fb3e0; --open-soft:#1c2a3b; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 15px/1.55 var(--body);-webkit-font-smoothing:antialiased}
+.wrap{max-width:1040px;margin:0 auto;padding-inline:20px;padding-block:36px 56px;display:grid;gap:40px}
+h1,h2,h3{font-family:var(--display);line-height:1.15;margin:0;text-wrap:balance}
+h1{font-size:clamp(1.9rem,4.6vw,2.9rem);letter-spacing:-.02em}
+h2{font-size:1.35rem}
+h3{font-size:1.05rem;font-weight:600}
+p{margin:0}
+.eyebrow{font:500 .72rem/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+.muted{color:var(--muted)}
+.mono{font-family:var(--mono)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;min-width:0}
+section{display:grid;gap:16px}
+.sec-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+
+/* header */
+header{display:grid;gap:14px}
+.meta{display:flex;flex-wrap:wrap;gap:8px 22px;font-size:.92rem}
+.meta b{font-weight:600}
+.pills{display:flex;flex-wrap:wrap;gap:8px}
+.pill{font:500 .72rem var(--mono);padding:3px 10px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+.pill.example{border-color:var(--warn);color:var(--warn)}
+
+/* kpis */
+.kpis{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px}
+.kpi{display:grid;gap:4px}
+.kpi .v{font:600 1.9rem/1 var(--display);font-variant-numeric:tabular-nums}
+.kpi .l{font:500 .7rem var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.kpi .s{font-size:.8rem;color:var(--muted)}
+@media (max-width:860px){.kpis{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:480px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* status bar */
+.grid2{display:grid;grid-template-columns:1.2fr 1fr;gap:16px}
+@media (max-width:760px){.grid2{grid-template-columns:1fr}}
+.stack{display:flex;gap:2px;height:22px;margin-top:14px}
+.stack span{display:block;height:100%;border-radius:4px;min-width:4px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:12px;font-size:.85rem}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+
+/* bars per session */
+.bars{display:grid;gap:8px;margin-top:14px}
+.bar-row{display:grid;grid-template-columns:96px minmax(0,1fr) 32px;gap:10px;align-items:center;font-size:.85rem}
+.bar-track{height:14px;position:relative}
+.bar-fill{height:100%;background:var(--accent);border-radius:0 4px 4px 0}
+.bar-row .n{font-family:var(--mono);text-align:right;font-variant-numeric:tabular-nums}
+
+/* filters + table */
+.filters{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:500 .82rem var(--body);padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.chip[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.chip .c{font-family:var(--mono);color:var(--muted);margin-left:4px}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:.9rem}
+th,td{text-align:left;padding:10px 14px;border-top:1px solid var(--line);vertical-align:top}
+thead th{border-top:0;font:500 .7rem var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--muted);background:var(--bg);white-space:nowrap}
+td.when{white-space:nowrap;font-variant-numeric:tabular-nums}
+.st{display:inline-flex;align-items:center;gap:6px;font:500 .75rem var(--mono);padding:3px 9px;border-radius:999px;white-space:nowrap}
+.st.feito{background:var(--ok-soft);color:var(--ok)}
+.st.aberto{background:var(--open-soft);color:var(--open)}
+.st.confirmar{background:var(--warn-soft);color:var(--warn)}
+.st.atrasada{background:var(--crit-soft);color:var(--crit)}
+.due{font-size:.78rem;color:var(--muted);display:block}
+.due.late{color:var(--crit);font-weight:500}
+.inf{font:500 .68rem var(--mono);color:var(--warn);margin-left:4px}
+.empty{padding:18px;color:var(--muted);font-size:.9rem}
+
+/* priority */
+.focus{border-color:var(--accent)}
+.focus p.big{font:600 1.15rem/1.4 var(--display);margin-top:8px}
+.list{margin:10px 0 0;padding-left:1.1em;display:grid;gap:6px}
+
+/* pillars */
+.pillars{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.pillar{display:grid;gap:8px;align-content:start}
+.pillar .count{font:500 .72rem var(--mono);color:var(--muted)}
+.pillar ul{margin:0;padding-left:1.1em;display:grid;gap:4px;font-size:.88rem}
+.pillar .shift{font-size:.88rem;border-top:1px dashed var(--line);padding-top:8px}
+
+/* timeline */
+.timeline{display:grid;gap:0;border-left:2px solid var(--line);margin-left:6px}
+.sess{position:relative;padding:0 0 22px 22px}
+.sess::before{content:"";position:absolute;left:-7px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--bg);border:2px solid var(--accent)}
+.sess summary{cursor:pointer;list-style:none;display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline}
+.sess summary::-webkit-details-marker{display:none}
+.sess summary .d{font:500 .8rem var(--mono);color:var(--accent);font-variant-numeric:tabular-nums}
+.sess summary .c{font-size:.8rem;color:var(--muted)}
+.sess .inner{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-top:12px}
+.sess .inner h3{font-size:.78rem;font-family:var(--mono);font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.sess ul{margin:8px 0 0;padding-left:1.1em;display:grid;gap:4px;font-size:.9rem}
+
+footer{font-size:.82rem;color:var(--muted);border-top:1px solid var(--line);padding-top:18px;display:grid;gap:6px}
+button:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+.vis-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:14px}
+.vis-cell{border:1px solid var(--line);border-radius:8px;padding:12px;display:grid;gap:2px}
+.vis-cell .v{font:600 1.6rem/1 var(--display);font-variant-numeric:tabular-nums}
+.vis-cell .l{font-size:.8rem;color:var(--muted)}
+.vis-list{margin:14px 0 0;padding:0;list-style:none;display:grid;gap:8px;font-size:.88rem}
+.vis-list li{display:grid;grid-template-columns:86px minmax(0,1fr);gap:10px}
+.vis-list .d{font-family:var(--mono);color:var(--muted);font-variant-numeric:tabular-nums}
+.vis-list .t{font:500 .7rem var(--mono);color:var(--accent);text-transform:uppercase;letter-spacing:.06em}
+.vis-list li.empty{display:block;color:var(--muted)}
+section.card{align-content:start}
+.goal{font-size:.85rem;color:var(--muted);margin-top:6px}
+.notes{margin-top:12px}
+.notes summary{cursor:pointer;font:500 .78rem var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.notes p{margin-top:8px;font-size:.9rem;white-space:pre-wrap;max-width:80ch}
+@media (max-width:520px){.vis-grid{grid-template-columns:1fr}.vis-list li{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<script type="application/json" id="dados">
+{
+  "exibicao": {
+    "hoje": "2026-10-10",
+    "audiencia": "compartilhar",
+    "exemplo": true
+  },
+  "diario": {
+    "versao": 1,
+    "perfil": {
+      "titulo": "Minha mentoria de carreira",
+      "pessoa": "Especialista sênior de dados",
+      "meta": "Staff engineer de dados",
+      "prazo_meta": "12 meses",
+      "mentoria": "Mentora externa, sessões 1:1 quinzenais",
+      "modo_privacidade": "Contexto",
+      "revisao_semanal": "Sexta à tarde"
+    },
+    "sessoes": [
+      {
+        "id": "S2026-09-12",
+        "data": "2026-09-12",
+        "tema": "Meta e mapa de decisão",
+        "notas": "",
+        "licoes": [
+          {
+            "id": "S2026-09-12-L1",
+            "texto": "Staff se prova com escopo de plataforma, não com mais projetos."
+          },
+          {
+            "id": "S2026-09-12-L2",
+            "texto": "Gestora direta propõe a promoção; Diretor de engenharia aprova. Os dois precisam ver o trabalho."
+          },
+          {
+            "id": "S2026-09-12-L3",
+            "texto": "Meta escrita em fatos observáveis vira critério de conversa com a gestora."
+          }
+        ],
+        "acoes": [
+          {
+            "id": "S2026-09-12-A1",
+            "descricao": "Escrever a meta de staff em três fatos e validar com a gestora direta",
+            "responsavel": "Eu",
+            "prazo": "2026-09-19",
+            "prazo_inferido": false,
+            "status": "Feito"
+          },
+          {
+            "id": "S2026-09-12-A2",
+            "descricao": "Listar os três projetos com maior impacto no último ano",
+            "responsavel": "Eu",
+            "prazo": "2026-09-24",
+            "prazo_inferido": false,
+            "status": "Feito"
+          }
+        ],
+        "perguntas": [
+          "Qual é o calendário do ciclo de promoção da a empresa?"
+        ]
+      },
+      {
+        "id": "S2026-09-26",
+        "data": "2026-09-26",
+        "tema": "Visibilidade com a diretoria",
+        "notas": "",
+        "licoes": [
+          {
+            "id": "S2026-09-26-L1",
+            "texto": "Se o diretor não conhece o caso, o caso não existe para a promoção."
+          },
+          {
+            "id": "S2026-09-26-L2",
+            "texto": "Resumo de uma página, quinzenal, chega mais longe do que apresentação longa."
+          },
+          {
+            "id": "S2026-09-26-L3",
+            "texto": "Aliado de outro time antes do comitê vale mais que slide bonito."
+          }
+        ],
+        "acoes": [
+          {
+            "id": "S2026-09-26-A1",
+            "descricao": "Enviar o primeiro resumo de uma página para a gestora direta",
+            "responsavel": "Eu",
+            "prazo": "2026-10-03",
+            "prazo_inferido": false,
+            "status": "Feito"
+          },
+          {
+            "id": "S2026-09-26-A2",
+            "descricao": "Conversa de 30 minutos com o time de risco",
+            "responsavel": "Eu",
+            "prazo": "2026-09-30",
+            "prazo_inferido": true,
+            "status": "Aberto"
+          }
+        ],
+        "perguntas": [
+          "Quem no time de risco tem mais influência no comitê?"
+        ]
+      },
+      {
+        "id": "S2026-10-09",
+        "data": "2026-10-09",
+        "tema": "Do técnico ao estratégico",
+        "notas": "",
+        "licoes": [
+          {
+            "id": "S2026-10-09-L1",
+            "texto": "Quando o diretor pede, a visibilidade virou resultado: é a evidência mais forte."
+          },
+          {
+            "id": "S2026-10-09-L2",
+            "texto": "Número de cliente só no comitê interno, confirmado com a área comercial; fora da empresa, nunca."
+          },
+          {
+            "id": "S2026-10-09-L3",
+            "texto": "Apresentação para liderança abre com o problema de negócio; arquitetura vem depois."
+          },
+          {
+            "id": "S2026-10-09-L4",
+            "texto": "Ensaiar com quem conhece o comitê reduz o risco da apresentação."
+          }
+        ],
+        "acoes": [
+          {
+            "id": "S2026-10-09-A1",
+            "descricao": "Montar o deck do caso Cliente A para o comitê de arquitetura",
+            "responsavel": "Eu",
+            "prazo": "2026-10-23",
+            "prazo_inferido": false,
+            "status": "Aberto"
+          },
+          {
+            "id": "S2026-10-09-A2",
+            "descricao": "Ensaiar a apresentação com a gestora direta",
+            "responsavel": "Eu",
+            "prazo": "2026-10-28",
+            "prazo_inferido": false,
+            "status": "Aberto"
+          },
+          {
+            "id": "S2026-10-09-A3",
+            "descricao": "Confirmar com a área comercial se o número do Cliente A pode ir ao comitê",
+            "responsavel": "Eu",
+            "prazo": "",
+            "prazo_inferido": false,
+            "status": "A confirmar"
+          }
+        ],
+        "perguntas": [
+          "O que a Mentora disse depois do corte de áudio?",
+          "Quanto tempo de apresentação o comitê dá?"
+        ]
+      }
+    ],
+    "evidencias": [
+      {
+        "id": "E1",
+        "data": "2026-10-03",
+        "tipo": "Texto lido",
+        "descricao": "Gestora direta leu o resumo e encaminhou ao Diretor de engenharia",
+        "quem": "Gestora direta",
+        "sessao": "S2026-09-26"
+      },
+      {
+        "id": "E2",
+        "data": "2026-10-08",
+        "tipo": "Pedido da liderança",
+        "descricao": "Diretor de engenharia pediu a apresentação do caso Cliente A no comitê de arquitetura do dia 30",
+        "quem": "Diretor de engenharia",
+        "sessao": "S2026-10-09"
+      },
+      {
+        "id": "E3",
+        "data": "2026-10-10",
+        "tipo": "Pedido da liderança",
+        "descricao": "Gestora direta leu o segundo resumo quinzenal na reunião de time e pediu para eu apresentar o formato aos outros especialistas",
+        "quem": "Gestora direta",
+        "sessao": "S2026-10-09"
+      }
+    ],
+    "pilares": [
+      {
+        "nome": "Visibilidade com quem decide",
+        "licoes": [
+          "S2026-09-26-L1",
+          "S2026-09-26-L2",
+          "S2026-10-09-L1",
+          "S2026-09-12-L2"
+        ],
+        "o_que_muda": "Resumo quinzenal à gestora, que leva o trabalho até o diretor."
+      },
+      {
+        "nome": "Linguagem de negócio",
+        "licoes": [
+          "S2026-10-09-L3",
+          "S2026-09-12-L1"
+        ],
+        "o_que_muda": "Abrir toda apresentação pelo problema e pelo impacto."
+      },
+      {
+        "nome": "Aliados antes do comitê",
+        "licoes": [
+          "S2026-09-26-L3",
+          "S2026-10-09-L4"
+        ],
+        "o_que_muda": "Conversar com risco e ensaiar com a gestora antes de apresentar."
+      },
+      {
+        "nome": "Cuidado com dados de cliente",
+        "licoes": [
+          "S2026-10-09-L2"
+        ],
+        "o_que_muda": "Confirmar com a área comercial antes de citar números."
+      }
+    ],
+    "prioridade": "Fazer a conversa atrasada com o time de risco esta semana: ela prepara o comitê do dia 30.",
+    "proximos_30_dias": [
+      "Conversa de 30 minutos com o time de risco (atrasada)",
+      "Deck do caso pronto até 23/10",
+      "Ensaio com a gestora direta até 28/10",
+      "Confirmar o número com a área comercial",
+      "Apresentar no comitê de arquitetura em 30/10"
+    ]
+  }
+}
+</script>
+
+<main class="wrap" id="app">
+  <header>
+    <p class="eyebrow">Painel da mentoria · LiliAI</p>
+    <h1 id="t-titulo">Painel da mentoria</h1>
+    <div class="meta" id="t-meta"></div>
+    <div class="pills" id="t-pills"></div>
+  </header>
+
+  <section aria-label="Resumo em números">
+    <div class="kpis" id="kpis"></div>
+  </section>
+
+  <div class="grid2">
+    <section class="card" aria-labelledby="h-vis">
+      <h2 id="h-vis">Visibilidade com quem decide</h2>
+      <p class="goal">Evidências de que o trabalho chegou à liderança. É o resultado; as ações são o esforço.</p>
+      <div class="vis-grid" id="vis-grid"></div>
+      <ul class="vis-list" id="vis-list"></ul>
+    </section>
+    <section class="card" aria-labelledby="h-status">
+      <h2 id="h-status">Ações por status</h2>
+      <div class="stack" id="stack" role="img"></div>
+      <div class="legend" id="stack-legend"></div>
+      <h2 style="margin-top:26px" id="h-licoes">Lições por sessão</h2>
+      <div class="bars" id="bars"></div>
+    </section>
+  </div>
+
+  <div class="grid2">
+    <section class="card focus" aria-label="Prioridade agora">
+      <p class="eyebrow">Prioridade agora</p>
+      <p class="big" id="prio"></p>
+    </section>
+    <section class="card" aria-labelledby="h-30">
+      <h2 id="h-30">Próximos 30 dias</h2>
+      <ul class="list" id="p30"></ul>
+    </section>
+  </div>
+
+  <section aria-labelledby="h-comp">
+    <div class="sec-head"><h2 id="h-comp">Compromissos</h2><span class="muted mono" id="comp-n"></span></div>
+    <div class="filters" id="filters" role="group" aria-label="Filtrar compromissos"></div>
+    <div class="tbl"><table>
+      <thead><tr><th>Ação</th><th>Sessão</th><th>Responsável</th><th>Prazo</th><th>Status</th></tr></thead>
+      <tbody id="comp"></tbody>
+    </table></div>
+  </section>
+
+  <section aria-labelledby="h-pil">
+    <div class="sec-head"><h2 id="h-pil">Pilares</h2><span class="muted">temas que se repetem entre sessões</span></div>
+    <div class="pillars" id="pillars"></div>
+  </section>
+
+  <section aria-labelledby="h-hist">
+    <div class="sec-head"><h2 id="h-hist">Histórico completo</h2><span class="muted">sessão mais recente primeiro</span></div>
+    <div class="timeline" id="timeline"></div>
+  </section>
+
+  <footer id="foot"></footer>
+</main>
+
+<script>
+(function(){
+  var RAW = JSON.parse(document.getElementById('dados').textContent || '{}');
+  var X = RAW.exibicao || {}, D = RAW.diario || {}, P = D.perfil || {};
+  var $ = function(id){return document.getElementById(id)};
+  var esc = function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
+  var DAY = 864e5;
+  var hoje = X.hoje ? new Date(X.hoje+'T12:00:00') : new Date();
+  var hojeISO = X.hoje || new Date().toISOString().slice(0,10);
+  var fmt = function(iso){if(!iso)return '';var p=iso.split('-');return p[2]+'/'+p[1]+'/'+p[0]};
+  var dias = function(iso){return Math.round((new Date(iso+'T12:00:00')-hoje)/DAY)};
+  var plural = function(n,a,b){return n+' '+(n===1?a:b)};
+  var shared = X.audiencia === 'compartilhar';
+
+  var sess = (D.sessoes||[]).slice().sort(function(a,b){return a.data<b.data?-1:1});
+  var valid = sess.filter(function(s){return (s.licoes||[]).length||(s.acoes||[]).length});
+  var licById = {}, sessOfLic = {};
+  sess.forEach(function(s){(s.licoes||[]).forEach(function(l){licById[l.id]=l.texto; sessOfLic[l.id]=s.id})});
+  var acoes = [];
+  sess.forEach(function(s){(s.acoes||[]).forEach(function(a){
+    var late = a.status!=='Feito' && a.prazo && dias(a.prazo)<0;
+    acoes.push(Object.assign({sessao:s.data, atrasada:!!late}, a));
+  })});
+  var nL = Object.keys(licById).length;
+  var by = {Feito:0, Aberto:0, 'A confirmar':0};
+  acoes.forEach(function(a){by[a.status]=(by[a.status]||0)+1});
+  var late = acoes.filter(function(a){return a.atrasada});
+  var next = acoes.filter(function(a){return a.status!=='Feito'&&a.prazo&&dias(a.prazo)>=0}).sort(function(a,b){return a.prazo<b.prazo?-1:1})[0];
+  var pct = acoes.length ? Math.round(by.Feito/acoes.length*100) : 0;
+  var ev = (D.evidencias||[]).slice().sort(function(a,b){return a.data<b.data?1:-1});
+  var ev30 = ev.filter(function(e){return dias(e.data)>=-30});
+
+  document.title = P.titulo || 'Painel da mentoria';
+  $('t-titulo').textContent = P.titulo || 'Painel da mentoria';
+  $('t-meta').innerHTML = [
+    P.meta && '<span><b>Meta</b> '+esc(P.meta)+(P.prazo_meta?' · '+esc(P.prazo_meta):'')+'</span>',
+    P.mentoria && '<span><b>Mentoria</b> '+esc(P.mentoria)+'</span>',
+    P.pessoa && '<span><b>Quem</b> '+esc(P.pessoa)+'</span>'
+  ].filter(Boolean).join('');
+  $('t-pills').innerHTML =
+    (X.exemplo?'<span class="pill example">Exemplo com dados fictícios</span>':'')+
+    '<span class="pill">Privacidade: '+esc(P.modo_privacidade||'Anônimo')+'</span>'+
+    '<span class="pill">'+(shared?'Versão para compartilhar':'Versão pessoal')+'</span>'+
+    '<span class="pill">Atualizado em '+fmt(hojeISO)+'</span>';
+
+  if(!sess.length){
+    $('kpis').innerHTML='<div class="card" style="grid-column:1/-1"><p><b>Nenhuma sessão registrada ainda.</b></p><p class="muted" style="margin-top:6px">Depois da próxima sessão de mentoria, rode /liliai-sessao com as notas. O painel se preenche sozinho a partir do diário.</p></div>';
+  } else {
+    var k = [
+      [valid.length,'Sessões', fmt(sess[0].data)+' a '+fmt(sess[sess.length-1].data)],
+      [nL,'Lições', valid.length?(nL/valid.length).toFixed(1).replace('.',',')+' por sessão':''],
+      [pct+'%','Ações concluídas', by.Feito+' de '+acoes.length],
+      [late.length,'Atrasadas', late.length?'revise primeiro':'nenhuma'],
+      [next?fmt(next.prazo).slice(0,5):'nenhum','Próximo prazo', next?'em '+plural(dias(next.prazo),'dia','dias'):'sem prazos futuros'],
+      [ev.length,'Evidências', plural(ev30.length,'nos últimos 30 dias','nos últimos 30 dias')]
+    ];
+    $('kpis').innerHTML = k.map(function(x){return '<div class="card kpi"><span class="l">'+x[1]+'</span><span class="v">'+esc(x[0])+'</span><span class="s">'+esc(x[2])+'</span></div>'}).join('');
+  }
+
+  var tipos = ['Texto lido','Reunião com liderança','Pedido da liderança'];
+  $('vis-grid').innerHTML = tipos.map(function(t){var n=ev.filter(function(e){return e.tipo===t}).length;return '<div class="vis-cell"><span class="v">'+n+'</span><span class="l">'+t+'</span></div>'}).join('');
+  $('vis-list').innerHTML = ev.length ? ev.slice(0,6).map(function(e){return '<li><span class="d">'+fmt(e.data)+'</span><span><span class="t">'+esc(e.tipo)+'</span><br>'+esc(e.descricao)+(e.quem?' <span class="muted">· '+esc(e.quem)+'</span>':'')+'</span></li>'}).join('') : '<li class="empty">Nenhuma evidência ainda. Registre com: /liliai-sessao evidência: o que aconteceu.</li>';
+
+  var segs = [
+    ['Feito', by.Feito, 'var(--ok)'],
+    ['Aberto no prazo', by.Aberto - late.filter(function(a){return a.status==='Aberto'}).length, 'var(--open)'],
+    ['A confirmar', by['A confirmar'] - late.filter(function(a){return a.status==='A confirmar'}).length, 'var(--warn)'],
+    ['Atrasada', late.length, 'var(--crit)']
+  ];
+  var tot = acoes.length||1;
+  $('stack').setAttribute('aria-label', segs.map(function(s){return s[0]+': '+s[1]}).join(', '));
+  $('stack').innerHTML = acoes.length ? segs.filter(function(s){return s[1]>0}).map(function(s){return '<span title="'+s[0]+': '+s[1]+'" style="flex:'+s[1]/tot+' 1 0;background:'+s[2]+'"></span>'}).join('') : '<span style="flex:1;background:var(--line)"></span>';
+  $('stack-legend').innerHTML = segs.map(function(s){return '<span><i style="background:'+s[2]+'"></i>'+s[0]+' <b class="mono">'+s[1]+'</b></span>'}).join('');
+
+  var maxL = Math.max.apply(null, sess.map(function(s){return (s.licoes||[]).length}).concat([1]));
+  $('bars').innerHTML = sess.length ? sess.map(function(s){var n=(s.licoes||[]).length;return '<div class="bar-row" title="'+esc(s.tema)+': '+plural(n,'lição','lições')+'"><span class="mono">'+fmt(s.data)+'</span><div class="bar-track"><div class="bar-fill" style="width:'+(n/maxL*100)+'%"></div></div><span class="n">'+n+'</span></div>'}).join('') : '<p class="muted">Sem sessões.</p>';
+
+  $('prio').textContent = D.prioridade || 'Rode /liliai-semana para definir a prioridade.';
+  $('p30').innerHTML = (D.proximos_30_dias||[]).map(function(x){return '<li>'+esc(x)+'</li>'}).join('') || '<li class="muted">Sem itens ainda.</li>';
+
+  var cls = function(a){return a.atrasada?'atrasada':a.status==='Feito'?'feito':a.status==='Aberto'?'aberto':'confirmar'};
+  var lbl = function(a){return a.atrasada?'⚠ Atrasada':a.status==='Feito'?'✓ Feito':a.status==='Aberto'?'○ Aberto':'? A confirmar'};
+  var F = [['todas','Todas',acoes.length],['Aberto','Abertas',by.Aberto],['A confirmar','A confirmar',by['A confirmar']],['Feito','Feitas',by.Feito],['atrasadas','Atrasadas',late.length]];
+  var cur = 'todas';
+  function renderComp(){
+    var rows = acoes.filter(function(a){return cur==='todas'||(cur==='atrasadas'?a.atrasada:a.status===cur)})
+      .sort(function(a,b){return (a.atrasada===b.atrasada?0:a.atrasada?-1:1)||((a.prazo||'9')<(b.prazo||'9')?-1:1)});
+    $('comp').innerHTML = rows.length ? rows.map(function(a){
+      var due = '';
+      if(a.prazo && a.status!=='Feito'){var d=dias(a.prazo); due = d<0?'<span class="due late">'+plural(-d,'dia','dias')+' de atraso</span>':'<span class="due">vence em '+plural(d,'dia','dias')+'</span>'}
+      return '<tr><td>'+esc(a.descricao)+'</td><td class="when mono">'+fmt(a.sessao)+'</td><td>'+esc(a.responsavel)+'</td><td class="when">'+(a.prazo?fmt(a.prazo)+(a.prazo_inferido?'<span class="inf">inferido</span>':''):'<span class="muted">sem prazo</span>')+due+'</td><td><span class="st '+cls(a)+'">'+lbl(a)+'</span></td></tr>';
+    }).join('') : '<tr><td colspan="5" class="empty">Nenhuma ação neste filtro.</td></tr>';
+    $('comp-n').textContent = rows.length+' de '+acoes.length;
+    $('filters').innerHTML = F.map(function(f){return '<button class="chip" type="button" id="f-'+f[0].replace(/\s/g,'-')+'" aria-pressed="'+(cur===f[0])+'" data-f="'+f[0]+'">'+f[1]+'<span class="c">'+f[2]+'</span></button>'}).join('');
+    Array.prototype.forEach.call($('filters').children,function(b){b.onclick=function(){cur=b.getAttribute('data-f');renderComp()}});
+  }
+  renderComp();
+
+  $('pillars').innerHTML = (D.pilares||[]).map(function(p){
+    var ids=(p.licoes||[]).filter(function(id){return licById[id]});
+    var ns={}; ids.forEach(function(id){ns[sessOfLic[id]]=1}); var n=Object.keys(ns).length;
+    return '<div class="card pillar"><h3>'+esc(p.nome)+'</h3><span class="count">'+plural(ids.length,'lição','lições')+' · aparece em '+plural(n,'sessão','sessões')+'</span><ul>'+ids.map(function(id){return '<li>'+esc(licById[id])+'</li>'}).join('')+'</ul>'+(p.o_que_muda?'<p class="shift"><b>O que muda:</b> '+esc(p.o_que_muda)+'</p>':'')+'</div>';
+  }).join('') || '<p class="muted">Os pilares aparecem a partir da terceira sessão, quando há temas que se repetem.</p>';
+
+  $('timeline').innerHTML = sess.slice().reverse().map(function(s,i){
+    var ac=(s.acoes||[]);
+    return '<details class="sess"'+(i===0?' open':'')+'><summary><span class="d">'+fmt(s.data)+'</span><h3>'+esc(s.tema)+'</h3><span class="c">'+plural((s.licoes||[]).length,'lição','lições')+' · '+plural(ac.length,'ação','ações')+'</span></summary><div class="inner">'+
+      '<div class="card"><h3>Lições</h3><ul>'+(s.licoes||[]).map(function(l){return '<li>'+esc(l.texto)+'</li>'}).join('')+'</ul></div>'+
+      '<div class="card"><h3>Ações</h3><ul>'+ac.map(function(a){var x=acoes.filter(function(y){return y.id===a.id})[0]||a;return '<li>'+esc(a.descricao)+' <span class="st '+cls(x)+'">'+lbl(x)+'</span></li>'}).join('')+'</ul></div>'+
+      ((s.perguntas||[]).length?'<div class="card"><h3>Perguntas em aberto</h3><ul>'+s.perguntas.map(function(q){return '<li>'+esc(q)+'</li>'}).join('')+'</ul></div>':'')+
+      '</div>'+(!shared&&s.notas?'<details class="notes"><summary>Notas da sessão</summary><p>'+esc(s.notas)+'</p></details>':'')+'</details>';
+  }).join('');
+
+  $('foot').innerHTML = '<span>Gerado pelo /liliai-painel a partir do diario.json. Fatos só do diário; prazos marcados como "inferido" vieram de interpretação das notas.</span>'+
+    '<span>Contagem: sessão com pelo menos uma lição ou ação. Atrasada: prazo passado e status diferente de Feito. Evidência: texto lido, reunião ou pedido vindo de quem decide.</span>'+
+    (shared?'<span>Versão para compartilhar: anonimizada, sem as notas das sessões e checada pelo /liliai-privacidade. Releia antes de enviar.</span>':'<span>Versão pessoal: pode conter dados do modo Contexto. Para compartilhar, rode /liliai-painel e escolha "Para compartilhar".</span>');
+})();
+</script>
+</body>
+</html>
