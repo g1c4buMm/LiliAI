@@ -2,6 +2,7 @@
 
 ## 2.1 (2026-10-10)
 
+- **Timelapse da instalação** (`demo/timelapse.html`): 14 cenas da instalação do zero até o painel, com relógio acelerado e fala de cada passo.
 - **Modo da entrevista como escolha do usuário**: nova pergunta P2, com botões "Rápido" e "Completo". O questionário passa a ter 38 perguntas.
 - **Completar depois**: no fim do modo rápido, o Claude oferece responder as 27 restantes agora ou depois. "completar entrevista" retoma só as pendentes.
 

@@ -9,6 +9,7 @@ Uma demonstração de ponta a ponta com um cenário fictício: Rafa Moura, espec
 | Arquivo | Para quê |
 |---|---|
 | `abertura.html` | Deck de 18 slides, cerca de 10 minutos: o problema, a jornada completa do Rafa no agente, o painel e a chamada para ação. Fala de cada slide na tecla N |
+| `timelapse.html` | Timelapse da instalação do zero: 14 cenas, cerca de 80 segundos, com relógio acelerado e a fala de cada passo. Toca sozinho; espaço pausa, setas navegam, N mostra a fala |
 | `persona.md` | Quem é o Rafa e as respostas da entrevista |
 | `instrucao-demo.md` | Instrução do projeto pronta para colar |
 | `diario-inicio.json` | Diário com as duas primeiras sessões e uma ação atrasada |
@@ -18,6 +19,10 @@ Uma demonstração de ponta a ponta com um cenário fictício: Rafa Moura, espec
 | `painel-inicio.html` | Painel antes da sessão 3 |
 | `painel-final.html` | Painel esperado depois da demo, versão pessoal (plano B) |
 | `painel-final-compartilhar.html` | Painel esperado, versão anonimizada (plano B) |
+
+## Como mostrar a instalação
+
+Antes ou depois do deck, toque o `timelapse.html` em tela cheia (tecla F). Ele mostra a instalação do zero em cerca de 80 segundos, do download no GitHub até o painel, com um relógio que chega a 12m30s. Para narrar no seu ritmo, pause com espaço e avance com as setas; a tecla N mostra a fala de cada cena.
 
 ## Dois formatos
 

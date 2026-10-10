@@ -213,7 +213,7 @@ Os prompts são gerados das skills e dão o mesmo resultado. Abra o arquivo, cop
 
 ## Demo para o seu grupo
 
-A pasta `demo/` tem um cenário fictício completo (Rafa, especialista sênior de dados) e um roteiro de 20 minutos que passa por todos os comandos: `demo/ROTEIRO.md`. Para abrir, há um deck de 2 minutos com a fala de cada slide: `demo/abertura.html`.
+A pasta `demo/` tem um cenário fictício completo (Rafa, especialista sênior de dados) e um roteiro de 20 minutos que passa por todos os comandos: `demo/ROTEIRO.md`. Para abrir, há um deck com a jornada do Rafa (`demo/abertura.html`) e um timelapse da instalação do zero em cerca de 80 segundos (`demo/timelapse.html`).
 
 ## Privacidade em dois modos
 
