@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.1 (2026-10-10)
+
+- **Modo da entrevista como escolha do usuário**: nova pergunta P2, com botões "Rápido" e "Completo". O questionário passa a ter 38 perguntas.
+- **Completar depois**: no fim do modo rápido, o Claude oferece responder as 27 restantes agora ou depois. "completar entrevista" retoma só as pendentes.
+
 ## 2.0 (2026-10-10)
 
 - **Cinco comandos** no lugar de oito: `/liliai-preparar` entrou no `/liliai-semana`; `/liliai-pilares` e `/liliai-dossie` entraram no `/liliai-painel` (versão "para compartilhar").

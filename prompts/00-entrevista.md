@@ -1,6 +1,6 @@
 # Prompt 00. Entrevista
 
-Equivale ao comando `/liliai-entrevista`. Conduz a entrevista de onboarding do LiliAI (modo rápido de 10 perguntas ou completo de 37), registra o consentimento de privacidade e entrega a instrução do projeto, o resumo de contexto e o diario.json inicial. Use com /liliai-entrevista.
+Equivale ao comando `/liliai-entrevista`. Conduz a entrevista de onboarding do LiliAI (você escolhe: modo rápido de 11 perguntas ou completo de 38), registra o consentimento de privacidade e entrega a instrução do projeto, o resumo de contexto e o diario.json inicial. Use com /liliai-entrevista.
 
 Copie o bloco abaixo e cole numa conversa dentro do seu Projeto. Onde o texto disser "esta skill", leia "este prompt".
 
@@ -16,9 +16,10 @@ Use `onboarding/questionario.md` do conhecimento do Projeto. Se não estiver lá
 ## Como conduzir
 
 1. Explique em duas linhas o que vai acontecer.
-2. Pergunte primeiro a **P1** (privacidade). Depois pergunte o **modo da entrevista**:
-   - **Rápido** (recomendado, cerca de 5 minutos): só as obrigatórias A1, A2, B1, B2, C1, C3, D1, H3, I1.
+2. Pergunte primeiro a **P1** (privacidade) e, logo depois, a **P2** (modo da entrevista), sempre como escolha do usuário, com as duas opções lado a lado:
+   - **Rápido** (opção recomendada, cerca de 5 minutos): depois da P2, só as obrigatórias A1, A2, B1, B2, C1, C3, D1, H3, I1.
    - **Completo** (20 a 30 minutos): todas as perguntas de A a J.
+   Não escolha o modo pelo usuário. Se ele não responder, pergunte de novo uma vez; se continuar sem resposta, use o rápido e avise.
 3. Faça as perguntas na ordem dos blocos. Mostre o id de cada uma.
 4. **Respostas por botão.** Se você tiver uma ferramenta de perguntas com opções (botões de múltipla escolha), use-a em todas as perguntas:
    - até quatro perguntas por vez
@@ -28,7 +29,7 @@ Use `onboarding/questionario.md` do conhecimento do Projeto. Se não estiver lá
    - no I2, peça os termos em texto livre
    Sem essa ferramenta, mostre as opções numeradas e aceite o número ou um texto.
 5. Comandos do usuário: `<id> ?` mostra o exemplo e o motivo; `pular` pula uma opcional; `pausar` devolve um resumo do que já foi respondido, num bloco de código; `refazer` recomeça. Se o usuário colar um resumo de entrevista pausada, continue de onde parou.
-6. Obrigatórias não podem ser puladas: P1, A1, A2, B1, B2, C1, C3, D1, H3, I1.
+6. Obrigatórias não podem ser puladas: P1, P2, A1, A2, B1, B2, C1, C3, D1, H3, I1.
 7. Respeite o modo de privacidade durante toda a entrevista:
    - **Anônimo** (P1 = não): use funções no lugar de nomes. Se aparecer nome de pessoa ou cliente, e-mail ou valor, aponte e peça a versão com função. A exceção é o I2, que recebe os termos reais a bloquear.
    - **Contexto** (P1 = sim): aceite nomes e números reais.
@@ -40,6 +41,12 @@ Use `onboarding/questionario.md` do conhecimento do Projeto. Se não estiver lá
 - Com "sim", exija a confirmação: "Confirmo que a política da minha empresa permite guardar esses dados no meu Projeto." Com botões, a opção "Sim" carrega essa frase no texto. Sem a confirmação, o modo fica Anônimo.
 - No H3, confira a coerência. Se a política proibir ou restringir dados reais em ferramentas de IA, ou for "Não sei", e o modo for Contexto, aponte o conflito e mude para Anônimo. Se for "permitido com ferramentas aprovadas", pergunte se o Claude, nesta conta, é uma ferramenta aprovada. "Não" ou "não sei" leva para Anônimo.
 
+## Completar depois (modo rápido)
+
+- Ao terminar o modo rápido, antes da entrega final, pergunte com botões: "Quer responder as outras 27 perguntas agora?" Opções: "Agora" e "Depois". "Agora" segue para as perguntas pendentes; "Depois" vai para a entrega final.
+- Registre no `contexto.md` a linha `Modo da entrevista: Rápido|Completo. Pendentes: <ids>`.
+- Se o usuário disser "completar entrevista", ou rodar `/liliai-entrevista` com um `contexto.md` no Projeto que tenha pendentes, não recomece: faça só as perguntas pendentes, na ordem dos blocos, e entregue o `contexto.md` atualizado. Entregue também a instrução do projeto, se alguma resposta nova mudar o que ela contém (G3, G4, I2), e o bloco `perfil` do `diario.json` atualizado (C2, G2).
+
 ## I1 nunca vazio
 
 Se a resposta do I1 for "nenhum" ou vazia, proponha este padrão e peça para aceitar ou ajustar: "documentos internos completos, credenciais e senhas, dados pessoais de terceiros, números de contrato". Registre o que for aceito.
@@ -48,7 +55,7 @@ Se a resposta do I1 for "nenhum" ou vazia, proponha este padrão e peça para ac
 
 Entregue quatro itens, cada um num bloco de código separado:
 
-1. **Resumo do contexto** (`contexto.md`), com as respostas por bloco e a linha `Modo de privacidade: Anônimo|Contexto. Respondido em AAAA-MM-DD. Confirmação de política: sim|não se aplica.` No modo rápido, liste as perguntas não respondidas como "pendente".
+1. **Resumo do contexto** (`contexto.md`), com as respostas por bloco e a linha `Modo de privacidade: Anônimo|Contexto. Respondido em AAAA-MM-DD. Confirmação de política: sim|não se aplica.` Inclua a linha do modo da entrevista com as pendentes.
 2. **Instrução do projeto**, pronta para colar em Configurações do projeto > Instruções. Comece pelo bloco de privacidade abaixo e inclua: quem é a pessoa (A1, A2, A4), meta e prazo (B1, B2), mentoria (C1, C2), o que a mentoria deve mudar (C3), quem decide (D1), formato de leitura (G3), o que evitar na escrita (G4), política da empresa para IA (H3), o que nunca registrar (I1), termos bloqueados (I2), e estas regras:
    - trabalhar só com o que o usuário enviar
    - o diário da mentoria é o arquivo `diario.json` do conhecimento do Projeto; os comandos leem e devolvem esse arquivo

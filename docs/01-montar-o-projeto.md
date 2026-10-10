@@ -22,7 +22,7 @@ Em **Conhecimento do projeto**, adicione:
 
 ## 5. Faça a entrevista
 
-Numa conversa dentro do Projeto, digite `/liliai-entrevista`. A primeira pergunta é a privacidade (sim ou não). Depois escolha o modo rápido (10 perguntas) ou completo (37).
+Numa conversa dentro do Projeto, digite `/liliai-entrevista`. A primeira pergunta é a privacidade (sim ou não). Depois você escolhe o modo na P2: rápido (11 perguntas, cerca de 5 minutos) ou completo (38). Quem começa pelo rápido pode completar depois com "completar entrevista".
 
 ## 6. Salve o que a entrevista entrega
 

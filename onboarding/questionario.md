@@ -1,11 +1,11 @@
 # Questionário de onboarding
 
-37 perguntas em 11 blocos. Dois modos:
+38 perguntas em 11 blocos. Você escolhe o modo na pergunta P2:
 
-- **Rápido** (cerca de 5 minutos): P1 e as obrigatórias A1, A2, B1, B2, C1, C3, D1, H3, I1.
+- **Rápido** (cerca de 5 minutos): P1, P2 e as obrigatórias A1, A2, B1, B2, C1, C3, D1, H3, I1.
 - **Completo** (20 a 30 minutos): todas.
 
-O Claude pergunta o modo logo depois da P1. As perguntas obrigatórias estão marcadas. Cada pergunta traz opções prontas, que viram botões quando o Claude oferece perguntas com opções. Sempre dá para responder com texto livre.
+Quem escolhe o rápido pode completar as demais depois, com "completar entrevista". As perguntas obrigatórias estão marcadas. Cada pergunta traz opções prontas, que viram botões quando o Claude oferece perguntas com opções. Sempre dá para responder com texto livre.
 No modo Anônimo (padrão), use funções no lugar de nomes de pessoas e clientes. Em qualquer modo, não responda sobre saúde, finanças pessoais,
 documentos internos de empresa ou dados identificáveis de terceiros.
 
@@ -18,6 +18,11 @@ Decide o que fica guardado no seu Projeto. Vale para o resto da entrevista e par
   - Por que perguntamos: Com "não" (modo Anônimo, o padrão), tudo é anonimizado antes de ser registrado. Com "sim" (modo Contexto), o diário guarda os dados reais e a anonimização acontece na hora de compartilhar.
   - Opções: Não, modo Anônimo · Sim, modo Contexto (confirmo que a política da minha empresa permite)
   - Antes de responder sim: confirme que a política da sua empresa permite. Ela é perguntada de novo no H3. O que você listar no I1 nunca é registrado, em nenhum modo, e este repositório nunca recebe dado seu.
+
+- **P2** Como você quer fazer esta entrevista? (obrigatória)
+  - Exemplo: Rápido
+  - Por que perguntamos: O modo rápido cobre só o essencial para começar. O completo deixa o painel, a revisão semanal e a pauta mais precisos. Quem escolhe o rápido pode completar depois.
+  - Opções: Rápido, 9 perguntas, cerca de 5 minutos · Completo, 36 perguntas, 20 a 30 minutos
 
 ## Bloco A: Quem você é hoje
 

@@ -20,7 +20,7 @@ Use estas respostas ao clicar nos botões, ou cole no campo livre.
 | Id | Pergunta | Resposta |
 |---|---|---|
 | P1 | Guardar dados reais no Projeto? | **Sim, modo Contexto** (para mostrar a anonimização na hora de compartilhar) |
-| Modo | Rápido ou completo? | **Rápido** |
+| P2 | Rápido ou completo? | **Rápido**. No fim, responda **Depois** para mostrar que dá para completar mais tarde |
 | A1 | Cargo e nível | Especialista sênior de dados |
 | A2 | Empresa e área | Fintech, plataforma de dados |
 | B1 | Cargo desejado | Staff engineer de dados |

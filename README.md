@@ -43,7 +43,7 @@ Tudo acontece numa conversa com o Claude, dentro de um Projeto. Não tem código
 | | Recurso | Por que importa |
 |---|---|---|
 | 1 | **Cinco comandos `/`** | O ciclo inteiro: entrevista, sessão, semana, painel e privacidade |
-| 2 | **Entrevista com botões** | Modo rápido de 10 perguntas, em cerca de 5 minutos |
+| 2 | **Entrevista com botões** | Você escolhe: rápido (11 perguntas, cerca de 5 minutos) ou completo (38) |
 | 3 | **Privacidade com consentimento** | Anônimo por padrão. Dados reais só com o seu sim explícito |
 | 4 | **Evidências de visibilidade** | Mede o que mudou em quem decide, não só o que você fez |
 | 5 | **Painel HTML** | Números, atrasos, pilares e histórico, calculados direto do diário |
@@ -100,7 +100,7 @@ Numa conversa **dentro do Projeto**, digite `/liliai-entrevista`.
 1. **Privacidade (P1).** Sim ou não:
    - **Não, modo Anônimo** (padrão): tudo é anonimizado antes de ser registrado.
    - **Sim, modo Contexto**: o diário guarda nomes e números reais dentro do seu Projeto. Só vale se a política da sua empresa permitir; se a resposta do H3 contradisser, o Claude volta para Anônimo.
-2. **Modo da entrevista.** **Rápido** (10 perguntas, cerca de 5 minutos) ou **Completo** (37).
+2. **Modo da entrevista (P2).** Você escolhe nos botões: **Rápido** (11 perguntas, cerca de 5 minutos) ou **Completo** (38, de 20 a 30 minutos). No rápido, o Claude pergunta no fim se você quer responder o resto agora ou depois; para completar mais tarde, diga "completar entrevista".
 3. **Responda pelos botões** ou escreva no campo livre. Sem botões na sua versão, responda pelo número das opções.
 
 ![Passo 4: entrevista com botões](assets/screenshots/03-entrevista.png)
