@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>LiliAI</title>
+<title>Lili.AI</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -133,20 +133,59 @@ footer{border-top:1px solid var(--line);padding-block:32px;font-size:.85rem;colo
 footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
 .grid2{display:grid;gap:18px;margin-top:28px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.btn:hover{transform:none}}
+
+.wordmark{font:700 clamp(3rem,10vw,6rem)/.95 var(--display);letter-spacing:-.035em;margin:0 0 22px}
+.wordmark i{font-style:normal;color:var(--accent)}
+.brand b{color:var(--accent)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.vid{margin:24px 0 0;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:#0e0c0a}
+.vid video{display:block;width:100%;aspect-ratio:16/9;background:#0e0c0a}
+.vid figcaption{font:500 .75rem var(--mono);color:var(--muted);padding:10px 14px;border-top:1px solid var(--line);background:var(--surface)}
+.beta{margin-top:22px;display:grid;gap:12px;max-width:620px}
+.beta-row{display:flex;gap:10px;flex-wrap:wrap}
+.beta input[type=email]{flex:1 1 240px;min-width:0;font:400 1rem var(--body);color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:12px 18px}
+.beta input[type=email]:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.beta-ok{display:flex;gap:10px;align-items:flex-start;font-size:.9rem;color:var(--muted);cursor:pointer}
+.beta-ok input{margin-top:3px;accent-color:var(--accent)}
+.beta-msg{margin:0;font-size:.92rem;min-height:1.4em}
+.beta-msg.ok{color:var(--ok)}.beta-msg.err{color:#d9534f}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.intro{position:fixed;inset:0;z-index:50;background:#0e0c0a;display:grid;place-items:center;transition:opacity .6s ease}
+.intro.out{opacity:0}
+.intro video{width:100vw;height:100vh;height:100dvh;object-fit:contain;background:#0e0c0a}
+.intro-top{position:absolute;left:0;right:0;top:0;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:calc(env(safe-area-inset-top,0px) + 14px) 18px 14px;background:linear-gradient(rgba(14,12,10,.75),transparent)}
+.intro-brand{font:700 1.1rem var(--display);color:#efe8e0}.intro-brand b{color:#ef7d3c}
+.intro button{font:600 .9rem var(--body);color:#efe8e0;background:rgba(32,28,24,.85);border:1px solid #3a332c;border-radius:999px;padding:10px 16px;cursor:pointer}
+.intro button:focus-visible{outline:2px solid #ef7d3c;outline-offset:2px}
+.intro-sound{position:absolute;left:18px;bottom:calc(env(safe-area-inset-bottom,0px) + 26px)}
+.intro-play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:1.1rem!important;padding:16px 26px!important;border-color:#ef7d3c!important}
+.intro-bar{position:absolute;left:0;right:0;bottom:0;height:3px;background:rgba(255,255,255,.08)}
+.intro-bar span{display:block;height:100%;width:0;background:#ef7d3c}
+[hidden]{display:none!important}
+#topo:focus{outline:none}
 </style>
 </head>
 <body>
 
 
+<div class="intro" id="intro" hidden>
+  <video id="intro-v" playsinline preload="auto" poster="assets/video/poster.jpg"></video>
+  <div class="intro-top"><span class="intro-brand">Lili<b>.</b>AI</span><button type="button" id="intro-skip">Pular e ir para o site →</button></div>
+  <button type="button" class="intro-sound" id="intro-sound" hidden>🔊 Ativar som</button>
+  <button type="button" class="intro-play" id="intro-play" hidden>▶ Assistir a abertura</button>
+  <div class="intro-bar"><span id="intro-prog"></span></div>
+</div>
+
 <header class="bar">
   <div class="wrap">
-    <a class="brand" href="#topo">Lili<b>AI</b></a>
+    <a class="brand" href="#topo">Lili<b>.</b>AI</a>
     <nav class="nav" aria-label="Seções">
       <a href="#montar">Montar</a>
       <a href="#usar">Usar</a>
       <a href="#comandos">Comandos</a>
       <a href="#privacidade">Privacidade</a>
       <a href="#demo">Demo</a>
+      <a href="#beta">Beta</a>
       <a href="#duvidas">Dúvidas</a>
     </nav>
   </div>
@@ -155,16 +194,12 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
 <main id="topo">
   <div class="wrap">
     <section class="hero">
-<pre class="ascii" aria-hidden="true">██╗     ██╗██╗     ██╗ █████╗ ██╗
-██║     ██║██║     ██║██╔══██╗██║
-██║     ██║██║     ██║███████║██║
-██║     ██║██║     ██║██╔══██║██║
-███████╗██║███████╗██║██║  ██║██║
-╚══════╝╚═╝╚══════╝╚═╝╚═╝  ╚═╝╚═╝</pre>
+<p class="wordmark" aria-label="Lili.AI">Lili<i>.</i>AI</p>
       <h1>A mentoria falou. O Claude anotou.</h1>
       <p class="lead">Cinco comandos para o Claude que transformam cada sessão de mentoria em lições, ações com prazo e evidências de que o seu trabalho chegou em quem decide. Porque "eu lembro depois" não é estratégia de carreira.</p>
       <div class="ctas">
-        <a class="btn primary" href="#montar">Começar em 15 minutos</a>
+        <a class="btn primary" href="#beta">Quero acesso ao beta</a>
+        <a class="btn" href="#montar">Começar em 15 minutos</a>
         <a class="btn" href="exemplos/painel-normal.html">Ver um painel de exemplo</a>
         <a class="btn" href="https://github.com/g1c4buMm/LiliAI">GitHub</a>
       </div>
@@ -462,10 +497,35 @@ Tema: Visibilidade com a liderança
           <tr><td>Checagem de um post</td><td>1 min</td><td>Texto reescrito sem dados sensíveis</td></tr>
         </tbody>
       </table></div>
+      <figure class="vid">
+        <video id="demo-video" controls playsinline preload="metadata" poster="assets/video/poster.jpg" data-src720="assets/video/liliai-720.mp4" data-src1080="assets/video/liliai-1080.mp4">
+          <source src="assets/video/liliai-720.mp4" type="video/mp4">
+        </video>
+        <figcaption>Instalação do zero e primeira sessão, narradas · 1min23s · dados fictícios</figcaption>
+      </figure>
       <div class="ctas">
+        <a class="btn" href="demo/timelapse.html">Timelapse interativo</a>
+        <a class="btn" href="demo/abertura.html">Deck da jornada do Rafa</a>
         <a class="btn" href="demo/painel-final.html">Painel da demo</a>
         <a class="btn" href="demo/painel-final-compartilhar.html">Versão para compartilhar</a>
       </div>
+    </section>
+
+    <section id="beta" aria-labelledby="beta-t">
+      <p class="eyebrow">Acesso antecipado</p>
+      <h2 id="beta-t">Entre na lista do beta do Lili.AI</h2>
+      <p class="lead" style="margin-top:12px">Estamos abrindo o beta para um grupo pequeno de mentorias. Deixe o seu e-mail e avisamos quando houver vaga.</p>
+      <form class="beta" id="beta-form" novalidate>
+        <div class="beta-row">
+          <label class="sr" for="beta-email">E-mail</label>
+          <input id="beta-email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="seu@email.com" required>
+          <button class="btn primary" type="submit" id="beta-btn">Quero acesso</button>
+        </div>
+        <input class="hp" id="beta-hp" name="_gotcha" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <label class="beta-ok" for="beta-ok"><input id="beta-ok" type="checkbox" required> Aceito receber e-mails sobre o beta do Lili.AI. Posso sair da lista quando quiser.</label>
+        <p class="beta-msg" id="beta-msg" aria-live="polite"></p>
+      </form>
+      <p class="note" style="margin-top:10px">Usamos o seu e-mail só para avisar sobre o beta. Nada de spam, e nunca compartilhamos a lista.</p>
     </section>
 
     <section id="duvidas" aria-labelledby="faq-t">
@@ -484,7 +544,7 @@ Tema: Visibilidade com a liderança
 
 <footer>
   <div class="wrap">
-    <span>LiliAI · licença MIT · as telas usam dados fictícios</span>
+    <span>Lili.AI · licença MIT · as telas usam dados fictícios · <a href="#topo" id="rever-video">rever o vídeo de abertura</a></span>
     <a href="https://github.com/g1c4buMm/LiliAI">github.com/g1c4buMm/LiliAI</a>
   </div>
 </footer>
@@ -502,6 +562,59 @@ Tema: Visibilidade com a liderança
     function fallback(){var r=document.createRange();r.selectNodeContents(el);var s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='Selecionado'}
     try{navigator.clipboard.writeText(txt).then(ok,fallback)}catch(e){fallback()}
   })});
+})();
+
+(function(){
+  /* vídeo de abertura: escolhe 720p ou 1080p pelo tamanho real da tela */
+  var probe=document.createElement('video'), H264=!!(probe.canPlayType&&probe.canPlayType('video/mp4; codecs="avc1.640028, mp4a.40.2"'));
+  function srcFor(el){if(!H264)return 'assets/video/liliai-720.webm';var px=Math.max(window.innerWidth,window.innerHeight)*(window.devicePixelRatio||1);return px>1500?'assets/video/liliai-1080.mp4':'assets/video/liliai-720.mp4'}
+  var intro=document.getElementById('intro'), v=document.getElementById('intro-v');
+  var bS=document.getElementById('intro-sound'), bP=document.getElementById('intro-play'), prog=document.getElementById('intro-prog');
+  function seen(){try{return sessionStorage.getItem('liliai-intro')==='1'}catch(e){return false}}
+  function mark(){try{sessionStorage.setItem('liliai-intro','1')}catch(e){}}
+  function close(){
+    if(intro.hidden)return; mark(); try{v.pause()}catch(e){}
+    intro.classList.add('out'); document.documentElement.style.overflow='';
+    setTimeout(function(){intro.hidden=true;intro.classList.remove('out');var m=document.getElementById('topo');if(m){m.setAttribute('tabindex','-1');m.focus({preventScroll:true})}},600);
+  }
+  function start(){
+    if(!v.getAttribute('src'))v.src=srcFor();
+    v.currentTime=0; v.muted=false; bS.hidden=true; bP.hidden=true;
+    var p=v.play();
+    if(p&&p.catch)p.catch(function(){v.muted=true;var q=v.play();bS.hidden=false;if(q&&q.catch)q.catch(function(){bP.hidden=false;bS.hidden=true})});
+  }
+  function open(){intro.hidden=false;document.documentElement.style.overflow='hidden';start();document.getElementById('intro-skip').focus({preventScroll:true})}
+  document.getElementById('intro-skip').onclick=close;
+  bS.onclick=function(){v.muted=false;bS.hidden=true;v.play()};
+  bP.onclick=function(){bP.hidden=true;v.muted=false;var p=v.play();if(p&&p.catch)p.catch(function(){v.muted=true;v.play();bS.hidden=false})};
+  v.addEventListener('ended',close);
+  v.addEventListener('timeupdate',function(){if(v.duration)prog.style.width=(v.currentTime/v.duration*100)+'%'});
+  v.addEventListener('error',close);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!intro.hidden)close()});
+  var rv=document.getElementById('rever-video'); if(rv)rv.onclick=function(e){e.preventDefault();open()};
+  if(!location.hash&&!seen())open();
+
+  /* vídeo da seção demo na resolução da tela */
+  var dv=document.getElementById('demo-video');
+  if(dv&&srcFor()!=='assets/video/liliai-720.mp4'){dv.querySelector('source').src=srcFor();dv.querySelector('source').type=H264?'video/mp4':'video/webm';dv.load()}
+
+  /* inscrição no beta: cole aqui o endpoint do Formspree (https://formspree.io/f/SEU_ID) */
+  var BETA_ENDPOINT='';
+  var f=document.getElementById('beta-form'), msg=document.getElementById('beta-msg'), btn=document.getElementById('beta-btn');
+  function say(t,c){msg.textContent=t;msg.className='beta-msg '+(c||'')}
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    var email=document.getElementById('beta-email').value.trim(), ok=document.getElementById('beta-ok').checked;
+    if(document.getElementById('beta-hp').value)return;
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)){say('Confira o e-mail: ele parece incompleto.','err');document.getElementById('beta-email').focus();return}
+    if(!ok){say('Marque a caixa de consentimento para entrar na lista.','err');return}
+    if(!BETA_ENDPOINT){say('As inscrições abrem em breve. Volte daqui a pouco.','err');return}
+    btn.disabled=true;say('Enviando…');
+    fetch(BETA_ENDPOINT,{method:'POST',headers:{'Accept':'application/json','Content-Type':'application/json'},body:JSON.stringify({email:email,consentimento:'sim',origem:'site Lili.AI'})})
+      .then(function(r){if(!r.ok)throw new Error(r.status);say('Pronto! Você está na lista do beta. Avisamos por e-mail quando abrir.','ok');f.reset()})
+      .catch(function(){say('Não foi possível enviar agora. Tente de novo em instantes.','err')})
+      .then(function(){btn.disabled=false});
+  });
 })();
 </script>
 

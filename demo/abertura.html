@@ -169,13 +169,14 @@ mark{background:#f6d7b8;color:#1c1916;border-radius:.2cqw;padding:0 .2cqw}
 .notes .k{font:500 12px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
 .nojs-note{font-size:13px;color:var(--muted)}
 .js .nojs-note{display:none}
+[hidden]{display:none!important}
 </style>
 </head>
 <body>
 
 
 <div class="wrap">
-  <div class="bar"><span id="count">LiliAI · abertura</span><span class="btns"><button type="button" id="btn-prev">← Anterior</button><button type="button" id="btn-next">Próximo →</button><button type="button" id="btn-notes" aria-pressed="false">N · fala</button><button type="button" id="btn-full">F · tela cheia</button></span></div>
+  <div class="bar"><span><a href="../index.html#demo" style="color:inherit;text-decoration:none;border:1px solid var(--line);border-radius:6px;padding:7px 11px;background:var(--surface)">← Lili.AI</a> <span id="count">Lili.AI · abertura</span></span><span class="btns"><button type="button" id="btn-prev">← Anterior</button><button type="button" id="btn-next">Próximo →</button><button type="button" id="btn-notes" aria-pressed="false">N · fala</button><button type="button" id="btn-full">F · tela cheia</button></span></div>
   <div class="deck" id="deck">
     <button class="tap prev" type="button" id="tap-prev" aria-label="Slide anterior"></button>
     <button class="tap next" type="button" id="tap-next" aria-label="Próximo slide"></button>
@@ -416,7 +417,7 @@ helena: deck até dia 23, ensaio com a júlia até 28</div>
     i=Math.min(Math.max(n,0),slides.length-1);
     slides.forEach(function(s,k){s.classList.toggle('on',k===i);s.setAttribute('aria-hidden',k===i?'false':'true')});
     document.getElementById('progress').style.width=((i+1)/slides.length*100)+'%';
-    document.getElementById('count').textContent='LiliAI · slide '+(i+1)+' de '+slides.length;
+    document.getElementById('count').textContent='Lili.AI · slide '+(i+1)+' de '+slides.length;
     nk.textContent='Fala · slide '+(i+1)+' · '+(slides[i].dataset.time||'');
     nt.textContent=slides[i].dataset.notes||'';
     try{history.replaceState(null,'','#s'+(i+1))}catch(e){}

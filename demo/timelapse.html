@@ -131,20 +131,13 @@ body{margin:0;background:var(--stage);color:var(--ink);font-family:var(--body);-
 .js .scene.on .tg::after{animation:tgknob .3s var(--d,0s) both}
 @keyframes tgon{to{background:#2f7d55}}
 @keyframes tgknob{to{left:1.6cqw}}
-.js .scene .cur{opacity:0}
-.js .scene.on .cur{animation:var(--path) var(--ct,2.4s) ease-in-out var(--cd,.2s) both}
+.js .scene .cur{opacity:0;left:0;top:0;transform-origin:17% 8%}
 .js .scene .press{transition:none}
 .js .scene.on .press{animation:press .35s var(--d,0s) both}
 @keyframes press{0%{transform:scale(1)}50%{transform:scale(.94)}100%{transform:scale(1);border-color:var(--paccent);background:var(--psoft)}}
 .js .scene.on .press.p{animation-name:pressp}
 @keyframes pressp{0%{transform:scale(1)}50%{transform:scale(.94)}100%{transform:scale(1)}}
 
-@keyframes c1{0%{opacity:0;left:60%;top:70%}15%{opacity:1}100%{opacity:1;left:79%;top:31%}}
-@keyframes c2{0%{opacity:0;left:40%;top:80%}15%{opacity:1}55%{left:30%;top:43%}100%{opacity:1;left:30%;top:43%}}
-@keyframes c3{0%{opacity:0;left:70%;top:75%}15%{opacity:1}100%{opacity:1;left:72%;top:33%}}
-@keyframes c4{0%{opacity:0;left:50%;top:85%}15%{opacity:1}100%{opacity:1;left:44%;top:66%}}
-@keyframes c5{0%{opacity:0;left:60%;top:80%}15%{opacity:1}100%{opacity:1;left:40%;top:42%}}
-@keyframes c6{0%{opacity:0;left:70%;top:80%}15%{opacity:1}100%{opacity:1;left:58%;top:55%}}
 
 /* controles */
 .progress{display:none;gap:3px}
@@ -158,6 +151,7 @@ body{margin:0;background:var(--stage);color:var(--ink);font-family:var(--body);-
 .nojs{font-size:13px;color:var(--muted)}
 .js .nojs{display:none}
 @media (prefers-reduced-motion:reduce){.js .scene.on .a,.js .scene.on .type,.js .scene.on .cur,.js .scene.on .press{animation-duration:.01s}.js .scene.on .flip{animation:none;opacity:0}.js .scene.on .flip.last{opacity:1}}
+[hidden]{display:none!important}
 </style>
 </head>
 <body>
@@ -165,7 +159,7 @@ body{margin:0;background:var(--stage);color:var(--ink);font-family:var(--body);-
 
 <div class="wrap">
   <div class="bar">
-    <span id="label">LiliAI · instalação do zero, em timelapse</span>
+    <span><a href="../index.html#demo" style="color:inherit;text-decoration:none;border:1px solid var(--line);border-radius:6px;padding:7px 11px;background:var(--surface)">← Lili.AI</a> <span id="label">Lili.AI · instalação do zero, em timelapse</span></span>
     <span class="btns">
       <button type="button" id="b-prev">← Cena</button>
       <button type="button" id="b-play" aria-pressed="false">▶ Tocar</button>
@@ -190,10 +184,10 @@ body{margin:0;background:var(--stage);color:var(--ink);font-family:var(--body);-
             <div><span class="ic">▸</span>demo/<span class="r">cenário fictício</span></div>
             <div><span class="ic">≡</span>README.md<span class="r">passo a passo</span></div>
           </div>
-          <div class="menu a" style="--d:2.6s;right:3cqw;top:9cqw"><div>Clone</div><div class="hl"><b>⬇ Download ZIP</b></div></div>
+          <div class="menu a" style="--d:2.6s;right:3cqw;top:9cqw"><div>Clone</div><div class="hl" data-t="3.4"><b>⬇ Download ZIP</b></div></div>
         </div></div>
       </div>
-      <svg class="cur" style="--path:c1;--ct:2.2s" viewBox="0 0 24 24"><path d="M4 2l16 10-7 1.5L9.5 21z" fill="#fff" stroke="#000" stroke-width="1.2"/></svg>
+      <svg class="cur" viewBox="0 0 24 24"><path d="M4 2l16 10-7 1.5L9.5 21z" fill="#fff" stroke="#000" stroke-width="1.2"/></svg>
     </section>
 
     <!-- 2 -->
@@ -217,7 +211,7 @@ body{margin:0;background:var(--stage);color:var(--ink);font-family:var(--body);-
       <div class="win"><div class="wbar"><i></i><i></i><i></i><span class="ttl">Claude · Configurações</span></div>
         <div class="wb"><div class="side"><b>Configurações</b><div>Geral</div><div>Perfil</div><div class="sel">Capabilities</div><div>Conectores</div></div>
         <div class="main">
-          <div class="row"><h3>Skills</h3><span class="btn p press" style="margin-left:auto;--d:.5s">+ Enviar skill</span></div>
+          <div class="row"><h3>Skills</h3><span class="btn p press" style="margin-left:auto;--d:.7s">+ Enviar skill</span></div>
           <div class="list">
             <div class="a" style="--d:1s"><span class="ic">/</span>liliai-entrevista<span class="r">enviada</span><span class="toggle tg" style="--d:1.4s"></span></div>
             <div class="a" style="--d:1.9s"><span class="ic">/</span>liliai-sessao<span class="r">enviada</span><span class="toggle tg" style="--d:2.3s"></span></div>
@@ -227,7 +221,7 @@ body{margin:0;background:var(--stage);color:var(--ink);font-family:var(--body);-
           </div>
         </div></div>
       </div>
-      <svg class="cur" style="--path:c3;--ct:1s" viewBox="0 0 24 24"><path d="M4 2l16 10-7 1.5L9.5 21z" fill="#fff" stroke="#000" stroke-width="1.2"/></svg>
+      <svg class="cur" viewBox="0 0 24 24"><path d="M4 2l16 10-7 1.5L9.5 21z" fill="#fff" stroke="#000" stroke-width="1.2"/></svg>
     </section>
 
     <!-- 4 -->
@@ -259,7 +253,7 @@ body{margin:0;background:var(--stage);color:var(--ink);font-family:var(--body);-
           <span class="btn p press p" style="--d:3.8s">Criar projeto</span>
         </div></div>
       </div>
-      <svg class="cur" style="--path:c4;--ct:1.2s;--cd:3s" viewBox="0 0 24 24"><path d="M4 2l16 10-7 1.5L9.5 21z" fill="#fff" stroke="#000" stroke-width="1.2"/></svg>
+      <svg class="cur" viewBox="0 0 24 24"><path d="M4 2l16 10-7 1.5L9.5 21z" fill="#fff" stroke="#000" stroke-width="1.2"/></svg>
     </section>
 
     <!-- 6 -->
@@ -268,12 +262,13 @@ body{margin:0;background:var(--stage);color:var(--ink);font-family:var(--body);-
         <div class="wb"><div class="main" style="grid-template-columns:1fr 1fr">
           <div style="display:grid;gap:1cqw;align-content:start"><h3>Minha promoção</h3><div class="input muted" style="min-height:10cqw">Converse dentro do projeto…</div></div>
           <div style="display:grid;gap:.8cqw;align-content:start">
-            <div class="row"><b>Conhecimento do projeto</b><span class="btn press" style="margin-left:auto;--d:.4s">+ Adicionar</span></div>
+            <div class="row"><b>Conhecimento do projeto</b><span class="btn press" style="margin-left:auto;--d:.8s">+ Adicionar</span></div>
             <div class="file a" style="--d:1.2s"><span class="t">MD</span>questionario.md<span class="muted mono" style="margin-left:auto;font-size:1cqw">38 perguntas</span></div>
             <div class="file a" style="--d:2s"><span class="t">HTML</span>painel.html<span class="muted mono" style="margin-left:auto;font-size:1cqw">modelo do painel</span></div>
           </div>
         </div></div>
       </div>
+          <svg class="cur" viewBox="0 0 24 24"><path d="M4 2l16 10-7 1.5L9.5 21z" fill="#fff" stroke="#000" stroke-width="1.2"/></svg>
     </section>
 
     <!-- 7 -->
@@ -287,7 +282,7 @@ body{margin:0;background:var(--stage);color:var(--ink);font-family:var(--body);-
             <div class="chips"><span class="chip press" style="--d:4.6s">Rápido · 11 perguntas · 5 min</span><span class="chip">Completo · 38 · 20 a 30 min</span></div></div>
         </div></div>
       </div>
-      <svg class="cur" style="--path:c2;--ct:4.4s;--cd:.6s" viewBox="0 0 24 24"><path d="M4 2l16 10-7 1.5L9.5 21z" fill="#fff" stroke="#000" stroke-width="1.2"/></svg>
+      <svg class="cur" viewBox="0 0 24 24"><path d="M4 2l16 10-7 1.5L9.5 21z" fill="#fff" stroke="#000" stroke-width="1.2"/></svg>
     </section>
 
     <!-- 8 timelapse das perguntas -->
@@ -330,6 +325,7 @@ body{margin:0;background:var(--stage);color:var(--ink);font-family:var(--body);-
           </div>
         </div></div>
       </div>
+          <svg class="cur" viewBox="0 0 24 24"><path d="M4 2l16 10-7 1.5L9.5 21z" fill="#fff" stroke="#000" stroke-width="1.2"/></svg>
     </section>
 
     <!-- 10 -->
@@ -347,7 +343,7 @@ body{margin:0;background:var(--stage);color:var(--ink);font-family:var(--body);-
           </div>
         </div></div>
       </div>
-      <svg class="cur" style="--path:c6;--ct:1.2s;--cd:3.4s" viewBox="0 0 24 24"><path d="M4 2l16 10-7 1.5L9.5 21z" fill="#fff" stroke="#000" stroke-width="1.2"/></svg>
+      <svg class="cur" viewBox="0 0 24 24"><path d="M4 2l16 10-7 1.5L9.5 21z" fill="#fff" stroke="#000" stroke-width="1.2"/></svg>
     </section>
 
     <!-- 11 -->
@@ -378,6 +374,7 @@ body{margin:0;background:var(--stage);color:var(--ink);font-family:var(--body);-
           <div class="chips a" style="--d:3.8s"><span class="chip press" style="--d:4.4s">ok</span><span class="chip">Corrigir</span><span class="mono muted" style="font-size:1cqw;align-self:center">→ diario.json atualizado</span></div>
         </div></div>
       </div>
+          <svg class="cur" viewBox="0 0 24 24"><path d="M4 2l16 10-7 1.5L9.5 21z" fill="#fff" stroke="#000" stroke-width="1.2"/></svg>
     </section>
 
     <!-- 13 -->
@@ -423,17 +420,39 @@ body{margin:0;background:var(--stage);color:var(--ink);font-family:var(--body);-
     document.getElementById('clk-l').textContent=s.dataset.sess?'TEMPO NA SESSÃO':'TEMPO DE INSTALAÇÃO';
     tb[i].firstChild.style.width=(Math.min(frac,1)*100)+'%';
   }
+
+  function cssDelay(el){var t=el.getAttribute('data-t');if(t)return parseFloat(t);var v=getComputedStyle(el).getPropertyValue('--d').trim();return v?parseFloat(v):0}
+  function buildCursor(sc){
+    var cur=sc.querySelector('.cur'); if(!cur)return;
+    if(cur._anim){try{cur._anim.cancel()}catch(e){}}
+    var R=sc.getBoundingClientRect(), W=R.width, H=R.height, cw=cur.getBoundingClientRect().width||W*0.022;
+    var tg=[].slice.call(sc.querySelectorAll('.press,.tg,[data-t]')).map(function(el){var r=el.getBoundingClientRect();return {t:cssDelay(el),x:(r.left+r.width*0.5-R.left)/W*100,y:(r.top+r.height*0.55-R.top)/H*100}}).sort(function(a,b){return a.t-b.t});
+    if(!tg.length)return;
+    var total=(+sc.dataset.dur)*1000, ox=-(cw*0.17)/W*100, oy=-(cw*0.08)/H*100, kf=[], last=0.25;
+    function at(sec,x,y,o,sc2){kf.push({easing:'ease-in-out',offset:Math.min(Math.max(sec*1000/total,0),1),left:(x+ox)+'%',top:(y+oy)+'%',opacity:o,transform:'scale('+(sc2||1)+')'})}
+    var sx=Math.min(tg[0].x+14,92), sy=Math.min(tg[0].y+26,86);
+    at(0,sx,sy,0); at(0.25,sx,sy,1);
+    tg.forEach(function(p){
+      var arrive=Math.max(last+0.35,p.t-0.18), leave=arrive;
+      if(arrive>p.t){p.t=arrive}
+      at(arrive,p.x,p.y,1); at(p.t,p.x,p.y,1,0.82); at(p.t+0.14,p.x,p.y,1,1); last=p.t+0.14;
+    });
+    var e=tg[tg.length-1]; at(total/1000,e.x,e.y,1);
+    kf.sort(function(a,b){return a.offset-b.offset});
+    for(var k=1;k<kf.length;k++){if(kf[k].offset<kf[k-1].offset)kf[k].offset=kf[k-1].offset}
+    cur._anim=cur.animate(kf,{duration:total,fill:'both',easing:'linear'});
+  }
   function go(n,manual){
     i=(n+scenes.length)%scenes.length;
     scenes.forEach(function(s,k){s.classList.remove('on');tb[k].classList.toggle('past',k<i);tb[k].firstChild.style.width=k<i?'100%':'0'});
-    void box.offsetWidth; scenes[i].classList.add('on');
+    void box.offsetWidth; scenes[i].classList.add('on'); buildCursor(scenes[i]);
     var s=scenes[i];
     stepno.textContent=i<11?'Passo '+(i+1)+' de 11':(i<scenes.length-1?'Depois da instalação':'Sua vez');
     document.getElementById('cap-h').textContent=s.dataset.title;
     document.getElementById('cap-p').textContent=s.dataset.narr;
     document.getElementById('narr-k').textContent='Fala · cena '+(i+1)+' de '+scenes.length;
     document.getElementById('narr-t').textContent=s.dataset.narr;
-    document.getElementById('label').textContent='LiliAI · cena '+(i+1)+' de '+scenes.length;
+    document.getElementById('label').textContent='Lili.AI · cena '+(i+1)+' de '+scenes.length;
     elapsed=0; t0=performance.now(); setClock(0); syncAnims();
     try{history.replaceState(null,'','#c'+(i+1))}catch(e){}
     if(!playing&&manual){setClock(1);anims().forEach(function(a){try{a.finish()}catch(e){}})}
