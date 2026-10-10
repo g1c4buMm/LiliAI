@@ -158,7 +158,8 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
 .intro button{font:600 .9rem var(--body);color:#efe8e0;background:rgba(32,28,24,.85);border:1px solid #3a332c;border-radius:999px;padding:10px 16px;cursor:pointer}
 .intro button:focus-visible{outline:2px solid #ef7d3c;outline-offset:2px}
 .intro-sound{position:absolute;left:18px;bottom:calc(env(safe-area-inset-bottom,0px) + 26px)}
-.intro-play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:1.1rem!important;padding:16px 26px!important;border-color:#ef7d3c!important}
+.intro-play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:1.2rem!important;padding:18px 30px!important;background:#ef7d3c!important;border-color:#ef7d3c!important;color:#15120f!important;box-shadow:0 10px 40px rgba(0,0,0,.5)}
+.intro-play small{font:500 .8rem var(--mono);opacity:.75;margin-left:8px}
 .intro-bar{position:absolute;left:0;right:0;bottom:0;height:3px;background:rgba(255,255,255,.08)}
 .intro-bar span{display:block;height:100%;width:0;background:#ef7d3c}
 [hidden]{display:none!important}
@@ -172,7 +173,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
   <video id="intro-v" playsinline preload="auto" poster="assets/video/poster.jpg"></video>
   <div class="intro-top"><span class="intro-brand">Lili<b>.</b>AI</span><button type="button" id="intro-skip">Pular e ir para o site →</button></div>
   <button type="button" class="intro-sound" id="intro-sound" hidden>🔊 Ativar som</button>
-  <button type="button" class="intro-play" id="intro-play" hidden>▶ Assistir a abertura</button>
+  <button type="button" class="intro-play" id="intro-play" hidden>▶ Assistir com som <small>1min23s</small></button>
   <div class="intro-bar"><span id="intro-prog"></span></div>
 </div>
 
@@ -581,12 +582,12 @@ Tema: Visibilidade com a liderança
     if(!v.getAttribute('src'))v.src=srcFor();
     v.currentTime=0; v.muted=false; bS.hidden=true; bP.hidden=true;
     var p=v.play();
-    if(p&&p.catch)p.catch(function(){v.muted=true;var q=v.play();bS.hidden=false;if(q&&q.catch)q.catch(function(){bP.hidden=false;bS.hidden=true})});
+    if(p&&p.catch)p.catch(function(){bP.hidden=false;bP.focus({preventScroll:true})});
   }
-  function open(){intro.hidden=false;document.documentElement.style.overflow='hidden';start();document.getElementById('intro-skip').focus({preventScroll:true})}
+  function open(){intro.hidden=false;document.documentElement.style.overflow='hidden';start()}
   document.getElementById('intro-skip').onclick=close;
   bS.onclick=function(){v.muted=false;bS.hidden=true;v.play()};
-  bP.onclick=function(){bP.hidden=true;v.muted=false;var p=v.play();if(p&&p.catch)p.catch(function(){v.muted=true;v.play();bS.hidden=false})};
+  bP.onclick=function(){bP.hidden=true;v.muted=false;v.currentTime=0;var p=v.play();if(p&&p.catch)p.catch(function(){bP.hidden=false})};
   v.addEventListener('ended',close);
   v.addEventListener('timeupdate',function(){if(v.duration)prog.style.width=(v.currentTime/v.duration*100)+'%'});
   v.addEventListener('error',close);
