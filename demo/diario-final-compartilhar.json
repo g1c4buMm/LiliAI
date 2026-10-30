@@ -1,5 +1,5 @@
 {
-  "versao": 1,
+  "versao": 2,
   "perfil": {
     "titulo": "Minha mentoria de carreira",
     "pessoa": "Especialista sênior de dados",
@@ -8,6 +8,72 @@
     "mentoria": "Mentora externa, sessões 1:1 quinzenais",
     "modo_privacidade": "Contexto",
     "revisao_semanal": "Sexta à tarde"
+  },
+  "plano": {
+    "atualizado_em": "2026-10-09",
+    "objetivos": [
+      {
+        "id": "O1",
+        "texto": "Ser lido pela liderança como estratégico",
+        "indicador": "Diretoria pede o trabalho; caso apresentado no comitê de 30/10",
+        "status": "No rumo",
+        "acoes": [
+          "S2026-09-12-A1",
+          "S2026-09-26-A1",
+          "S2026-10-09-A1",
+          "S2026-10-09-A2",
+          "S2026-10-09-A3"
+        ],
+        "evidencias": [
+          "E1",
+          "E2",
+          "E3"
+        ]
+      },
+      {
+        "id": "O2",
+        "texto": "Ter aliados em outros times antes das decisões",
+        "indicador": "Conversa com o time de risco feita antes do comitê de 30/10",
+        "status": "Em risco",
+        "acoes": [
+          "S2026-09-26-A2"
+        ],
+        "evidencias": []
+      },
+      {
+        "id": "O3",
+        "texto": "Mostrar escopo de plataforma: direção técnica para outros times",
+        "indicador": "Proposta de padrão de dados adotada por dois times",
+        "status": "Não iniciado",
+        "acoes": [],
+        "evidencias": []
+      }
+    ],
+    "historico": [
+      {
+        "data": "2026-09-05",
+        "origem": "entrevista",
+        "mudancas": [
+          "O1: criado a partir da meta (staff em 12 meses) e do que a mentoria deve mudar (liderança me ler como estratégico)"
+        ]
+      },
+      {
+        "data": "2026-09-26",
+        "origem": "S2026-09-26",
+        "mudancas": [
+          "O1: passou de Não iniciado para No rumo: resumo quinzenal definido",
+          "O2: novo objetivo: aliado de outro time antes do comitê (lição S2026-09-26-L3)"
+        ]
+      },
+      {
+        "data": "2026-10-09",
+        "origem": "S2026-10-09",
+        "mudancas": [
+          "O1: segue No rumo, com dois pedidos da liderança (E2, E3)",
+          "O2: passou de No rumo para Em risco: conversa com o time de risco atrasada desde 30/09 e o comitê é dia 30/10"
+        ]
+      }
+    ]
   },
   "sessoes": [
     {

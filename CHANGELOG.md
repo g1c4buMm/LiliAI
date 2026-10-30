@@ -1,5 +1,16 @@
 # Changelog
 
+## 2.3 (2026-10-30)
+
+- **Plano que aprende**: o `diario.json` (versão 2) ganha o bloco `plano`, com objetivos para a meta, indicador, status (Não iniciado, No rumo, Em risco, Concluído), ações e evidências ligadas, e o histórico de cada mudança com origem e motivo.
+- **Revisão do plano a cada registro**: o `/liliai-sessao` liga ações e evidências aos objetivos, muda status com o motivo, cria objetivo novo quando a fonte traz uma expectativa nova e aponta conflitos entre gestão e mentoria.
+- **Outras fontes**: `/liliai-sessao 1:1`, `/liliai-sessao feedback` e `/liliai-sessao fonte` registram 1:1 com a gestão, avaliações, feedbacks e documentos de expectativa, por texto ou arquivo. Salário, bônus e assuntos pessoais nunca são registrados.
+- **Plano inicial na entrevista**: de dois a três objetivos a partir da meta, do que a mentoria deve mudar e de quem decide.
+- **Painel**: seção "Plano para a meta" com o status de cada objetivo e "Como o plano mudou"; selo de origem nos compromissos e no histórico.
+- **`/liliai-semana`** mostra os objetivos em risco e pergunta se houve 1:1 ou feedback. **`/liliai-painel`** para compartilhar deixa 1:1 e feedbacks de fora por padrão.
+- Diários da versão 1 continuam funcionando: o plano nasce no próximo `/liliai-sessao`.
+- Demo: novo ato 3b com `demo/notas-1a1.txt`.
+
 ## 2.2 (2026-10-10)
 
 - **Primeiro painel no fim da entrevista**: o `/liliai-entrevista` gera o painel na hora, a partir do `diario.json` inicial, mesmo com poucas respostas.

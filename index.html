@@ -167,6 +167,8 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
 </style>
 </head>
 <body>
+
+
 <div class="intro" id="intro" hidden>
   <video id="intro-v" playsinline preload="auto" poster="assets/video/poster.jpg"></video>
   <div class="intro-top"><span class="intro-brand">Lili<b>.</b>AI</span><button type="button" id="intro-skip">Pular e ir para o site →</button></div>
@@ -333,7 +335,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
       <ol class="steps">
         <li class="step">
           <span class="num">7</span>
-          <div><h3>Registre a sessão: <code>/liliai-sessao</code></h3>
+          <div><h3>Registre a sessão, o 1:1 ou o feedback: <code>/liliai-sessao</code></h3>
             <div class="body">
               <p>Logo depois da sessão, envie numa mensagem só:</p>
               <div class="code"><button class="copy" type="button" id="copy-sessao" data-target="tpl-sessao">Copiar</button><pre id="tpl-sessao">/liliai-sessao
@@ -341,14 +343,23 @@ Data: 2026-10-09
 Tema: Visibilidade com a liderança
 
 [cole aqui as notas brutas ou a transcrição]</pre></div>
+              <p>Teve 1:1 com a gestão ou recebeu um feedback? Mesmo comando, com o tipo na primeira linha. Vale texto colado ou arquivo anexado.</p>
+              <div class="code"><button class="copy" type="button" id="copy-1a1" data-target="tpl-1a1">Copiar</button><pre id="tpl-1a1">/liliai-sessao 1:1
+Data: 2026-10-14
+Com: gestor direto
+Tema: Expectativas para o próximo ciclo
+
+[cole as notas do 1:1, ou use /liliai-sessao feedback e anexe a avaliação]</pre></div>
               <div class="tbl"><table>
                 <thead><tr><th>Etapa</th><th>O que o Claude faz</th></tr></thead>
                 <tbody>
-                  <tr><td>Privacidade</td><td>Lista nomes, e-mails e valores. No Anônimo troca por funções; no Contexto mantém e avisa</td></tr>
+                  <tr><td>Tipo</td><td>Mentoria, 1:1 com gestão, feedback formal, feedback informal ou outra fonte</td></tr>
+                  <tr><td>Privacidade</td><td>Lista nomes, e-mails e valores. No Anônimo troca por funções; no Contexto mantém e avisa. Salário, bônus e assuntos pessoais nunca entram</td></tr>
                   <tr><td>Notas</td><td>Limpa o texto sem resumir nem inventar</td></tr>
                   <tr><td>Lições e ações</td><td>Extrai com ids, responsável, prazo e status</td></tr>
                   <tr><td>Ações antigas</td><td>Atualiza o status quando as notas disserem</td></tr>
                   <tr><td>Evidências</td><td>Detecta quando quem decide leu, recebeu ou pediu algo seu</td></tr>
+                  <tr><td>Plano</td><td>Revisa cada objetivo para a meta: liga ações e evidências, muda o status com o motivo e cria objetivo novo quando a gestão espera algo que o plano não cobre</td></tr>
                 </tbody>
               </table></div>
               <figure class="shot"><img src="assets/screenshots/06-nova-sessao.png" alt="Registrando uma sessão com o comando /liliai-sessao" loading="lazy" width="2360" height="1766"><figcaption>Ilustração · dados fictícios</figcaption></figure>

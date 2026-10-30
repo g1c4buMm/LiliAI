@@ -151,6 +151,30 @@ section.card{align-content:start}
 .notes summary{cursor:pointer;font:500 .78rem var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
 .notes p{margin-top:8px;font-size:.9rem;white-space:pre-wrap;max-width:80ch}
 @media (max-width:520px){.vis-grid{grid-template-columns:1fr}.vis-list li{grid-template-columns:1fr}}
+
+/* plano */
+.objs{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+.obj{display:grid;gap:10px;align-content:start}
+.obj-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.obj-id{font:500 .72rem var(--mono);color:var(--muted)}
+.obj .ind{font-size:.86rem;color:var(--muted)}
+.obj .ind b{color:var(--ink);font-weight:500}
+.prog{height:8px;border-radius:4px;background:var(--line);overflow:hidden}
+.prog span{display:block;height:100%;background:var(--ok)}
+.obj .nums{display:flex;flex-wrap:wrap;gap:4px 14px;font:500 .74rem var(--mono);color:var(--muted)}
+.obj .last{font-size:.8rem;color:var(--muted);border-top:1px dashed var(--line);padding-top:8px}
+.st.nao{background:var(--bg);color:var(--muted);border:1px solid var(--line)}
+.st.rumo{background:var(--ok-soft);color:var(--ok)}
+.st.risco{background:var(--crit-soft);color:var(--crit)}
+.st.concl{background:var(--open-soft);color:var(--open)}
+.ph{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.ph>li{display:grid;grid-template-columns:96px minmax(0,1fr);gap:12px}
+.ph .d{font:500 .8rem var(--mono);color:var(--accent);font-variant-numeric:tabular-nums}
+.ph .o{font:500 .72rem var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.ph ul{margin:4px 0 0;padding-left:1.1em;display:grid;gap:3px;font-size:.9rem}
+.ph-more summary{cursor:pointer;font:500 .78rem var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-top:6px}
+.src{display:inline-block;font:500 .66rem var(--mono);text-transform:uppercase;letter-spacing:.06em;padding:2px 7px;border-radius:999px;background:var(--accent-soft);color:var(--accent);vertical-align:1px}
+@media (max-width:520px){.ph>li{grid-template-columns:1fr;gap:2px}}
 [hidden]{display:none!important}
 </style>
 </head>
@@ -164,7 +188,7 @@ section.card{align-content:start}
     "exemplo": true
   },
   "diario": {
-    "versao": 1,
+    "versao": 2,
     "perfil": {
       "titulo": "Mentoria do Rafa",
       "pessoa": "Especialista sênior de dados",
@@ -173,6 +197,51 @@ section.card{align-content:start}
       "mentoria": "Helena Duarte, mentora externa, sessões 1:1 quinzenais",
       "modo_privacidade": "Contexto",
       "revisao_semanal": "Sexta à tarde"
+    },
+    "plano": {
+      "atualizado_em": "2026-09-26",
+      "objetivos": [
+        {
+          "id": "O1",
+          "texto": "Ser lido pela liderança como estratégico",
+          "indicador": "Diretor pede o trabalho; caso apresentado em fórum da liderança",
+          "status": "No rumo",
+          "acoes": [
+            "S2026-09-12-A1",
+            "S2026-09-26-A1"
+          ],
+          "evidencias": [
+            "E1"
+          ]
+        },
+        {
+          "id": "O2",
+          "texto": "Ter aliados em outros times antes das decisões",
+          "indicador": "Conversa com o time de risco feita antes do próximo comitê",
+          "status": "No rumo",
+          "acoes": [
+            "S2026-09-26-A2"
+          ],
+          "evidencias": []
+        }
+      ],
+      "historico": [
+        {
+          "data": "2026-09-05",
+          "origem": "entrevista",
+          "mudancas": [
+            "O1: criado a partir da meta (staff em 12 meses) e do que a mentoria deve mudar (liderança me ler como estratégico)"
+          ]
+        },
+        {
+          "data": "2026-09-26",
+          "origem": "S2026-09-26",
+          "mudancas": [
+            "O1: passou de Não iniciado para No rumo: resumo quinzenal definido",
+            "O2: novo objetivo: aliado de outro time antes do comitê (lição S2026-09-26-L3)"
+          ]
+        }
+      ]
     },
     "sessoes": [
       {
@@ -291,6 +360,16 @@ section.card{align-content:start}
     <div class="kpis" id="kpis"></div>
   </section>
 
+  <section aria-labelledby="h-plano">
+    <div class="sec-head"><h2 id="h-plano">Plano para a meta</h2><span class="muted" id="plano-upd"></span></div>
+    <div class="objs" id="objs"></div>
+    <div class="card">
+      <h3>Como o plano mudou</h3>
+      <p class="goal">Cada sessão, 1:1 ou feedback registrado revisa o plano. Aqui fica o que mudou e por quê.</p>
+      <ol class="ph" id="plan-hist" style="margin-top:14px"></ol>
+    </div>
+  </section>
+
   <div class="grid2">
     <section class="card" aria-labelledby="h-vis">
       <h2 id="h-vis">Visibilidade com quem decide</h2>
@@ -302,7 +381,7 @@ section.card{align-content:start}
       <h2 id="h-status">Ações por status</h2>
       <div class="stack" id="stack" role="img"></div>
       <div class="legend" id="stack-legend"></div>
-      <h2 style="margin-top:26px" id="h-licoes">Lições por sessão</h2>
+      <h2 style="margin-top:26px" id="h-licoes">Lições por registro</h2>
       <div class="bars" id="bars"></div>
     </section>
   </div>
@@ -322,7 +401,7 @@ section.card{align-content:start}
     <div class="sec-head"><h2 id="h-comp">Compromissos</h2><span class="muted mono" id="comp-n"></span></div>
     <div class="filters" id="filters" role="group" aria-label="Filtrar compromissos"></div>
     <div class="tbl"><table>
-      <thead><tr><th>Ação</th><th>Sessão</th><th>Responsável</th><th>Prazo</th><th>Status</th></tr></thead>
+      <thead><tr><th>Ação</th><th>Origem</th><th>Responsável</th><th>Prazo</th><th>Status</th></tr></thead>
       <tbody id="comp"></tbody>
     </table></div>
   </section>
@@ -333,7 +412,7 @@ section.card{align-content:start}
   </section>
 
   <section aria-labelledby="h-hist">
-    <div class="sec-head"><h2 id="h-hist">Histórico completo</h2><span class="muted">sessão mais recente primeiro</span></div>
+    <div class="sec-head"><h2 id="h-hist">Histórico completo</h2><span class="muted">sessões, 1:1 e feedbacks, mais recente primeiro</span></div>
     <div class="timeline" id="timeline"></div>
   </section>
 
@@ -354,14 +433,20 @@ section.card{align-content:start}
   var plural = function(n,a,b){return n+' '+(n===1?a:b)};
   var shared = X.audiencia === 'compartilhar';
 
-  var sess = (D.sessoes||[]).slice().sort(function(a,b){return a.data<b.data?-1:1});
-  var valid = sess.filter(function(s){return (s.licoes||[]).length||(s.acoes||[]).length});
+  var sess = (D.sessoes||[]).slice().sort(function(a,b){return a.data<b.data?-1:a.data>b.data?1:(a.id<b.id?-1:1)});
+  var tipoDe = function(s){return s.tipo||'Mentoria'};
+  var CURTO = {'1:1 com gestão':'1:1','Feedback formal':'Feedback formal','Feedback informal':'Feedback','Outra fonte':'Outra fonte'};
+  var badge = function(s){var tp=tipoDe(s);return tp==='Mentoria'?'':' <span class="src">'+esc(CURTO[tp]||tp)+'</span>'};
+  var sessById = {}; sess.forEach(function(s){sessById[s.id]=s});
+  var mentor = sess.filter(function(s){return tipoDe(s)==='Mentoria'});
+  var outras = sess.length - mentor.length;
+  var valid = mentor.filter(function(s){return (s.licoes||[]).length||(s.acoes||[]).length});
   var licById = {}, sessOfLic = {};
   sess.forEach(function(s){(s.licoes||[]).forEach(function(l){licById[l.id]=l.texto; sessOfLic[l.id]=s.id})});
   var acoes = [];
   sess.forEach(function(s){(s.acoes||[]).forEach(function(a){
     var late = a.status!=='Feito' && a.prazo && dias(a.prazo)<0;
-    acoes.push(Object.assign({sessao:s.data, atrasada:!!late}, a));
+    acoes.push(Object.assign({sessao:s.data, origem:s, atrasada:!!late}, a));
   })});
   var nL = Object.keys(licById).length;
   var by = {Feito:0, Aberto:0, 'A confirmar':0};
@@ -388,11 +473,11 @@ section.card{align-content:start}
     '<span class="pill">Atualizado em '+fmt(hojeISO)+'</span>';
 
   if(!sess.length){
-    $('kpis').innerHTML='<div class="card" style="grid-column:1/-1"><p><b>Nenhuma sessão registrada ainda.</b></p><p class="muted" style="margin-top:6px">Depois da próxima sessão de mentoria, rode /liliai-sessao com as notas. O painel se preenche sozinho a partir do diário.</p></div>';
+    $('kpis').innerHTML='<div class="card" style="grid-column:1/-1"><p><b>Nenhuma sessão registrada ainda.</b></p><p class="muted" style="margin-top:6px">Depois da próxima sessão de mentoria, 1:1 ou feedback, rode /liliai-sessao com as notas. O painel e o plano se atualizam a partir do diário.</p></div>';
   } else {
     var k = [
-      [valid.length,'Sessões', fmt(sess[0].data)+' a '+fmt(sess[sess.length-1].data)],
-      [nL,'Lições', valid.length?(nL/valid.length).toFixed(1).replace('.',',')+' por sessão':''],
+      [valid.length,'Sessões', (mentor.length?fmt(mentor[0].data)+' a '+fmt(mentor[mentor.length-1].data):'nenhuma de mentoria')+(outras?' · +'+plural(outras,'outra fonte','outras fontes'):'')],
+      [nL,'Lições', sess.length?(nL/sess.length).toFixed(1).replace('.',',')+' por registro':''],
       [pct+'%','Ações concluídas', by.Feito+' de '+acoes.length],
       [late.length,'Atrasadas', late.length?'revise primeiro':'nenhuma'],
       [next?fmt(next.prazo).slice(0,5):'nenhum','Próximo prazo', next?'em '+plural(dias(next.prazo),'dia','dias'):'sem prazos futuros'],
@@ -417,7 +502,34 @@ section.card{align-content:start}
   $('stack-legend').innerHTML = segs.map(function(s){return '<span><i style="background:'+s[2]+'"></i>'+s[0]+' <b class="mono">'+s[1]+'</b></span>'}).join('');
 
   var maxL = Math.max.apply(null, sess.map(function(s){return (s.licoes||[]).length}).concat([1]));
-  $('bars').innerHTML = sess.length ? sess.map(function(s){var n=(s.licoes||[]).length;return '<div class="bar-row" title="'+esc(s.tema)+': '+plural(n,'lição','lições')+'"><span class="mono">'+fmt(s.data)+'</span><div class="bar-track"><div class="bar-fill" style="width:'+(n/maxL*100)+'%"></div></div><span class="n">'+n+'</span></div>'}).join('') : '<p class="muted">Sem sessões.</p>';
+  $('bars').innerHTML = sess.length ? sess.map(function(s){var n=(s.licoes||[]).length;return '<div class="bar-row" title="'+esc(tipoDe(s))+' · '+esc(s.tema)+': '+plural(n,'lição','lições')+'"><span class="mono">'+fmt(s.data)+'</span><div class="bar-track"><div class="bar-fill" style="width:'+(n/maxL*100)+'%"></div></div><span class="n">'+n+'</span></div>'}).join('') : '<p class="muted">Sem sessões.</p>';
+
+  var PL = D.plano || {}, objs = PL.objetivos || [], hist = (PL.historico||[]).slice().sort(function(a,b){return a.data<b.data?1:a.data>b.data?-1:0});
+  var acById = {}; acoes.forEach(function(a){acById[a.id]=a});
+  var stCls = {'Não iniciado':'nao','No rumo':'rumo','Em risco':'risco','Concluído':'concl'};
+  var stIco = {'Não iniciado':'○','No rumo':'●','Em risco':'⚠','Concluído':'✓'};
+  var origemTxt = function(o){
+    if(o==='entrevista')return 'Entrevista';
+    if(o==='semana')return 'Revisão semanal';
+    if(sessById[o]){var s=sessById[o];return tipoDe(s)+' · '+s.tema}
+    if(/^E\d+$/.test(o))return 'Evidência '+o;
+    return o||'';
+  };
+  $('plano-upd').textContent = PL.atualizado_em ? 'revisto em '+fmt(PL.atualizado_em) : '';
+  $('objs').innerHTML = objs.length ? objs.map(function(o){
+    var as=(o.acoes||[]).map(function(id){return acById[id]}).filter(Boolean);
+    var feitas=as.filter(function(a){return a.status==='Feito'}).length, atr=as.filter(function(a){return a.atrasada}).length;
+    var lastH=null; for(var i=0;i<hist.length&&!lastH;i++){if((hist[i].mudancas||[]).some(function(m){return m.indexOf(o.id+':')===0||m.indexOf(o.id+' ')===0}))lastH=hist[i]}
+    return '<div class="card obj"><div class="obj-top"><span class="obj-id">'+esc(o.id)+'</span><span class="st '+(stCls[o.status]||'nao')+'">'+(stIco[o.status]||'○')+' '+esc(o.status||'Não iniciado')+'</span></div>'+
+      '<h3>'+esc(o.texto)+'</h3>'+
+      (o.indicador?'<p class="ind"><b>Como saber:</b> '+esc(o.indicador)+'</p>':'')+
+      (as.length?'<div class="prog" role="img" aria-label="'+feitas+' de '+as.length+' ações feitas"><span style="width:'+Math.round(feitas/as.length*100)+'%"></span></div>':'')+
+      '<div class="nums"><span>'+feitas+'/'+as.length+' ações</span>'+(atr?'<span style="color:var(--crit)">'+plural(atr,'atrasada','atrasadas')+'</span>':'')+'<span>'+plural((o.evidencias||[]).length,'evidência','evidências')+'</span></div>'+
+      (lastH?'<p class="last">Última mudança em '+fmt(lastH.data)+' · '+esc(origemTxt(lastH.origem))+'</p>':'')+
+      '</div>';
+  }).join('') : '<div class="card" style="grid-column:1/-1"><p class="muted">O plano nasce na entrevista e é revisto a cada registro. Rode /liliai-sessao com as notas da próxima sessão, de um 1:1 ou de um feedback.</p></div>';
+  var hRow = function(h){return '<li><span class="d">'+fmt(h.data)+'</span><div><span class="o">'+esc(origemTxt(h.origem))+'</span><ul>'+(h.mudancas||[]).map(function(m){return '<li>'+esc(m)+'</li>'}).join('')+'</ul></div></li>'};
+  $('plan-hist').innerHTML = hist.length ? hist.slice(0,4).map(hRow).join('')+(hist.length>4?'<li style="display:block"><details class="ph-more"><summary>Ver as '+(hist.length-4)+' revisões anteriores</summary><ol class="ph" style="margin-top:12px">'+hist.slice(4).map(hRow).join('')+'</ol></details></li>':'') : '<li style="display:block" class="muted">Ainda sem revisões.</li>';
 
   $('prio').textContent = D.prioridade || 'Rode /liliai-semana para definir a prioridade.';
   $('p30').innerHTML = (D.proximos_30_dias||[]).map(function(x){return '<li>'+esc(x)+'</li>'}).join('') || '<li class="muted">Sem itens ainda.</li>';
@@ -432,7 +544,7 @@ section.card{align-content:start}
     $('comp').innerHTML = rows.length ? rows.map(function(a){
       var due = '';
       if(a.prazo && a.status!=='Feito'){var d=dias(a.prazo); due = d<0?'<span class="due late">'+plural(-d,'dia','dias')+' de atraso</span>':'<span class="due">vence em '+plural(d,'dia','dias')+'</span>'}
-      return '<tr><td>'+esc(a.descricao)+'</td><td class="when mono">'+fmt(a.sessao)+'</td><td>'+esc(a.responsavel)+'</td><td class="when">'+(a.prazo?fmt(a.prazo)+(a.prazo_inferido?'<span class="inf">inferido</span>':''):'<span class="muted">sem prazo</span>')+due+'</td><td><span class="st '+cls(a)+'">'+lbl(a)+'</span></td></tr>';
+      return '<tr><td>'+esc(a.descricao)+'</td><td class="when mono">'+fmt(a.sessao)+badge(a.origem)+'</td><td>'+esc(a.responsavel)+'</td><td class="when">'+(a.prazo?fmt(a.prazo)+(a.prazo_inferido?'<span class="inf">inferido</span>':''):'<span class="muted">sem prazo</span>')+due+'</td><td><span class="st '+cls(a)+'">'+lbl(a)+'</span></td></tr>';
     }).join('') : '<tr><td colspan="5" class="empty">Nenhuma ação neste filtro.</td></tr>';
     $('comp-n').textContent = rows.length+' de '+acoes.length;
     $('filters').innerHTML = F.map(function(f){return '<button class="chip" type="button" id="f-'+f[0].replace(/\s/g,'-')+'" aria-pressed="'+(cur===f[0])+'" data-f="'+f[0]+'">'+f[1]+'<span class="c">'+f[2]+'</span></button>'}).join('');
@@ -448,7 +560,7 @@ section.card{align-content:start}
 
   $('timeline').innerHTML = sess.slice().reverse().map(function(s,i){
     var ac=(s.acoes||[]);
-    return '<details class="sess"'+(i===0?' open':'')+'><summary><span class="d">'+fmt(s.data)+'</span><h3>'+esc(s.tema)+'</h3><span class="c">'+plural((s.licoes||[]).length,'lição','lições')+' · '+plural(ac.length,'ação','ações')+'</span></summary><div class="inner">'+
+    return '<details class="sess"'+(i===0?' open':'')+'><summary><span class="d">'+fmt(s.data)+'</span><h3>'+esc(s.tema)+badge(s)+'</h3>'+(s.com?'<span class="c">com '+esc(s.com)+'</span>':'')+'<span class="c">'+plural((s.licoes||[]).length,'lição','lições')+' · '+plural(ac.length,'ação','ações')+'</span></summary><div class="inner">'+
       '<div class="card"><h3>Lições</h3><ul>'+(s.licoes||[]).map(function(l){return '<li>'+esc(l.texto)+'</li>'}).join('')+'</ul></div>'+
       '<div class="card"><h3>Ações</h3><ul>'+ac.map(function(a){var x=acoes.filter(function(y){return y.id===a.id})[0]||a;return '<li>'+esc(a.descricao)+' <span class="st '+cls(x)+'">'+lbl(x)+'</span></li>'}).join('')+'</ul></div>'+
       ((s.perguntas||[]).length?'<div class="card"><h3>Perguntas em aberto</h3><ul>'+s.perguntas.map(function(q){return '<li>'+esc(q)+'</li>'}).join('')+'</ul></div>':'')+
@@ -456,7 +568,7 @@ section.card{align-content:start}
   }).join('');
 
   $('foot').innerHTML = '<span>Gerado pelo /liliai-painel a partir do diario.json. Fatos só do diário; prazos marcados como "inferido" vieram de interpretação das notas.</span>'+
-    '<span>Contagem: sessão com pelo menos uma lição ou ação. Atrasada: prazo passado e status diferente de Feito. Evidência: texto lido, reunião ou pedido vindo de quem decide.</span>'+
+    '<span>Contagem: sessão de mentoria com pelo menos uma lição ou ação; 1:1 e feedbacks contam como outras fontes. O plano é revisto a cada registro. Atrasada: prazo passado e status diferente de Feito. Evidência: texto lido, reunião ou pedido vindo de quem decide.</span>'+
     (shared?'<span>Versão para compartilhar: anonimizada, sem as notas das sessões e checada pelo /liliai-privacidade. Releia antes de enviar.</span>':'<span>Versão pessoal: pode conter dados do modo Contexto. Para compartilhar, rode /liliai-painel e escolha "Para compartilhar".</span>');
 })();
 </script>

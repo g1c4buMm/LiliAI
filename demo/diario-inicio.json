@@ -1,5 +1,5 @@
 {
-  "versao": 1,
+  "versao": 2,
   "perfil": {
     "titulo": "Mentoria do Rafa",
     "pessoa": "Especialista sênior de dados",
@@ -8,6 +8,51 @@
     "mentoria": "Helena Duarte, mentora externa, sessões 1:1 quinzenais",
     "modo_privacidade": "Contexto",
     "revisao_semanal": "Sexta à tarde"
+  },
+  "plano": {
+    "atualizado_em": "2026-09-26",
+    "objetivos": [
+      {
+        "id": "O1",
+        "texto": "Ser lido pela liderança como estratégico",
+        "indicador": "Diretor pede o trabalho; caso apresentado em fórum da liderança",
+        "status": "No rumo",
+        "acoes": [
+          "S2026-09-12-A1",
+          "S2026-09-26-A1"
+        ],
+        "evidencias": [
+          "E1"
+        ]
+      },
+      {
+        "id": "O2",
+        "texto": "Ter aliados em outros times antes das decisões",
+        "indicador": "Conversa com o time de risco feita antes do próximo comitê",
+        "status": "No rumo",
+        "acoes": [
+          "S2026-09-26-A2"
+        ],
+        "evidencias": []
+      }
+    ],
+    "historico": [
+      {
+        "data": "2026-09-05",
+        "origem": "entrevista",
+        "mudancas": [
+          "O1: criado a partir da meta (staff em 12 meses) e do que a mentoria deve mudar (liderança me ler como estratégico)"
+        ]
+      },
+      {
+        "data": "2026-09-26",
+        "origem": "S2026-09-26",
+        "mudancas": [
+          "O1: passou de Não iniciado para No rumo: resumo quinzenal definido",
+          "O2: novo objetivo: aliado de outro time antes do comitê (lição S2026-09-26-L3)"
+        ]
+      }
+    ]
   },
   "sessoes": [
     {

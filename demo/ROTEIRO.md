@@ -14,6 +14,7 @@ Uma demonstração de ponta a ponta com um cenário fictício: Rafa Moura, espec
 | `instrucao-demo.md` | Instrução do projeto pronta para colar |
 | `diario-inicio.json` | Diário com as duas primeiras sessões e uma ação atrasada |
 | `notas-sessao-3.txt` | Notas brutas da terceira sessão, com nome, valor, e-mail e termo bloqueado de propósito |
+| `notas-1a1.txt` | Notas de um 1:1 com a gestora, com uma pergunta sobre bônus de propósito |
 | `evidencia.txt` | Uma evidência avulsa para registrar |
 | `post-linkedin.txt` | Um post com dados sensíveis para a checagem de privacidade |
 | `painel-inicio.html` | Painel antes da sessão 3 |
@@ -54,6 +55,7 @@ Para o formato "só o deck", a preparação abaixo é dispensável: basta abrir 
 | 1 | 4 min | `/liliai-entrevista` em modo rápido | Botões, consentimento e checagem de política |
 | 2 | 1 min | Mostra o painel do início | Onde o Rafa está depois de duas sessões |
 | 3 | 5 min | `/liliai-sessao` com as notas da sessão 3 | Privacidade, lições, ações, evidência detectada |
+| 3b | 2 min | `/liliai-sessao 1:1` com as notas do 1:1 | O plano ganha um objetivo vindo da gestora; o bônus fica de fora |
 | 4 | 1 min | Evidência avulsa | Registro em uma linha |
 | 5 | 3 min | `/liliai-semana` | Atraso, botões de status, pauta da próxima sessão |
 | 6 | 3 min | `/liliai-painel` pessoal e para compartilhar | O mesmo diário, com e sem nomes |
@@ -100,6 +102,16 @@ Abra `demo/painel-inicio.html`.
 4. Responda **ok**. O Claude devolve o `diario.json` completo.
 5. **Substitua o `diario.json`** no conhecimento do Projeto. Faça isso ao vivo: leva dez segundos.
    **Fale:** "É o único passo manual do ciclo."
+
+### Ato 3b. 1:1 com a gestora (2 min)
+
+1. Conversa nova no Projeto. Cole o conteúdo de `demo/notas-1a1.txt`. Ele já começa com `/liliai-sessao 1:1`.
+2. Mostre, na resposta:
+   - **Privacidade:** a pergunta sobre bônus vira "[assunto omitido]".
+   - **Revisão do plano:** um objetivo novo, "direção técnica para outros times", que só a gestora poderia trazer.
+   - **Ação da gestora:** "confirmar a data da calibração" fica com a Júlia como responsável.
+   **Fale:** "Não é só a mentoria que mexe no plano. O que a gestora espera entra no mesmo diário, e o plano se ajusta."
+3. Responda **ok** e substitua o diário.
 
 ### Ato 4. Evidência avulsa (1 min)
 

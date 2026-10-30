@@ -1,5 +1,5 @@
 {
-  "versao": 1,
+  "versao": 2,
   "perfil": {
     "titulo": "Minha mentoria de carreira",
     "pessoa": "Especialista sênior",
@@ -9,6 +9,87 @@
     "modo_privacidade": "Anônimo",
     "revisao_semanal": "Sexta à tarde"
   },
+  "plano": {
+    "atualizado_em": "2026-10-09",
+    "objetivos": [
+      {
+        "id": "O1",
+        "texto": "Tornar o trabalho visível para quem decide antes do ciclo",
+        "indicador": "Resumo quinzenal chegando ao gestor e uma conversa com o diretor regional até 31/10",
+        "status": "No rumo",
+        "acoes": [
+          "S2026-09-11-A2",
+          "S2026-10-09-A1",
+          "S2026-10-09-A2",
+          "S2026-10-09-A3"
+        ],
+        "evidencias": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "id": "O2",
+        "texto": "Mostrar impacto fora do próprio time",
+        "indicador": "Três casos com outros times; um deles levado ao 1:1 de novembro",
+        "status": "Em risco",
+        "acoes": [
+          "S2026-09-25-A1",
+          "S2026-09-25-A2",
+          "S2026-10-06-A1"
+        ],
+        "evidencias": []
+      },
+      {
+        "id": "O3",
+        "texto": "Falar a língua do negócio com a liderança",
+        "indicador": "Todo resumo traz risco ou receita na primeira linha",
+        "status": "Não iniciado",
+        "acoes": [],
+        "evidencias": []
+      }
+    ],
+    "historico": [
+      {
+        "data": "2026-09-04",
+        "origem": "entrevista",
+        "mudancas": [
+          "O1: criado a partir da meta e de quem decide",
+          "O2: criado a partir do que a mentoria deve mudar"
+        ]
+      },
+      {
+        "data": "2026-09-11",
+        "origem": "S2026-09-11",
+        "mudancas": [
+          "O1: passou de Não iniciado para No rumo: meta escrita em fatos e mapa de quem decide"
+        ]
+      },
+      {
+        "data": "2026-09-25",
+        "origem": "S2026-09-25",
+        "mudancas": [
+          "O2: passou de Não iniciado para No rumo: casos com outros times listados"
+        ]
+      },
+      {
+        "data": "2026-10-06",
+        "origem": "S2026-10-06",
+        "mudancas": [
+          "O2: passou de No rumo para Em risco: o gestor quer ver impacto fora do time antes do ciclo e a conversa com o time parceiro está atrasada",
+          "Prioridade: levar um caso com outro time ao 1:1 de novembro"
+        ]
+      },
+      {
+        "data": "2026-10-09",
+        "origem": "S2026-10-09",
+        "mudancas": [
+          "O1: segue No rumo, agora com o resumo de uma página definido",
+          "O3: novo objetivo, a partir da lição sobre impacto no negócio (S2026-10-09-L4)"
+        ]
+      }
+    ]
+  },
   "sessoes": [
     {
       "id": "S2026-09-11",
@@ -16,15 +97,40 @@
       "tema": "Ponto de partida e meta",
       "notas": "Mentora: Qual é a meta, em fatos que alguém consegue ver? Eu: Ser promovido no próximo ciclo. Mentora: Isso é um cargo. Escreva três fatos que provariam que você está pronto. Mentora: E descubra quem decide e quando. Quem decide precisa ver o trabalho antes do ciclo.",
       "licoes": [
-        {"id": "S2026-09-11-L1", "texto": "A meta precisa ser escrita em fatos observáveis, não em cargo."},
-        {"id": "S2026-09-11-L2", "texto": "Quem decide a promoção precisa ver o trabalho antes do ciclo, não durante."},
-        {"id": "S2026-09-11-L3", "texto": "Uma hora por semana bem usada vale mais que um plano grande."}
+        {
+          "id": "S2026-09-11-L1",
+          "texto": "A meta precisa ser escrita em fatos observáveis, não em cargo."
+        },
+        {
+          "id": "S2026-09-11-L2",
+          "texto": "Quem decide a promoção precisa ver o trabalho antes do ciclo, não durante."
+        },
+        {
+          "id": "S2026-09-11-L3",
+          "texto": "Uma hora por semana bem usada vale mais que um plano grande."
+        }
       ],
       "acoes": [
-        {"id": "S2026-09-11-A1", "descricao": "Escrever a meta em três fatos observáveis", "responsavel": "Eu", "prazo": "2026-09-18", "prazo_inferido": false, "status": "Feito"},
-        {"id": "S2026-09-11-A2", "descricao": "Mapear quem decide e quantos níveis até a decisão", "responsavel": "Eu", "prazo": "2026-09-25", "prazo_inferido": false, "status": "Feito"}
+        {
+          "id": "S2026-09-11-A1",
+          "descricao": "Escrever a meta em três fatos observáveis",
+          "responsavel": "Eu",
+          "prazo": "2026-09-18",
+          "prazo_inferido": false,
+          "status": "Feito"
+        },
+        {
+          "id": "S2026-09-11-A2",
+          "descricao": "Mapear quem decide e quantos níveis até a decisão",
+          "responsavel": "Eu",
+          "prazo": "2026-09-25",
+          "prazo_inferido": false,
+          "status": "Feito"
+        }
       ],
-      "perguntas": ["Qual o calendário do próximo ciclo de promoção?"]
+      "perguntas": [
+        "Qual o calendário do próximo ciclo de promoção?"
+      ]
     },
     {
       "id": "S2026-09-25",
@@ -32,15 +138,71 @@
       "tema": "Influência sem autoridade",
       "notas": "Mentora: Influência vem de resolver o problema de quem decide. Antes de propor, pergunte o que o outro time precisa entregar no trimestre. Eu: Tenho casos que escalaram para outros times. Mentora: Registre. É a evidência mais forte que você tem.",
       "licoes": [
-        {"id": "S2026-09-25-L1", "texto": "Influência vem de resolver o problema de quem decide, não o meu."},
-        {"id": "S2026-09-25-L2", "texto": "Antes de propor, perguntar o que o outro time precisa entregar no trimestre."},
-        {"id": "S2026-09-25-L3", "texto": "Registrar o que escalou para outros times: é a evidência mais forte."}
+        {
+          "id": "S2026-09-25-L1",
+          "texto": "Influência vem de resolver o problema de quem decide, não o meu."
+        },
+        {
+          "id": "S2026-09-25-L2",
+          "texto": "Antes de propor, perguntar o que o outro time precisa entregar no trimestre."
+        },
+        {
+          "id": "S2026-09-25-L3",
+          "texto": "Registrar o que escalou para outros times: é a evidência mais forte."
+        }
       ],
       "acoes": [
-        {"id": "S2026-09-25-A1", "descricao": "Listar três casos que escalaram para outros times", "responsavel": "Eu", "prazo": "2026-10-02", "prazo_inferido": false, "status": "Feito"},
-        {"id": "S2026-09-25-A2", "descricao": "Conversa de 30 minutos com um líder de time parceiro", "responsavel": "Eu", "prazo": "2026-10-08", "prazo_inferido": true, "status": "Aberto"}
+        {
+          "id": "S2026-09-25-A1",
+          "descricao": "Listar três casos que escalaram para outros times",
+          "responsavel": "Eu",
+          "prazo": "2026-10-02",
+          "prazo_inferido": false,
+          "status": "Feito"
+        },
+        {
+          "id": "S2026-09-25-A2",
+          "descricao": "Conversa de 30 minutos com um líder de time parceiro",
+          "responsavel": "Eu",
+          "prazo": "2026-10-08",
+          "prazo_inferido": true,
+          "status": "Aberto"
+        }
       ],
-      "perguntas": ["Qual time parceiro tem mais peso na decisão?"]
+      "perguntas": [
+        "Qual time parceiro tem mais peso na decisão?"
+      ]
+    },
+    {
+      "id": "S2026-10-06",
+      "data": "2026-10-06",
+      "tipo": "1:1 com gestão",
+      "com": "Gestor direto",
+      "tema": "Expectativas para o próximo ciclo",
+      "notas": "Gestor: Para o próximo nível eu preciso ver impacto fora do seu time, não só no seu escopo. Eu: Tenho os casos que escalaram. Gestor: Ótimo, traz um deles no 1:1 de novembro e vamos ver se cabe na revisão mensal. Gestor: O calendário do ciclo sai em dezembro.",
+      "licoes": [
+        {
+          "id": "S2026-10-06-L1",
+          "texto": "O gestor quer ver impacto fora do próprio time antes do ciclo."
+        },
+        {
+          "id": "S2026-10-06-L2",
+          "texto": "O calendário do ciclo de promoção sai em dezembro."
+        }
+      ],
+      "acoes": [
+        {
+          "id": "S2026-10-06-A1",
+          "descricao": "Levar um caso com impacto em outro time ao 1:1 de novembro",
+          "responsavel": "Eu",
+          "prazo": "2026-11-03",
+          "prazo_inferido": false,
+          "status": "Aberto"
+        }
+      ],
+      "perguntas": [
+        "Quais critérios o gestor usa para dizer que alguém está pronto?"
+      ]
     },
     {
       "id": "S2026-10-09",
@@ -48,18 +210,64 @@
       "tema": "Visibilidade com a liderança",
       "notas": "Mentora: Você entrega muito, mas ninguém lá em cima fica sabendo. Eu: No caso do Cliente A, fechamos [valor omitido] e o diretor regional nem soube. Mentora: Resumo de uma página, com problema, ação e resultado. Começa quinzenal, mas regular. A liderança quer impacto no negócio, não arquitetura. Peça 15 minutos com o diretor regional até o fim do mês e leve um caso só. Sobre o depoimento do cliente, pergunte antes à área de contas. Lição de casa: primeiro resumo antes da próxima sessão, dia 23.",
       "licoes": [
-        {"id": "S2026-10-09-L1", "texto": "Entregar sem comunicar não gera visibilidade com quem decide."},
-        {"id": "S2026-10-09-L2", "texto": "O formato do resumo é uma página: problema, ação e resultado."},
-        {"id": "S2026-10-09-L3", "texto": "Regularidade pesa mais que frequência. Começar quinzenal."},
-        {"id": "S2026-10-09-L4", "texto": "A liderança lê impacto no negócio (risco e receita), não arquitetura."},
-        {"id": "S2026-10-09-L5", "texto": "Na conversa com o diretor regional, levar um caso só."},
-        {"id": "S2026-10-09-L6", "texto": "Pedido de depoimento a cliente passa antes pela área de contas."}
+        {
+          "id": "S2026-10-09-L1",
+          "texto": "Entregar sem comunicar não gera visibilidade com quem decide."
+        },
+        {
+          "id": "S2026-10-09-L2",
+          "texto": "O formato do resumo é uma página: problema, ação e resultado."
+        },
+        {
+          "id": "S2026-10-09-L3",
+          "texto": "Regularidade pesa mais que frequência. Começar quinzenal."
+        },
+        {
+          "id": "S2026-10-09-L4",
+          "texto": "A liderança lê impacto no negócio (risco e receita), não arquitetura."
+        },
+        {
+          "id": "S2026-10-09-L5",
+          "texto": "Na conversa com o diretor regional, levar um caso só."
+        },
+        {
+          "id": "S2026-10-09-L6",
+          "texto": "Pedido de depoimento a cliente passa antes pela área de contas."
+        }
       ],
       "acoes": [
-        {"id": "S2026-10-09-A1", "descricao": "Escrever o primeiro resumo de uma página e enviar à mentora", "responsavel": "Eu", "prazo": "2026-10-23", "prazo_inferido": true, "status": "Aberto"},
-        {"id": "S2026-10-09-A2", "descricao": "Enviar o resumo ao gestor direto, a cada 15 dias", "responsavel": "Eu", "prazo": "", "prazo_inferido": false, "status": "Aberto"},
-        {"id": "S2026-10-09-A3", "descricao": "Pedir 15 minutos com o diretor regional, levando um caso", "responsavel": "Eu", "prazo": "2026-10-31", "prazo_inferido": true, "status": "Aberto"},
-        {"id": "S2026-10-09-A4", "descricao": "Consultar a área de contas sobre o depoimento do Cliente A", "responsavel": "Eu", "prazo": "", "prazo_inferido": false, "status": "A confirmar"}
+        {
+          "id": "S2026-10-09-A1",
+          "descricao": "Escrever o primeiro resumo de uma página e enviar à mentora",
+          "responsavel": "Eu",
+          "prazo": "2026-10-23",
+          "prazo_inferido": true,
+          "status": "Aberto"
+        },
+        {
+          "id": "S2026-10-09-A2",
+          "descricao": "Enviar o resumo ao gestor direto, a cada 15 dias",
+          "responsavel": "Eu",
+          "prazo": "",
+          "prazo_inferido": false,
+          "status": "Aberto"
+        },
+        {
+          "id": "S2026-10-09-A3",
+          "descricao": "Pedir 15 minutos com o diretor regional, levando um caso",
+          "responsavel": "Eu",
+          "prazo": "2026-10-31",
+          "prazo_inferido": true,
+          "status": "Aberto"
+        },
+        {
+          "id": "S2026-10-09-A4",
+          "descricao": "Consultar a área de contas sobre o depoimento do Cliente A",
+          "responsavel": "Eu",
+          "prazo": "",
+          "prazo_inferido": false,
+          "status": "A confirmar"
+        }
       ],
       "perguntas": [
         "O que a mentora disse depois do corte de áudio sobre o depoimento?",
@@ -69,18 +277,56 @@
     }
   ],
   "evidencias": [
-    {"id": "E1", "data": "2026-09-30", "tipo": "Texto lido", "descricao": "Lista de casos que escalaram, comentada pelo gestor direto", "quem": "Gestor direto", "sessao": "S2026-09-25"},
-    {"id": "E2", "data": "2026-10-06", "tipo": "Pedido da liderança", "descricao": "Gestor pediu um dos casos para a revisão mensal", "quem": "Gestor direto", "sessao": "S2026-09-25"}
+    {
+      "id": "E1",
+      "data": "2026-09-30",
+      "tipo": "Texto lido",
+      "descricao": "Lista de casos que escalaram, comentada pelo gestor direto",
+      "quem": "Gestor direto",
+      "sessao": "S2026-09-25"
+    },
+    {
+      "id": "E2",
+      "data": "2026-10-06",
+      "tipo": "Pedido da liderança",
+      "descricao": "Gestor pediu um dos casos para a revisão mensal",
+      "quem": "Gestor direto",
+      "sessao": "S2026-10-06"
+    }
   ],
   "pilares": [
-    {"nome": "Visibilidade com quem decide", "licoes": ["S2026-10-09-L1", "S2026-09-11-L2", "S2026-10-09-L3"], "o_que_muda": "Um resumo de uma página, quinzenal, para o gestor direto."},
-    {"nome": "Linguagem de negócio", "licoes": ["S2026-10-09-L4", "S2026-10-09-L2"], "o_que_muda": "Traduzir cada entrega técnica para risco e receita."},
-    {"nome": "Influência entre times", "licoes": ["S2026-09-25-L1", "S2026-09-25-L2", "S2026-09-25-L3"], "o_que_muda": "Perguntar a meta do outro time antes de propor."}
+    {
+      "nome": "Visibilidade com quem decide",
+      "licoes": [
+        "S2026-10-09-L1",
+        "S2026-09-11-L2",
+        "S2026-10-09-L3"
+      ],
+      "o_que_muda": "Um resumo de uma página, quinzenal, para o gestor direto."
+    },
+    {
+      "nome": "Linguagem de negócio",
+      "licoes": [
+        "S2026-10-09-L4",
+        "S2026-10-09-L2"
+      ],
+      "o_que_muda": "Traduzir cada entrega técnica para risco e receita."
+    },
+    {
+      "nome": "Influência entre times",
+      "licoes": [
+        "S2026-09-25-L1",
+        "S2026-09-25-L2",
+        "S2026-09-25-L3"
+      ],
+      "o_que_muda": "Perguntar a meta do outro time antes de propor."
+    }
   ],
   "prioridade": "Escrever o primeiro resumo de uma página. Ele alimenta a mentora, o gestor e a conversa com o diretor regional.",
   "proximos_30_dias": [
     "Enviar o primeiro resumo à mentora até 23/10 (inferência)",
     "Fazer a conversa atrasada com o líder de time parceiro",
-    "Pedir os 15 minutos com o diretor regional até 31/10 (inferência)"
+    "Pedir os 15 minutos com o diretor regional até 31/10 (inferência)",
+    "Levar um caso com outro time ao 1:1 de novembro (03/11)"
   ]
 }

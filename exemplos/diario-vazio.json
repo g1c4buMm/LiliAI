@@ -1,5 +1,5 @@
 {
-  "versao": 1,
+  "versao": 2,
   "perfil": {
     "titulo": "Minha mentoria de carreira",
     "pessoa": "Analista pleno",
@@ -8,6 +8,11 @@
     "mentoria": "Mentor interno, sessões mensais",
     "modo_privacidade": "Anônimo",
     "revisao_semanal": "Segunda de manhã"
+  },
+  "plano": {
+    "atualizado_em": "",
+    "objetivos": [],
+    "historico": []
   },
   "sessoes": [],
   "evidencias": [],

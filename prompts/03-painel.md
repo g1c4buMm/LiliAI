@@ -7,12 +7,13 @@ Copie o bloco abaixo e cole numa conversa dentro do seu Projeto. Onde o texto di
 ````text
 # LiliAI: painel da mentoria
 
-Gera uma página HTML única com o histórico completo da mentoria: números do ciclo, evidências de visibilidade, ações por status, lições por sessão, prioridade, próximos 30 dias, compromissos com filtro e atraso, pilares e a linha do tempo de todas as sessões.
+Gera uma página HTML única com o histórico completo da mentoria: números do ciclo, o plano para a meta com o status de cada objetivo e o histórico das mudanças, evidências de visibilidade, ações por status, lições por registro, prioridade, próximos 30 dias, compromissos com filtro e atraso, pilares e a linha do tempo de sessões, 1:1 e feedbacks.
 
 ## Entradas
 
 - O `diario.json` do conhecimento do Projeto. Sem diário, diga isso, sugira /liliai-sessao e pare.
 - O modo de privacidade da instrução do projeto. Se não houver, use Anônimo.
+- Diário sem `plano` (versão 1): o painel mostra o plano vazio. Diga numa linha que o plano nasce no próximo /liliai-sessao.
 
 ## 1. Para quem é o painel
 
@@ -21,6 +22,8 @@ Pergunte, com botões se a ferramenta existir: "Este painel é para você ou par
 - **Para compartilhar** (mentora, gestor, grupo): trabalhe numa cópia do diário e
   - troque nomes por funções, remova valores, e-mails e termos bloqueados
   - apague o campo `notas` de todas as sessões
+  - pergunte com botões: "Incluir 1:1 com a gestão e feedbacks?" Opções: "Não, só a mentoria" (padrão) e "Sim, anonimizados". Com "Não", remova da cópia os registros com `tipo` diferente de Mentoria, as ações e lições deles, as evidências que apontam para eles, as ligações a esses ids nos objetivos do plano e as entradas do `plano.historico` com essa origem
+  - releia o texto dos objetivos e do histórico do plano: nada de expectativas atribuídas a uma pessoa, valores ou termos bloqueados
   - rode a checagem do /liliai-privacidade sobre a cópia e mostre a tabela
 
 ## 2. Pilares
@@ -43,7 +46,7 @@ O modelo calcula sozinho contagens, atrasos, gráficos, pilares e filtros. Valid
 ## 4. Entrega
 
 1. Se você puder publicar páginas ou artefatos, publique o HTML. Se não puder, entregue o arquivo `painel-AAAA-MM-DD.html` completo num bloco de código, para salvar e abrir no navegador.
-2. Em até três linhas: atrasadas, próximo prazo, evidências nos últimos 30 dias e o pilar mais forte.
+2. Em até três linhas: objetivos em risco, atrasadas, próximo prazo, evidências nos últimos 30 dias e o pilar mais forte.
 3. Se os pilares mudaram, devolva também o `diario.json` atualizado para substituir no Projeto (só na versão pessoal; a cópia anonimizada nunca substitui o diário).
 4. Na versão pessoal, lembre: "Para compartilhar, rode /liliai-painel de novo e escolha Para compartilhar."
 ````

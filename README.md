@@ -29,11 +29,12 @@
 
 Você assiste a uma sessão de mentoria. Concorda com a cabeça. Anota três palavras no caderno. Duas semanas depois, só lembra de "algo sobre visibilidade".
 
-O **LiliAI** é um kit de cinco comandos para o Claude que transforma cada sessão de mentoria em:
+O **LiliAI** é um kit de cinco comandos para o Claude que transforma cada sessão de mentoria, 1:1 com a gestão e feedback em:
 
 - **notas** limpas (o que foi dito),
 - **lições e ações** com responsável, prazo e status,
 - **evidências de visibilidade**: quando quem decide leu, recebeu ou pediu algo seu,
+- um **plano para a meta** que se revisa a cada registro: o que avançou, o que entrou em risco e por quê,
 - um **painel** com todo o histórico, para você ou anonimizado para compartilhar.
 
 Tudo acontece numa conversa com o Claude, dentro de um Projeto. Não tem código. Seus dados ficam num único arquivo, o `diario.json`, no seu Projeto, nunca neste repositório.
@@ -46,9 +47,11 @@ Tudo acontece numa conversa com o Claude, dentro de um Projeto. Não tem código
 | 2 | **Entrevista com botões** | Você escolhe: rápido (11 perguntas, cerca de 5 minutos) ou completo (38) |
 | 3 | **Privacidade com consentimento** | Anônimo por padrão. Dados reais só com o seu sim explícito |
 | 4 | **Evidências de visibilidade** | Mede o que mudou em quem decide, não só o que você fez |
-| 5 | **Painel HTML** | Números, atrasos, pilares e histórico, calculados direto do diário |
-| 6 | **Prompts equivalentes** | Sem Skills no plano? Cole o prompt e o resultado é o mesmo |
-| 7 | **Demo pronta** | Cenário fictício e roteiro de 20 minutos em `demo/` |
+| 5 | **Plano que aprende** | Cada registro revisa os objetivos para a meta e guarda o que mudou e por quê |
+| 6 | **Outras fontes** | 1:1 com a gestão, avaliações e feedbacks entram no mesmo diário e ajustam o plano |
+| 7 | **Painel HTML** | Plano, números, atrasos, pilares e histórico, calculados direto do diário |
+| 8 | **Prompts equivalentes** | Sem Skills no plano? Cole o prompt e o resultado é o mesmo |
+| 9 | **Demo pronta** | Cenário fictício e roteiro de 20 minutos em `demo/` |
 
 ## O que você precisa
 
@@ -127,7 +130,7 @@ Copie a instrução para **Configurações do projeto > Instruções** e salve. 
 
 ### Fase 2. Usar
 
-#### Passo 7. Registre a sessão: `/liliai-sessao`
+#### Passo 7. Registre a sessão, o 1:1 ou o feedback: `/liliai-sessao`
 
 Logo depois da sessão, numa conversa do Projeto, envie numa mensagem só:
 
@@ -139,13 +142,26 @@ Tema: Visibilidade com a liderança
 [cole aqui as notas brutas ou a transcrição]
 ```
 
+Teve 1:1 com a gestão ou recebeu um feedback? Mesmo comando, com o tipo na primeira linha. Vale texto colado ou arquivo anexado (a avaliação em PDF, por exemplo):
+
+```text
+/liliai-sessao 1:1
+Data: 2026-10-14
+Com: gestor direto
+Tema: Expectativas para o próximo ciclo
+
+[cole as notas do 1:1, ou use /liliai-sessao feedback e anexe a avaliação]
+```
+
 | Etapa | O que o Claude faz |
 |---|---|
-| Privacidade | Lista nomes, e-mails e valores. No Anônimo troca por funções; no Contexto mantém e avisa |
+| Tipo | Mentoria, 1:1 com gestão, feedback formal, feedback informal ou outra fonte. Se não der para saber, pergunta com botões |
+| Privacidade | Lista nomes, e-mails e valores. No Anônimo troca por funções; no Contexto mantém e avisa. Salário, bônus e assuntos pessoais nunca entram |
 | Notas | Limpa o texto sem resumir nem inventar |
 | Lições e ações | Extrai com ids, responsável, prazo e status, e marca inferências |
 | Ações antigas | Atualiza o status quando as notas disserem |
 | Evidências | Detecta quando quem decide leu, recebeu ou pediu algo seu |
+| Plano | Revisa cada objetivo para a meta: liga ações e evidências, muda o status com o motivo, cria objetivo novo quando a gestão espera algo que o plano não cobre e aponta conflitos com a mentoria |
 | Métricas | Conta e confere a soma |
 
 ![Passo 7: registrando uma sessão](assets/screenshots/06-nova-sessao.png)

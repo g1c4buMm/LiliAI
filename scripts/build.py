@@ -41,6 +41,8 @@ REMOVIDOS = ['liliai-preparar', 'liliai-pilares', 'liliai-dossie']
 DOCS_COM_COMANDOS = ['README.md', 'index.html', 'skills/README.md']
 STATUS = {'Feito', 'Aberto', 'A confirmar'}
 TIPOS = {'Texto lido', 'Reunião com liderança', 'Pedido da liderança'}
+FONTES = {'Mentoria', '1:1 com gestão', 'Feedback formal', 'Feedback informal', 'Outra fonte'}
+STATUS_OBJ = {'Não iniciado', 'No rumo', 'Em risco', 'Concluído'}
 
 problemas, mudou = [], []
 
@@ -116,6 +118,38 @@ def validar_diario(rel, d):
         for lid in p.get('licoes', []):
             if lid not in licoes:
                 problemas.append(f'{pre} pilar "{p.get("nome")}" aponta para lição inexistente {lid}')
+    acoes_ids = {a.get('id') for s in d.get('sessoes', []) for a in s.get('acoes', [])}
+    ev_ids = {e.get('id') for e in d.get('evidencias', [])}
+    for s in d.get('sessoes', []):
+        if s.get('tipo', 'Mentoria') not in FONTES:
+            problemas.append(f'{pre} tipo de registro inválido em {s.get("id")}: {s.get("tipo")}')
+    plano = d.get('plano')
+    if plano is None:
+        if d.get('versao', 1) >= 2:
+            problemas.append(f'{pre} falta "plano" (versao 2)')
+        return
+    if plano.get('atualizado_em') and not data_ok(plano['atualizado_em']):
+        problemas.append(f'{pre} plano.atualizado_em inválido')
+    oids = set()
+    for o in plano.get('objetivos', []):
+        oid = o.get('id', '')
+        if not re.fullmatch(r'O\d+', oid) or oid in oids:
+            problemas.append(f'{pre} id de objetivo inválido ou repetido: {oid}')
+        oids.add(oid)
+        if o.get('status') not in STATUS_OBJ:
+            problemas.append(f'{pre} status inválido no objetivo {oid}: {o.get("status")}')
+        for aid in o.get('acoes', []):
+            if aid not in acoes_ids:
+                problemas.append(f'{pre} objetivo {oid} aponta para ação inexistente {aid}')
+        for eid in o.get('evidencias', []):
+            if eid not in ev_ids:
+                problemas.append(f'{pre} objetivo {oid} aponta para evidência inexistente {eid}')
+    for h in plano.get('historico', []):
+        if not data_ok(h.get('data', '')) or not h.get('mudancas'):
+            problemas.append(f'{pre} entrada de histórico do plano inválida: {h}')
+        o = h.get('origem', '')
+        if o not in sess_ids and o not in ('entrevista', 'semana') and not o.startswith('E'):
+            problemas.append(f'{pre} histórico do plano com origem desconhecida: {o}')
 
 
 def injetar(modelo, diario, audiencia='pessoal', exemplo=True):

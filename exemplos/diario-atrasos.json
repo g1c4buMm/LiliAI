@@ -1,5 +1,5 @@
 {
-  "versao": 1,
+  "versao": 2,
   "perfil": {
     "titulo": "Mentoria com atrasos",
     "pessoa": "Analista pleno",
@@ -8,6 +8,76 @@
     "mentoria": "Mentor interno, sessões mensais",
     "modo_privacidade": "Anônimo",
     "revisao_semanal": "Segunda de manhã"
+  },
+  "plano": {
+    "atualizado_em": "2026-10-08",
+    "objetivos": [
+      {
+        "id": "O1",
+        "texto": "Combinar o jogo por escrito com o gestor",
+        "indicador": "Critérios de sênior aceitos por escrito",
+        "status": "Em risco",
+        "acoes": [
+          "S2026-07-31-A1",
+          "S2026-07-31-A2"
+        ],
+        "evidencias": [
+          "E1"
+        ]
+      },
+      {
+        "id": "O2",
+        "texto": "Entregar o projeto de vitrine em partes visíveis",
+        "indicador": "Primeira entrega mostrada antes do fim do trimestre",
+        "status": "Em risco",
+        "acoes": [
+          "S2026-08-28-A1",
+          "S2026-08-28-A2",
+          "S2026-09-30-A1"
+        ],
+        "evidencias": []
+      },
+      {
+        "id": "O3",
+        "texto": "Ter um patrocinador acima do gestor",
+        "indicador": "Uma conversa com o diretor por trimestre",
+        "status": "Não iniciado",
+        "acoes": [],
+        "evidencias": []
+      }
+    ],
+    "historico": [
+      {
+        "data": "2026-07-01",
+        "origem": "entrevista",
+        "mudancas": [
+          "O1: criado a partir da meta",
+          "O2: criado a partir do que a mentoria deve mudar"
+        ]
+      },
+      {
+        "data": "2026-08-28",
+        "origem": "S2026-08-28",
+        "mudancas": [
+          "O3: novo objetivo, a partir do pilar de patrocínio"
+        ]
+      },
+      {
+        "data": "2026-09-30",
+        "origem": "S2026-09-30",
+        "mudancas": [
+          "O2: passou de No rumo para Em risco: a avaliação citou o atraso do projeto de vitrine e a comunicação de andamento"
+        ]
+      },
+      {
+        "data": "2026-10-08",
+        "origem": "S2026-10-08",
+        "mudancas": [
+          "O1: passou de No rumo para Em risco: o acordo por escrito com o gestor está atrasado desde 31/08",
+          "Prioridade: destravar as ações atrasadas antes de qualquer objetivo novo"
+        ]
+      }
+    ]
   },
   "sessoes": [
     {
@@ -140,6 +210,35 @@
           "prazo": "2026-10-05",
           "prazo_inferido": true,
           "status": "Aberto"
+        }
+      ],
+      "perguntas": []
+    },
+    {
+      "id": "S2026-09-30",
+      "data": "2026-09-30",
+      "tipo": "Feedback formal",
+      "com": "Gestor direto",
+      "tema": "Avaliação de meio de ano",
+      "notas": "Pontos fortes: execução técnica e confiabilidade nas entregas. A desenvolver: comunicar o andamento para stakeholders sem que eles precisem perguntar. Exemplo citado: atraso do projeto de vitrine soube-se tarde.",
+      "licoes": [
+        {
+          "id": "S2026-09-30-L1",
+          "texto": "Ponto forte reconhecido: execução técnica e confiabilidade."
+        },
+        {
+          "id": "S2026-09-30-L2",
+          "texto": "A desenvolver: comunicar o andamento antes de alguém perguntar."
+        }
+      ],
+      "acoes": [
+        {
+          "id": "S2026-09-30-A1",
+          "descricao": "Combinar com o gestor um formato de status semanal do projeto de vitrine",
+          "responsavel": "Eu",
+          "prazo": "2026-10-07",
+          "prazo_inferido": true,
+          "status": "A confirmar"
         }
       ],
       "perguntas": []

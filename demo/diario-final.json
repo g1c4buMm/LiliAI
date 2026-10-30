@@ -1,5 +1,5 @@
 {
-  "versao": 1,
+  "versao": 2,
   "perfil": {
     "titulo": "Mentoria do Rafa",
     "pessoa": "Especialista sênior de dados",
@@ -8,6 +8,83 @@
     "mentoria": "Helena Duarte, mentora externa, sessões 1:1 quinzenais",
     "modo_privacidade": "Contexto",
     "revisao_semanal": "Sexta à tarde"
+  },
+  "plano": {
+    "atualizado_em": "2026-10-09",
+    "objetivos": [
+      {
+        "id": "O1",
+        "texto": "Ser lido pela liderança como estratégico",
+        "indicador": "Diretor pede o trabalho; caso apresentado no comitê de 30/10",
+        "status": "No rumo",
+        "acoes": [
+          "S2026-09-12-A1",
+          "S2026-09-26-A1",
+          "S2026-10-09-A1",
+          "S2026-10-09-A2",
+          "S2026-10-09-A3"
+        ],
+        "evidencias": [
+          "E1",
+          "E2",
+          "E3"
+        ]
+      },
+      {
+        "id": "O2",
+        "texto": "Ter aliados em outros times antes das decisões",
+        "indicador": "Conversa com o time de risco feita antes do comitê de 30/10",
+        "status": "Em risco",
+        "acoes": [
+          "S2026-09-26-A2"
+        ],
+        "evidencias": []
+      },
+      {
+        "id": "O3",
+        "texto": "Mostrar escopo de plataforma: direção técnica para outros times",
+        "indicador": "Proposta de padrão de dados adotada por dois times",
+        "status": "Não iniciado",
+        "acoes": [
+          "S2026-10-08-A1",
+          "S2026-10-08-A2"
+        ],
+        "evidencias": []
+      }
+    ],
+    "historico": [
+      {
+        "data": "2026-09-05",
+        "origem": "entrevista",
+        "mudancas": [
+          "O1: criado a partir da meta (staff em 12 meses) e do que a mentoria deve mudar (liderança me ler como estratégico)"
+        ]
+      },
+      {
+        "data": "2026-09-26",
+        "origem": "S2026-09-26",
+        "mudancas": [
+          "O1: passou de Não iniciado para No rumo: resumo quinzenal definido",
+          "O2: novo objetivo: aliado de outro time antes do comitê (lição S2026-09-26-L3)"
+        ]
+      },
+      {
+        "data": "2026-10-08",
+        "origem": "S2026-10-08",
+        "mudancas": [
+          "O3: novo objetivo: a gestora espera direção técnica para outros times, critério de staff",
+          "Próximos 30 dias: proposta de padrão de dados até 06/11"
+        ]
+      },
+      {
+        "data": "2026-10-09",
+        "origem": "S2026-10-09",
+        "mudancas": [
+          "O1: segue No rumo, com dois pedidos da liderança (E2, E3)",
+          "O2: passou de No rumo para Em risco: conversa com o time de risco atrasada desde 30/09 e o comitê é dia 30/10"
+        ]
+      }
+    ]
   },
   "sessoes": [
     {
@@ -90,6 +167,45 @@
       ],
       "perguntas": [
         "Quem no time de risco tem mais influência no comitê?"
+      ]
+    },
+    {
+      "id": "S2026-10-08",
+      "data": "2026-10-08",
+      "tipo": "1:1 com gestão",
+      "com": "Júlia Tanaka",
+      "tema": "Expectativas para staff",
+      "notas": "Júlia: Gostei do resumo, encaminhei pro Marcos. Rafa: O que falta pra você me ver como staff? Júlia: Hoje você executa muito bem. Staff define direção técnica para outros times. Júlia: Me traz uma proposta de padrão de dados que dois times adotariam. Júlia: Se o comitê do dia 30 for bem, eu levo seu caso para a calibração de dezembro. Júlia: Ainda vou confirmar a data da calibração.",
+      "licoes": [
+        {
+          "id": "S2026-10-08-L1",
+          "texto": "Para staff, a gestora quer ver direção técnica para outros times, não só execução."
+        },
+        {
+          "id": "S2026-10-08-L2",
+          "texto": "Se o comitê for bem, o caso vai para a calibração de dezembro."
+        }
+      ],
+      "acoes": [
+        {
+          "id": "S2026-10-08-A1",
+          "descricao": "Escrever uma proposta de padrão de dados para dois times",
+          "responsavel": "Rafa",
+          "prazo": "2026-11-06",
+          "prazo_inferido": false,
+          "status": "Aberto"
+        },
+        {
+          "id": "S2026-10-08-A2",
+          "descricao": "Confirmar a data da calibração de dezembro",
+          "responsavel": "Júlia Tanaka",
+          "prazo": "",
+          "prazo_inferido": false,
+          "status": "A confirmar"
+        }
+      ],
+      "perguntas": [
+        "Quais dois times têm mais a ganhar com um padrão de dados?"
       ]
     },
     {
@@ -214,6 +330,7 @@
     "Deck do caso pronto até 23/10",
     "Ensaio com a Júlia até 28/10",
     "Confirmar o número com a área comercial",
-    "Apresentar no comitê de arquitetura em 30/10"
+    "Apresentar no comitê de arquitetura em 30/10",
+    "Proposta de padrão de dados para dois times até 06/11"
   ]
 }

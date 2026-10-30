@@ -1,6 +1,6 @@
 ---
 name: liliai-entrevista
-description: Conduz a entrevista de onboarding do LiliAI (você escolhe: modo rápido de 11 perguntas ou completo de 38), registra o consentimento de privacidade e entrega a instrução do projeto, o resumo de contexto, o diario.json inicial e o primeiro painel, com os próximos passos. Use com /liliai-entrevista.
+description: Conduz a entrevista de onboarding do LiliAI (modo rápido ou completo), registra o consentimento de privacidade e entrega a instrução do projeto, o resumo de contexto, o diario.json inicial com o plano para a meta e o primeiro painel, com os próximos passos. Use com /liliai-entrevista.
 ---
 
 # LiliAI: entrevista de onboarding
@@ -57,14 +57,19 @@ Entregue cinco itens, nesta ordem. Os quatro primeiros vão cada um num bloco de
 2. **Instrução do projeto**, pronta para colar em Configurações do projeto > Instruções. Comece pelo bloco de privacidade abaixo e inclua: quem é a pessoa (A1, A2, A4), meta e prazo (B1, B2), mentoria (C1, C2), o que a mentoria deve mudar (C3), quem decide (D1), formato de leitura (G3), o que evitar na escrita (G4), política da empresa para IA (H3), o que nunca registrar (I1), termos bloqueados (I2), e estas regras:
    - trabalhar só com o que o usuário enviar
    - o diário da mentoria é o arquivo `diario.json` do conhecimento do Projeto; os comandos leem e devolvem esse arquivo
+   - o diário recebe sessões de mentoria, 1:1 com a gestão e feedbacks; cada registro revisa o plano para a meta
+   - nunca registrar salário, bônus, remuneração ou assuntos pessoais de qualquer pessoa
    - seguir o modo de privacidade: no Anônimo, anonimizar tudo; no Contexto, manter dados reais só dentro do Projeto e anonimizar o que sair
    - separar fato, inferência e estimativa; sinalizar o que não tem evidência
    - avisar quando um termo bloqueado aparecer
    - escrever de forma direta
    - comandos do kit: /liliai-sessao, /liliai-semana, /liliai-painel e /liliai-privacidade
 3. **Termos bloqueados**, um por linha.
-4. **`diario.json` inicial**: o modelo vazio (`modelos/diario.json` ou o `diario.json` desta skill) com o bloco `perfil` preenchido: `pessoa` (A1), `meta` (B1), `prazo_meta` (B2), `mentoria` (C1 e C2), `modo_privacidade` (P1) e `revisao_semanal` (G2, ou vazio).
-5. **Primeiro painel**, gerado na hora a partir desse `diario.json` inicial, sem esperar o usuário pedir. Mesmo com pouca informação, o painel mostra a meta, o prazo e os espaços que vão ser preenchidos a cada sessão.
+4. **`diario.json` inicial**: o modelo vazio (`modelos/diario.json` ou o `diario.json` desta skill) com o bloco `perfil` preenchido: `pessoa` (A1), `meta` (B1), `prazo_meta` (B2), `mentoria` (C1 e C2), `modo_privacidade` (P1) e `revisao_semanal` (G2, ou vazio), e com o **plano inicial**:
+   - de dois a três objetivos tirados da meta (B1), do que a mentoria deve mudar (C3) e de quem decide (D1), no formato `{"id": "O1", "texto": "...", "indicador": "como saber que avançou", "status": "Não iniciado", "acoes": [], "evidencias": []}`. Escreva o indicador como fato observável; se não houver base, deixe `""`.
+   - `plano.atualizado_em` = hoje e `plano.historico` = `[{"data": "<hoje>", "origem": "entrevista", "mudancas": ["O1: criado a partir de ...", ...]}]`.
+   - Mostre os objetivos numa tabela antes do bloco e peça para aceitar ou ajustar, com botões se a ferramenta existir.
+5. **Primeiro painel**, gerado na hora a partir desse `diario.json` inicial, sem esperar o usuário pedir. Mesmo com pouca informação, o painel mostra a meta, o prazo, o plano inicial e os espaços que vão ser preenchidos a cada sessão.
    - Use `modelos/painel.html` do conhecimento do Projeto ou o `painel.html` que acompanha esta skill.
    - Copie o modelo inteiro, sem mudar HTML, CSS ou script. Troque somente o conteúdo do bloco `<script type="application/json" id="dados">` por `{"exibicao": {"hoje": "AAAA-MM-DD", "audiencia": "pessoal", "exemplo": false}, "diario": { ...o diario.json inicial... }}`. Valide o JSON.
    - Se você puder publicar páginas ou artefatos, publique. Se não puder, entregue o arquivo `painel-AAAA-MM-DD.html` completo num bloco de código, para salvar e abrir no navegador.
@@ -82,8 +87,12 @@ PRÓXIMOS PASSOS (5 minutos, só uma vez)
 3. Seu painel já está acima. Para ver de novo, a qualquer momento: /liliai-painel
 
 DEPOIS DE CADA SESSÃO DE MENTORIA
-- /liliai-sessao e cole suas notas → eu devolvo o diario.json novo e o painel atualizado.
+- /liliai-sessao e cole suas notas → eu devolvo o diario.json novo, o plano revisado e o painel atualizado.
 - Substitua o diario.json no Projeto pela versão nova.
+
+TEVE 1:1 COM A GESTÃO OU FEEDBACK?
+- /liliai-sessao 1:1 ou /liliai-sessao feedback, com as notas, o texto ou o arquivo da avaliação.
+- O plano se ajusta ao que a gestão espera. Salário, bônus e assuntos pessoais nunca são registrados.
 
 TODA SEMANA
 - /liliai-semana → atrasos, evidências e a pauta da próxima sessão.
