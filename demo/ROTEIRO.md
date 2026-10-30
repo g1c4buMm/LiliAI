@@ -77,7 +77,7 @@ Se preferir abrir sem slides, use esta fala:
 4. No **H3**, escolha "Permitido com ferramentas aprovadas". O Claude pergunta se ele é uma ferramenta aprovada. Responda **Sim**.
    **Fale:** "Se a política da empresa contradisser o modo, ele volta para anônimo sozinho."
 5. No **I1**, responda **Nenhum**. O Claude propõe um padrão (documentos internos, credenciais, dados de terceiros). Aceite.
-6. Mostre os quatro blocos que saem: contexto, instrução, termos bloqueados e `diario.json` inicial.
+6. Mostre o que sai: contexto, instrução, termos bloqueados, `diario.json` inicial, o primeiro painel já aberto e o bloco **Próximos passos**.
    **Fale:** "Em cinco minutos, o Claude conhece a pessoa, a meta, a política da empresa e o que nunca pode ser registrado."
 7. **Não salve nada deste ato.** O Projeto já tem a instrução e o diário prontos para o resto da demo.
 

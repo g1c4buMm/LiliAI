@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.2 (2026-10-10)
+
+- **Primeiro painel no fim da entrevista**: o `/liliai-entrevista` gera o painel na hora, a partir do `diario.json` inicial, mesmo com poucas respostas.
+- **Bloco "Próximos passos"** no fim da entrevista: o que salvar no Projeto, onde colar a instrução e o comando de cada momento (sessão, semana, painel). Deixa claro que salvar arquivos no Projeto é um passo da pessoa.
+- **Painel depois de cada sessão**: o `/liliai-sessao` oferece "Ver agora" e gera o painel com o diário novo, sem esperar a troca no Projeto.
+- Vídeos com áudio em 48 kHz.
+- Pitch do hackathon em `demo/hackathon/`: deck de 3 slides com cronômetro, roteiro em pop-up e `apresentar.command`.
+
 ## 2.1 (2026-10-10)
 
 - **Timelapse da instalação** (`demo/timelapse.html`): 14 cenas da instalação do zero até o painel, com relógio acelerado e fala de cada passo.

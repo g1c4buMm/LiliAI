@@ -105,7 +105,7 @@ Numa conversa **dentro do Projeto**, digite `/liliai-entrevista`.
 
 ![Passo 4: entrevista com botões](assets/screenshots/03-entrevista.png)
 
-#### Passo 5. Receba os quatro itens
+#### Passo 5. Receba os cinco itens e o seu primeiro painel
 
 | Bloco | O que fazer |
 |---|---|
@@ -113,6 +113,9 @@ Numa conversa **dentro do Projeto**, digite `/liliai-entrevista`.
 | Instrução do projeto | Colar no passo 6 |
 | Termos bloqueados | Nada: já estão na instrução |
 | `diario.json` inicial | Salvar no conhecimento como `diario.json` |
+| Primeiro painel | Nada: ele já abre pronto, com a sua meta e o prazo. Para ver de novo: `/liliai-painel` |
+
+No fim, o Claude mostra um bloco **Próximos passos** com o que salvar no Projeto e o comando de cada momento. O Claude não grava arquivos no seu Projeto: salvar o `contexto.md` e o `diario.json` é com você.
 
 ![Passo 5: o Claude entrega a instrução e os termos bloqueados](assets/screenshots/04-instrucao-gerada.png)
 

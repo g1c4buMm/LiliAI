@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lili.AI · Pitch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#13110f; --surface:#1d1a17; --surface2:#25211d; --ink:#ede7e0; --muted:#a59c92; --line:#332e29;
+  --accent:#ef7d3c; --accent-soft:#3a2416; --ok:#5cc08b; --warn:#e0a640; --bad:#ec6a5c;
+  --display:"Familjen Grotesk","Helvetica Neue",Arial,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#0b0a09;color:var(--ink);font-family:var(--body);overflow:hidden;overflow:clip}
+[hidden]{display:none!important}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+
+.viewport{position:fixed;inset:0;overflow:hidden;overflow:clip}
+.stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform-origin:0 0;background:var(--bg);overflow:hidden;overflow:clip}
+
+/* ---------- moldura comum ---------- */
+.top{position:absolute;left:96px;right:96px;top:56px;display:flex;align-items:center;justify-content:space-between;font-family:var(--mono);font-size:20px;color:var(--muted);letter-spacing:.04em}
+.brand{font-family:var(--display);font-weight:700;font-size:34px;color:var(--ink);letter-spacing:-.01em}
+.brand b{color:var(--accent)}
+.dots{display:flex;gap:10px}
+.dots i{width:44px;height:6px;border-radius:3px;background:var(--line);display:block;transition:background .3s}
+.dots i.on{background:var(--accent)}
+
+.slide{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity .45s ease,visibility 0s .45s}
+.slide.on{opacity:1;visibility:visible;transition:opacity .45s ease}
+.kicker{font-family:var(--mono);font-size:22px;color:var(--accent);letter-spacing:.08em;text-transform:uppercase}
+h1,h2{font-family:var(--display);font-weight:700;letter-spacing:-.02em;line-height:1.02}
+
+/* ---------- slide 1 ---------- */
+.s1 .head{position:absolute;left:96px;top:150px;right:96px}
+.s1 h1{font-size:84px;margin-top:14px;max-width:1500px}
+.s1 h1 em{font-style:normal;color:var(--accent)}
+.cols{position:absolute;left:96px;right:96px;top:372px;bottom:112px;display:grid;grid-template-columns:1fr 56px 1.12fr 56px 1.3fr;align-items:stretch}
+.col{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:28px 30px 26px;overflow:hidden;display:flex;flex-direction:column;opacity:.26;transform:translateY(10px);transition:opacity .45s,transform .45s,border-color .45s,box-shadow .45s}
+.col.done{opacity:.62;transform:none}
+.col.on{opacity:1;transform:none;border-color:var(--accent);box-shadow:0 0 0 1px var(--accent),0 24px 60px -30px rgba(239,125,60,.55)}
+.arrow{display:grid;place-items:center;color:var(--line);font-size:42px;transition:color .45s}
+.arrow.lit{color:var(--accent)}
+.tag{font-family:var(--mono);font-size:19px;color:var(--muted);display:flex;gap:12px;align-items:center}
+.tag b{display:inline-grid;place-items:center;width:38px;height:38px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-weight:500}
+.col h3{font-family:var(--display);font-size:36px;font-weight:700;margin:16px 0 18px;letter-spacing:-.01em;line-height:1.08}
+.pain{list-style:none;display:grid;gap:16px}
+.pain li{display:grid;grid-template-columns:28px 1fr;gap:10px;font-size:24px;line-height:1.3;color:var(--ink)}
+.pain li::before{content:"✕";color:var(--bad);font-weight:600}
+.pain small{display:block;color:var(--muted);font-size:20px;margin-top:4px}
+.cmds{display:grid;gap:8px}
+.cmd{display:grid;grid-template-columns:240px 1fr;align-items:baseline;gap:12px;padding:10px 14px;border-radius:12px;background:var(--surface2)}
+.cmd code{font-family:var(--mono);font-size:20px;color:var(--accent)}
+.cmd span{font-size:18px;white-space:nowrap;color:var(--muted)}
+.memo{margin-top:14px;padding:12px 14px;border-radius:12px;border:1px dashed var(--line);font-size:19px;line-height:1.35;color:var(--muted)}
+.memo b{color:var(--ink);font-weight:600}
+.metrics{display:grid;grid-template-columns:1fr 1fr;gap:14px;flex:1}
+.metric{background:var(--surface2);border-radius:14px;padding:16px 18px;display:flex;flex-direction:column;justify-content:space-between}
+.metric .num{font-family:var(--display);font-weight:700;font-size:44px;white-space:nowrap;color:var(--ok);line-height:1;letter-spacing:-.02em}
+.metric .lbl{font-size:19px;line-height:1.25;margin-top:8px}
+.metric .antes{font-family:var(--mono);font-size:16px;color:var(--muted);margin-top:10px}
+.sprint{margin-top:14px;font-family:var(--mono);font-size:17px;color:var(--muted)}
+.sprint b{color:var(--ink);font-weight:500}
+.editing [data-edit]{outline:2px dashed var(--warn);outline-offset:3px;cursor:text}
+.edit-flag{position:absolute;left:50%;top:18px;transform:translateX(-50%);background:var(--warn);color:#1b1408;font-family:var(--mono);font-size:18px;padding:6px 16px;border-radius:999px}
+
+/* ---------- slide 2 ---------- */
+.s2 .head{position:absolute;left:96px;top:142px}
+.s2 h2{font-size:68px;margin-top:12px}
+.player{position:absolute;left:96px;top:300px;width:1220px;height:686px;border-radius:18px;overflow:hidden;background:#000;border:1px solid var(--line)}
+.player video{width:100%;height:100%;display:block;object-fit:contain;background:#000}
+.play-cta{position:absolute;inset:0;display:grid;place-items:center;background:linear-gradient(0deg,rgba(0,0,0,.55),rgba(0,0,0,.15));transition:opacity .3s}
+.play-cta span{display:flex;align-items:center;gap:18px;padding:22px 34px;border-radius:999px;background:var(--accent);color:#1c0e05;font-family:var(--display);font-weight:700;font-size:32px}
+.play-cta small{font-family:var(--mono);font-weight:500;font-size:20px;opacity:.8}
+.vbar{position:absolute;left:0;right:0;bottom:0;height:8px;background:rgba(255,255,255,.12)}
+.vbar i{display:block;height:100%;width:0;background:var(--accent)}
+.chapters{position:absolute;left:1356px;right:96px;top:300px;height:686px;display:flex;flex-direction:column;gap:6px}
+.phase{font-family:var(--mono);font-size:18px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin:14px 0 4px;display:flex;justify-content:space-between}
+.phase:first-child{margin-top:0}
+.ch{position:relative;display:grid;grid-template-columns:64px 1fr;gap:10px;align-items:baseline;text-align:left;padding:8px 14px;border-radius:10px;font-size:21px;line-height:1.25;color:var(--muted);overflow:hidden;transition:color .25s,background .25s}
+.ch time{font-family:var(--mono);font-size:16px;color:var(--muted)}
+.ch.past{color:var(--ink)}
+.ch.cur{background:var(--accent-soft);color:var(--ink)}
+.ch.cur time{color:var(--accent)}
+.ch .fill{position:absolute;left:0;bottom:0;height:3px;background:var(--accent);width:0}
+.ch:hover{background:var(--surface2)}
+
+/* ---------- slide 3 ---------- */
+.s3 .head{position:absolute;left:96px;top:142px}
+.s3 h2{font-size:68px;margin-top:12px}
+.browser{position:absolute;left:96px;top:300px;width:1220px;height:690px;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:var(--surface)}
+.bbar{height:48px;display:flex;align-items:center;gap:10px;padding:0 18px;background:var(--surface2);border-bottom:1px solid var(--line)}
+.bbar i{width:13px;height:13px;border-radius:50%;background:var(--line);display:block}
+.url{margin-left:14px;flex:1;height:30px;border-radius:8px;background:var(--bg);display:flex;align-items:center;padding:0 14px;font-family:var(--mono);font-size:17px;color:var(--muted)}
+.url b{color:var(--ink);font-weight:500}
+.frame{position:relative;width:1220px;height:642px;overflow:hidden;background:#fff}
+.frame iframe{position:absolute;left:0;top:0;width:1440px;height:758px;border:0;transform:scale(.84722);transform-origin:0 0}
+.sitenav{position:absolute;left:1356px;right:96px;top:300px;display:flex;flex-direction:column;gap:8px}
+.sitenav h4{font-family:var(--mono);font-weight:500;font-size:18px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+.sitenav button{display:flex;justify-content:space-between;align-items:center;text-align:left;padding:13px 18px;border-radius:12px;background:var(--surface);border:1px solid var(--line);font-size:23px;transition:border-color .2s,background .2s}
+.sitenav button span{font-family:var(--mono);font-size:16px;color:var(--muted)}
+.sitenav button.on{border-color:var(--accent);background:var(--accent-soft)}
+.live{margin-top:14px;font-family:var(--mono);font-size:18px;color:var(--muted);line-height:1.5}
+.live a{color:var(--accent);text-decoration:none}
+
+.closing{position:absolute;inset:0;background:rgba(19,17,15,.94);backdrop-filter:blur(6px);display:grid;grid-template-columns:1fr 430px;gap:90px;align-items:center;padding:0 150px;opacity:0;visibility:hidden;transition:opacity .5s,visibility 0s .5s}
+.closing.on{opacity:1;visibility:visible;transition:opacity .5s}
+.closing blockquote{font-family:var(--display);font-weight:700;font-size:74px;line-height:1.08;letter-spacing:-.02em}
+.closing blockquote em{font-style:normal;color:var(--accent)}
+.closing .who{margin-top:40px;font-family:var(--mono);font-size:24px;color:var(--muted)}
+.qr{background:#fff;border-radius:24px;padding:28px;text-align:center}
+.qr svg{width:100%;height:auto;display:block}
+.qr p{color:#1c1916;font-family:var(--mono);font-size:19px;margin-top:14px;line-height:1.35}
+.qr p b{font-family:var(--display);font-size:26px;display:block}
+
+/* ---------- cronômetro ---------- */
+.clock{position:absolute;left:0;right:0;bottom:0;height:74px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:28px;padding:0 96px;border-top:1px solid var(--line);background:rgba(19,17,15,.9);font-family:var(--mono);transition:opacity .3s}
+.clock.off{opacity:0}
+.c-step{display:flex;align-items:baseline;gap:14px;min-width:330px}
+.c-step b{font-size:30px;font-weight:500;font-variant-numeric:tabular-nums}
+.c-step span{font-size:18px;color:var(--muted)}
+.segs{display:flex;gap:6px;height:12px;position:relative;margin-top:22px}
+.seg{position:relative;height:100%;border-radius:4px;background:var(--line)}
+.seg i{position:absolute;left:0;top:0;bottom:0;width:0;background:var(--ok);border-radius:4px}
+.seg.done i{background:var(--muted)}
+.seg.cur{outline:2px solid var(--ink);outline-offset:2px}
+.seg.cur em{color:var(--ink)}
+.seg em{position:absolute;left:0;right:0;top:-24px;font-style:normal;font-size:14px;overflow:hidden;text-overflow:ellipsis;color:var(--muted);text-align:center;white-space:nowrap}
+.c-total{display:flex;align-items:baseline;gap:16px;font-variant-numeric:tabular-nums}
+.c-total b{font-size:30px;font-weight:500}
+.c-total span{font-size:18px;color:var(--muted)}
+.pace{font-size:17px;padding:5px 12px;border-radius:999px;background:var(--surface2);color:var(--muted)}
+.ok-c{color:var(--ok)!important}.warn-c{color:var(--warn)!important}.bad-c{color:var(--bad)!important}
+.seg i.warn{background:var(--warn)}.seg i.bad{background:var(--bad)}
+.paused-pill{font-size:16px;color:#1b1408;background:var(--warn);padding:4px 10px;border-radius:999px}
+
+/* ---------- ajuda ---------- */
+.hint{position:fixed;right:18px;top:16px;z-index:5;font-family:var(--mono);font-size:13px;color:var(--muted);background:rgba(29,26,23,.92);border:1px solid var(--line);border-radius:12px;padding:12px 14px;line-height:1.7;transition:opacity .4s}
+.hint kbd{display:inline-block;min-width:22px;text-align:center;padding:0 6px;border-radius:5px;background:var(--surface2);color:var(--ink);border:1px solid var(--line)}
+.hint.fade{opacity:0;pointer-events:none}
+.filewarn{position:fixed;left:50%;top:14px;transform:translateX(-50%);z-index:7;max-width:760px;background:var(--warn);color:#1b1408;font-family:var(--body);font-size:15px;line-height:1.45;padding:12px 16px 12px 18px;border-radius:12px;display:flex;gap:14px;align-items:center}
+.filewarn code{font-family:var(--mono);background:rgba(0,0,0,.12);padding:1px 6px;border-radius:5px}
+.filewarn button{font-family:var(--mono);font-size:13px;border:1px solid rgba(0,0,0,.35);border-radius:8px;padding:4px 10px}
+.toast{position:fixed;left:50%;bottom:110px;transform:translateX(-50%);z-index:6;background:var(--surface);border:1px solid var(--accent);border-radius:12px;padding:12px 18px;font-size:15px;max-width:520px;text-align:center}
+.toast a{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="viewport">
+<div class="stage" id="stage">
+
+  <div class="top">
+    <span class="brand">Lili<b>.</b>AI</span>
+    <div class="dots" aria-hidden="true"><i></i><i></i><i></i></div>
+    <span>Hackathon · Formação em IA</span>
+  </div>
+
+  <!-- 1 · dor, solução, ganhos -->
+  <section class="slide s1" data-slide="0" aria-label="Introdução">
+    <div class="head">
+      <p class="kicker">O problema que eu resolvi</p>
+      <h1>A sessão de mentoria acabava.<br><em>As lições também.</em></h1>
+    </div>
+    <div class="cols">
+      <div class="col" data-col="dor">
+        <p class="tag"><b>1</b>Dor</p>
+        <h3>Três palavras no caderno</h3>
+        <ul class="pain">
+          <li><div>Lições esquecidas em duas semanas<small>"era algo sobre visibilidade…"</small></div></li>
+          <li><div>Ações sem dono e sem prazo<small>"vou ver isso" e nunca mais</small></div></li>
+          <li><div>Zero evidência na hora da promoção<small>o trabalho não chegava em quem decide</small></div></li>
+        </ul>
+      </div>
+      <div class="arrow" data-arrow="1">→</div>
+      <div class="col" data-col="solucao">
+        <p class="tag"><b>2</b>Solução</p>
+        <h3>5 comandos e um diário como memória</h3>
+        <div class="cmds">
+          <div class="cmd"><code>/liliai-entrevista</code><span>onboarding em botões</span></div>
+          <div class="cmd"><code>/liliai-sessao</code><span>lições, ações, evidências</span></div>
+          <div class="cmd"><code>/liliai-semana</code><span>atrasos e pauta</span></div>
+          <div class="cmd"><code>/liliai-painel</code><span>histórico visual</span></div>
+          <div class="cmd"><code>/liliai-privacidade</code><span>checagem antes de sair</span></div>
+        </div>
+        <p class="memo"><b>diario.json</b> no Projeto: o Claude nunca recomeça do zero. <b>Anônimo por padrão.</b></p>
+      </div>
+      <div class="arrow" data-arrow="2">→</div>
+      <div class="col" data-col="ganhos">
+        <p class="tag"><b>3</b>Ganhos para mim</p>
+        <h3>Progresso que dá para provar</h3>
+        <div class="metrics">
+          <div class="metric"><div><p class="num" data-edit="m1n">10 min</p><p class="lbl" data-edit="m1l">para registrar uma sessão</p></div><p class="antes" data-edit="m1a">antes: notas que eu não relia</p></div>
+          <div class="metric"><div><p class="num" data-edit="m2n">100%</p><p class="lbl" data-edit="m2l">das ações com dono e prazo</p></div><p class="antes" data-edit="m2a">antes: "vou ver isso", sem data</p></div>
+          <div class="metric"><div><p class="num" data-edit="m3n">1 comando</p><p class="lbl" data-edit="m3l">para o painel da gestão</p></div><p class="antes" data-edit="m3a">antes: slide montado na véspera</p></div>
+          <div class="metric"><div><p class="num" data-edit="m4n">0</p><p class="lbl" data-edit="m4l">dados pessoais fora do Projeto</p></div><p class="antes" data-edit="m4a">privado por padrão</p></div>
+        </div>
+        <p class="sprint" data-edit="sprint">No sprint: <b>5 comandos · painel · site · vídeo narrado · código aberto</b></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 · demo -->
+  <section class="slide s2" data-slide="1" aria-label="Demo">
+    <div class="head">
+      <p class="kicker">Como funciona</p>
+      <h2>Do zero ao painel, em 83 segundos</h2>
+    </div>
+    <div class="player" id="player">
+      <video id="vid" preload="auto" playsinline poster="../../assets/video/poster.jpg">
+        <source src="../../assets/video/liliai-1080.mp4" type="video/mp4">
+        <source src="../../assets/video/liliai-720.webm" type="video/webm">
+      </video>
+      <button class="play-cta" id="playcta" aria-label="Tocar a demo"><span>▶ Tocar a demo <small>1min23s · com som</small></span></button>
+      <div class="vbar"><i id="vbar"></i></div>
+    </div>
+    <div class="chapters" id="chapters"></div>
+  </section>
+
+  <!-- 3 · site -->
+  <section class="slide s3" data-slide="2" aria-label="Site">
+    <div class="head">
+      <p class="kicker">Para quem quiser usar</p>
+      <h2>O site já está no ar</h2>
+    </div>
+    <div class="browser">
+      <div class="bbar"><i></i><i></i><i></i><div class="url">https://<b>g1c4bumm.github.io/LiliAI</b><span id="urlhash"></span></div></div>
+      <div class="frame"><iframe id="site" title="Site Lili.AI" src="../../index.html#topo" loading="eager"></iframe></div>
+    </div>
+    <nav class="sitenav" id="sitenav">
+      <h4>Tour pelo site</h4>
+      <button data-h="topo" class="on">Início <span>#topo</span></button>
+      <button data-h="montar">Passo a passo <span>30 min</span></button>
+      <button data-h="comandos">Os 5 comandos <span>/liliai</span></button>
+      <button data-h="privacidade">Privacidade <span>anônimo</span></button>
+      <button data-h="demo">Demo e vídeo <span>83 s</span></button>
+      <button data-h="beta">Beta aberto <span>e-mail</span></button>
+      <p class="live">Ao vivo: <a href="https://g1c4bumm.github.io/LiliAI/" target="_blank" rel="noopener">g1c4bumm.github.io/LiliAI</a><br>Código: github.com/g1c4buMm/LiliAI</p>
+    </nav>
+    <div class="closing" id="closing">
+      <div>
+        <p class="kicker">Quem eu me tornei no processo</p>
+        <blockquote style="margin-top:24px">Se eu ganhar a mentoria com o Marcel, ela vai ser a <em>primeira registrada no Lili.AI.</em></blockquote>
+        <p class="who">Obrigado · Giovanni</p>
+      </div>
+      <div class="qr"><svg role="img" aria-label="QR code para o beta do Lili.AI"  version="1.1" viewBox="0 0 31 31" xmlns="http://www.w3.org/2000/svg"><path d="M1,1H2V2H1zM2,1H3V2H2zM3,1H4V2H3zM4,1H5V2H4zM5,1H6V2H5zM6,1H7V2H6zM7,1H8V2H7zM10,1H11V2H10zM11,1H12V2H11zM13,1H14V2H13zM17,1H18V2H17zM19,1H20V2H19zM20,1H21V2H20zM21,1H22V2H21zM23,1H24V2H23zM24,1H25V2H24zM25,1H26V2H25zM26,1H27V2H26zM27,1H28V2H27zM28,1H29V2H28zM29,1H30V2H29zM1,2H2V3H1zM7,2H8V3H7zM13,2H14V3H13zM15,2H16V3H15zM16,2H17V3H16zM18,2H19V3H18zM19,2H20V3H19zM21,2H22V3H21zM23,2H24V3H23zM29,2H30V3H29zM1,3H2V4H1zM3,3H4V4H3zM4,3H5V4H4zM5,3H6V4H5zM7,3H8V4H7zM9,3H10V4H9zM10,3H11V4H10zM11,3H12V4H11zM12,3H13V4H12zM15,3H16V4H15zM19,3H20V4H19zM21,3H22V4H21zM23,3H24V4H23zM25,3H26V4H25zM26,3H27V4H26zM27,3H28V4H27zM29,3H30V4H29zM1,4H2V5H1zM3,4H4V5H3zM4,4H5V5H4zM5,4H6V5H5zM7,4H8V5H7zM9,4H10V5H9zM11,4H12V5H11zM12,4H13V5H12zM14,4H15V5H14zM15,4H16V5H15zM16,4H17V5H16zM18,4H19V5H18zM19,4H20V5H19zM21,4H22V5H21zM23,4H24V5H23zM25,4H26V5H25zM26,4H27V5H26zM27,4H28V5H27zM29,4H30V5H29zM1,5H2V6H1zM3,5H4V6H3zM4,5H5V6H4zM5,5H6V6H5zM7,5H8V6H7zM9,5H10V6H9zM10,5H11V6H10zM11,5H12V6H11zM15,5H16V6H15zM17,5H18V6H17zM18,5H19V6H18zM19,5H20V6H19zM20,5H21V6H20zM21,5H22V6H21zM23,5H24V6H23zM25,5H26V6H25zM26,5H27V6H26zM27,5H28V6H27zM29,5H30V6H29zM1,6H2V7H1zM7,6H8V7H7zM9,6H10V7H9zM11,6H12V7H11zM12,6H13V7H12zM15,6H16V7H15zM16,6H17V7H16zM17,6H18V7H17zM18,6H19V7H18zM23,6H24V7H23zM29,6H30V7H29zM1,7H2V8H1zM2,7H3V8H2zM3,7H4V8H3zM4,7H5V8H4zM5,7H6V8H5zM6,7H7V8H6zM7,7H8V8H7zM9,7H10V8H9zM11,7H12V8H11zM13,7H14V8H13zM15,7H16V8H15zM17,7H18V8H17zM19,7H20V8H19zM21,7H22V8H21zM23,7H24V8H23zM24,7H25V8H24zM25,7H26V8H25zM26,7H27V8H26zM27,7H28V8H27zM28,7H29V8H28zM29,7H30V8H29zM9,8H10V9H9zM10,8H11V9H10zM13,8H14V9H13zM19,8H20V9H19zM1,9H2V10H1zM3,9H4V10H3zM4,9H5V10H4zM5,9H6V10H5zM6,9H7V10H6zM7,9H8V10H7zM10,9H11V10H10zM13,9H14V10H13zM14,9H15V10H14zM15,9H16V10H15zM16,9H17V10H16zM18,9H19V10H18zM20,9H21V10H20zM23,9H24V10H23zM24,9H25V10H24zM25,9H26V10H25zM26,9H27V10H26zM27,9H28V10H27zM1,10H2V11H1zM2,10H3V11H2zM3,10H4V11H3zM5,10H6V11H5zM6,10H7V11H6zM8,10H9V11H8zM10,10H11V11H10zM13,10H14V11H13zM18,10H19V11H18zM19,10H20V11H19zM20,10H21V11H20zM21,10H22V11H21zM22,10H23V11H22zM23,10H24V11H23zM24,10H25V11H24zM25,10H26V11H25zM29,10H30V11H29zM2,11H3V12H2zM6,11H7V12H6zM7,11H8V12H7zM8,11H9V12H8zM10,11H11V12H10zM13,11H14V12H13zM16,11H17V12H16zM17,11H18V12H17zM19,11H20V12H19zM22,11H23V12H22zM25,11H26V12H25zM3,12H4V13H3zM5,12H6V13H5zM6,12H7V13H6zM9,12H10V13H9zM12,12H13V13H12zM15,12H16V13H15zM17,12H18V13H17zM21,12H22V13H21zM22,12H23V13H22zM23,12H24V13H23zM24,12H25V13H24zM25,12H26V13H25zM26,12H27V13H26zM28,12H29V13H28zM1,13H2V14H1zM2,13H3V14H2zM3,13H4V14H3zM4,13H5V14H4zM6,13H7V14H6zM7,13H8V14H7zM8,13H9V14H8zM9,13H10V14H9zM10,13H11V14H10zM12,13H13V14H12zM18,13H19V14H18zM21,13H22V14H21zM24,13H25V14H24zM26,13H27V14H26zM27,13H28V14H27zM3,14H4V15H3zM5,14H6V15H5zM11,14H12V15H11zM12,14H13V15H12zM14,14H15V15H14zM18,14H19V15H18zM19,14H20V15H19zM20,14H21V15H20zM21,14H22V15H21zM23,14H24V15H23zM25,14H26V15H25zM29,14H30V15H29zM1,15H2V16H1zM2,15H3V16H2zM4,15H5V16H4zM5,15H6V16H5zM7,15H8V16H7zM8,15H9V16H8zM10,15H11V16H10zM12,15H13V16H12zM14,15H15V16H14zM15,15H16V16H15zM16,15H17V16H16zM17,15H18V16H17zM18,15H19V16H18zM21,15H22V16H21zM24,15H25V16H24zM26,15H27V16H26zM27,15H28V16H27zM1,16H2V17H1zM2,16H3V17H2zM6,16H7V17H6zM11,16H12V17H11zM12,16H13V17H12zM14,16H15V17H14zM16,16H17V17H16zM25,16H26V17H25zM28,16H29V17H28zM1,17H2V18H1zM2,17H3V18H2zM6,17H7V18H6zM7,17H8V18H7zM9,17H10V18H9zM10,17H11V18H10zM11,17H12V18H11zM13,17H14V18H13zM15,17H16V18H15zM18,17H19V18H18zM19,17H20V18H19zM20,17H21V18H20zM26,17H27V18H26zM27,17H28V18H27zM1,18H2V19H1zM2,18H3V19H2zM4,18H5V19H4zM9,18H10V19H9zM11,18H12V19H11zM16,18H17V19H16zM17,18H18V19H17zM18,18H19V19H18zM19,18H20V19H19zM20,18H21V19H20zM21,18H22V19H21zM22,18H23V19H22zM23,18H24V19H23zM24,18H25V19H24zM25,18H26V19H25zM27,18H28V19H27zM29,18H30V19H29zM1,19H2V20H1zM3,19H4V20H3zM5,19H6V20H5zM7,19H8V20H7zM8,19H9V20H8zM9,19H10V20H9zM10,19H11V20H10zM13,19H14V20H13zM16,19H17V20H16zM17,19H18V20H17zM18,19H19V20H18zM21,19H22V20H21zM23,19H24V20H23zM24,19H25V20H24zM25,19H26V20H25zM27,19H28V20H27zM1,20H2V21H1zM3,20H4V21H3zM4,20H5V21H4zM10,20H11V21H10zM11,20H12V21H11zM12,20H13V21H12zM13,20H14V21H13zM15,20H16V21H15zM16,20H17V21H16zM20,20H21V21H20zM21,20H22V21H21zM25,20H26V21H25zM28,20H29V21H28zM1,21H2V22H1zM3,21H4V22H3zM4,21H5V22H4zM5,21H6V22H5zM7,21H8V22H7zM10,21H11V22H10zM11,21H12V22H11zM12,21H13V22H12zM16,21H17V22H16zM21,21H22V22H21zM22,21H23V22H22zM23,21H24V22H23zM24,21H25V22H24zM25,21H26V22H25zM27,21H28V22H27zM28,21H29V22H28zM29,21H30V22H29zM9,22H10V23H9zM10,22H11V23H10zM12,22H13V23H12zM14,22H15V23H14zM15,22H16V23H15zM16,22H17V23H16zM17,22H18V23H17zM18,22H19V23H18zM19,22H20V23H19zM21,22H22V23H21zM25,22H26V23H25zM26,22H27V23H26zM27,22H28V23H27zM28,22H29V23H28zM29,22H30V23H29zM1,23H2V24H1zM2,23H3V24H2zM3,23H4V24H3zM4,23H5V24H4zM5,23H6V24H5zM6,23H7V24H6zM7,23H8V24H7zM11,23H12V24H11zM12,23H13V24H12zM14,23H15V24H14zM15,23H16V24H15zM16,23H17V24H16zM17,23H18V24H17zM20,23H21V24H20zM21,23H22V24H21zM23,23H24V24H23zM25,23H26V24H25zM26,23H27V24H26zM27,23H28V24H27zM1,24H2V25H1zM7,24H8V25H7zM9,24H10V25H9zM10,24H11V25H10zM12,24H13V25H12zM14,24H15V25H14zM16,24H17V25H16zM19,24H20V25H19zM20,24H21V25H20zM21,24H22V25H21zM25,24H26V25H25zM29,24H30V25H29zM1,25H2V26H1zM3,25H4V26H3zM4,25H5V26H4zM5,25H6V26H5zM7,25H8V26H7zM9,25H10V26H9zM11,25H12V26H11zM13,25H14V26H13zM15,25H16V26H15zM18,25H19V26H18zM21,25H22V26H21zM22,25H23V26H22zM23,25H24V26H23zM24,25H25V26H24zM25,25H26V26H25zM27,25H28V26H27zM1,26H2V27H1zM3,26H4V27H3zM4,26H5V27H4zM5,26H6V27H5zM7,26H8V27H7zM9,26H10V27H9zM11,26H12V27H11zM12,26H13V27H12zM17,26H18V27H17zM18,26H19V27H18zM19,26H20V27H19zM21,26H22V27H21zM24,26H25V27H24zM26,26H27V27H26zM27,26H28V27H27zM28,26H29V27H28zM29,26H30V27H29zM1,27H2V28H1zM3,27H4V28H3zM4,27H5V28H4zM5,27H6V28H5zM7,27H8V28H7zM9,27H10V28H9zM10,27H11V28H10zM11,27H12V28H11zM13,27H14V28H13zM14,27H15V28H14zM15,27H16V28H15zM16,27H17V28H16zM19,27H20V28H19zM20,27H21V28H20zM21,27H22V28H21zM22,27H23V28H22zM23,27H24V28H23zM25,27H26V28H25zM26,27H27V28H26zM27,27H28V28H27zM28,27H29V28H28zM1,28H2V29H1zM7,28H8V29H7zM10,28H11V29H10zM12,28H13V29H12zM14,28H15V29H14zM15,28H16V29H15zM16,28H17V29H16zM17,28H18V29H17zM21,28H22V29H21zM23,28H24V29H23zM24,28H25V29H24zM26,28H27V29H26zM28,28H29V29H28zM1,29H2V30H1zM2,29H3V30H2zM3,29H4V30H3zM4,29H5V30H4zM5,29H6V30H5zM6,29H7V30H6zM7,29H8V30H7zM9,29H10V30H9zM10,29H11V30H10zM12,29H13V30H12zM13,29H14V30H13zM15,29H16V30H15zM18,29H19V30H18zM24,29H25V30H24zM25,29H26V30H25zM27,29H28V30H27z" id="qr-path" fill="#000000" fill-opacity="1" fill-rule="nonzero" stroke="none"/></svg><p><b>Beta aberto</b>aponte a câmera e entre</p></div>
+    </div>
+  </section>
+
+  <!-- cronômetro -->
+  <div class="clock" id="clock" aria-live="off">
+    <div class="c-step"><b id="cStep">0:45</b><span id="cStepLbl">Dor · restante</span></div>
+    <div class="segs" id="segs"></div>
+    <div class="c-total"><span class="paused-pill" id="cPaused">pausado</span><span class="pace" id="cPace">no ritmo</span><b id="cTotal">0:00</b><span id="cTotalOf">/ 5:00</span></div>
+  </div>
+  <div class="edit-flag" id="editflag" hidden>Modo edição · clique nos números e textos tracejados · E para sair</div>
+</div>
+</div>
+
+<div class="hint" id="hint">
+  <kbd>→</kbd> <kbd>espaço</kbd> o 1º inicia o cronômetro, depois avança · <kbd>←</kbd> volta<br>
+  <kbd>T</kbd> inicia ou pausa o cronômetro<br>
+  <kbd>P</kbd> abre o roteiro em pop-up<br>
+  <kbd>F</kbd> tela cheia · <kbd>C</kbd> esconde o cronômetro<br>
+  <kbd>V</kbd> toca ou pausa o vídeo<br>
+  <kbd>E</kbd> edita as métricas · <kbd>R</kbd> <kbd>R</kbd> zera
+</div>
+<div class="filewarn" id="filewarn" hidden><span><b>Aberto como arquivo local.</b> Nesse modo o navegador pode bloquear o vídeo, o som e o roteiro em pop-up. Feche esta aba e dê dois cliques em <code>apresentar.command</code>, na mesma pasta.</span><button id="fwclose">ok</button></div>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+(function(){
+  /* ---------- etapas e orçamento (total 5 min; ?min=7 reescala) ---------- */
+  var BASE=[
+    {id:'dor',     slide:0, label:'Dor',        budget:45},
+    {id:'solucao', slide:0, label:'Solução',    budget:45},
+    {id:'ganhos',  slide:0, label:'Ganhos',     budget:45},
+    {id:'demo',    slide:1, label:'Demo',       budget:105},
+    {id:'site',    slide:2, label:'Site',       budget:40},
+    {id:'fecho',   slide:2, label:'Fechamento', budget:20}
+  ];
+  var q=new URLSearchParams(location.search), mins=parseFloat(q.get('min'));
+  var total0=BASE.reduce(function(a,s){return a+s.budget},0);
+  var k=(mins>0)?(mins*60/total0):1;
+  var STEPS=BASE.map(function(s){return {id:s.id,slide:s.slide,label:s.label,budget:Math.round(s.budget*k)}});
+  var TOTAL=STEPS.reduce(function(a,s){return a+s.budget},0);
+
+  var CHAPTERS=[
+    {p:'Instalar', t:0,     l:'Download do kit no GitHub'},
+    {p:'Instalar', t:6.52,  l:'5 skills enviadas ao Claude'},
+    {p:'Instalar', t:16.35, l:'/liliai aparece. Pronto'},
+    {p:'Instalar', t:20.92, l:'Projeto e arquivos de apoio'},
+    {p:'Configurar', t:29.25, l:'Entrevista: privacidade e modo'},
+    {p:'Configurar', t:36.56, l:'Perguntas em botões'},
+    {p:'Configurar', t:44.03, l:'4 entregas da entrevista'},
+    {p:'Configurar', t:49.2,  l:'Instrução e diário salvos'},
+    {p:'Configurar', t:54.99, l:'Instalado em 12m30s'},
+    {p:'Usar', t:58.68, l:'/liliai-sessao: notas viram lições e ações'},
+    {p:'Usar', t:67.52, l:'Painel: avanço, atrasos e visibilidade'},
+    {p:'Usar', t:74.35, l:'Menos de 10 min por sessão'}
+  ];
+  var VDUR=83.1;
+
+  var $=function(s,r){return (r||document).querySelector(s)}, $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+  var stage=$('#stage'), vid=$('#vid'), slides=$$('.slide'), dots=$$('.dots i');
+
+  /* ---------- escala do palco ---------- */
+  function fit2(){var s=Math.min(innerWidth/1920,innerHeight/1080);stage.style.left=((innerWidth-1920*s)/2)+'px';stage.style.top=((innerHeight-1080*s)/2)+'px';stage.style.transform='scale('+s+')';}
+  addEventListener('resize',fit2);fit2();
+  function unscroll(){if(scrollX||scrollY)scrollTo(0,0);[document.documentElement,document.body,document.querySelector('.viewport'),stage].concat($$('.slide')).forEach(function(el){if(el&&(el.scrollTop||el.scrollLeft)){el.scrollTop=0;el.scrollLeft=0}})}
+  addEventListener('scroll',unscroll,true);setInterval(unscroll,500);
+
+  /* ---------- estado ---------- */
+  var cur=0, running=false, elapsed=0, actual=STEPS.map(function(){return 0}), last=performance.now(), videoStarted=false, pop=null;
+
+  function fmt(sec,signed){var neg=sec<0;sec=Math.abs(Math.round(sec));var m=Math.floor(sec/60),s=sec%60;return (signed?(neg?'−':'+'):(neg?'−':''))+m+':'+(s<10?'0':'')+s}
+
+  /* ---------- segmentos do cronômetro ---------- */
+  var segs=$('#segs');
+  STEPS.forEach(function(s){var d=document.createElement('div');d.className='seg';d.style.flex=s.budget;d.innerHTML='<em>'+s.label+' · '+fmt(s.budget)+'</em><i></i>';segs.appendChild(d)});
+  $('#cTotalOf').textContent='/ '+fmt(TOTAL);
+
+  /* ---------- capítulos do vídeo ---------- */
+  var chWrap=$('#chapters'), lastPhase='';
+  var phaseEnd={Instalar:'0:00 a 0:29',Configurar:'0:29 a 0:58',Usar:'0:58 a 1:23'};
+  CHAPTERS.forEach(function(c,i){
+    if(c.p!==lastPhase){var h=document.createElement('p');h.className='phase';h.innerHTML='<span>'+c.p+'</span><span>'+phaseEnd[c.p]+'</span>';chWrap.appendChild(h);lastPhase=c.p}
+    var b=document.createElement('button');b.className='ch';b.dataset.i=i;b.innerHTML='<time>'+fmt(c.t)+'</time><span>'+c.l+'</span><i class="fill"></i>';
+    b.addEventListener('click',function(){vid.currentTime=c.t+0.05;playVideo()});chWrap.appendChild(b)
+  });
+  var chEls=$$('.ch');
+  function updChapters(){
+    var t=vid.currentTime||0;
+    $('#vbar').style.width=Math.min(100,t/(vid.duration||VDUR)*100)+'%';
+    CHAPTERS.forEach(function(c,i){
+      var end=i<CHAPTERS.length-1?CHAPTERS[i+1].t:(vid.duration||VDUR), el=chEls[i];
+      var isCur=videoStarted&&t>=c.t&&t<end, past=videoStarted&&t>=end;
+      el.classList.toggle('cur',isCur);el.classList.toggle('past',past);
+      el.querySelector('.fill').style.width=isCur?((t-c.t)/(end-c.t)*100)+'%':'0';
+    });
+  }
+  function playVideo(){videoStarted=true;$('#playcta').hidden=true;vid.muted=false;var p=vid.play();if(p&&p.catch)p.catch(function(){toast('O navegador bloqueou o som. Clique no vídeo para tocar.')});}
+  $('#playcta').addEventListener('click',playVideo);
+  vid.addEventListener('click',function(){vid.paused?playVideo():vid.pause()});
+  vid.addEventListener('timeupdate',updChapters);
+  vid.addEventListener('error',function(){toast(location.protocol==='file:'?'O navegador bloqueou o vídeo no arquivo local. Abra pelo apresentar.command.':'Vídeo não carregou. Recarregue a página.')},true);
+
+  /* ---------- tour do site ---------- */
+  var iframe=$('#site'), siteBase=iframe.getAttribute('src').split('#')[0];
+  $$('#sitenav button').forEach(function(b){b.addEventListener('click',function(){
+    $$('#sitenav button').forEach(function(x){x.classList.toggle('on',x===b)});
+    iframe.src=siteBase+'#'+b.dataset.h;$('#urlhash').textContent=b.dataset.h==='topo'?'':'/#'+b.dataset.h;
+  })});
+
+  /* ---------- navegação ---------- */
+  function render(){
+    var st=STEPS[cur];
+    slides.forEach(function(s,i){s.classList.toggle('on',i===st.slide)});
+    dots.forEach(function(d,i){d.classList.toggle('on',i<=st.slide)});
+    var order=['dor','solucao','ganhos'], idx=order.indexOf(st.id);
+    $$('.col').forEach(function(c){var ci=order.indexOf(c.dataset.col);c.classList.toggle('on',idx===ci||(st.slide>0));c.classList.toggle('done',idx>ci)});
+    $$('.arrow').forEach(function(a){a.classList.toggle('lit',idx>=+a.dataset.arrow||st.slide>0)});
+    $('#closing').classList.toggle('on',st.id==='fecho');
+    if(st.id!=='demo'&&!vid.paused)vid.pause();
+    tickUI();send();
+  }
+  function go(i){i=Math.max(0,Math.min(STEPS.length-1,i));if(i===cur)return;cur=i;render()}
+  function next(){
+    if(!running&&elapsed===0){start();return}
+    if(STEPS[cur].id==='demo'&&!videoStarted){playVideo();return}
+    go(cur+1)
+  }
+  function prev(){go(cur-1)}
+  function start(){running=true;last=performance.now();tickUI();send()}
+  function toggle(){running?(running=false):start();tickUI();send()}
+  function reset(){running=false;elapsed=0;actual=actual.map(function(){return 0});cur=0;videoStarted=false;vid.pause();try{vid.currentTime=0}catch(e){}$('#playcta').hidden=false;updChapters();render()}
+
+  /* ---------- relógio ---------- */
+  function paceDelta(){
+    var planned=0;for(var i=0;i<cur;i++)planned+=STEPS[i].budget;
+    var se=actual[cur]/1000, b=STEPS[cur].budget;
+    return (elapsed/1000-se-planned)+Math.max(0,se-b);
+  }
+  function tickUI(){
+    var st=STEPS[cur], se=actual[cur]/1000, rem=st.budget-se, ratio=se/st.budget;
+    var cls=ratio>=1?'bad-c':ratio>=.8?'warn-c':'ok-c';
+    var cs=$('#cStep');cs.textContent=fmt(rem);cs.className=cls;
+    $('#cStepLbl').textContent=st.label+(rem<0?' · estourou':' · restante');
+    var te=elapsed/1000, ct=$('#cTotal');ct.textContent=fmt(te);ct.className=te>TOTAL?'bad-c':te>TOTAL*.9?'warn-c':'';
+    var d=paceDelta(), pe=$('#cPace');
+    if(elapsed===0){pe.textContent='aperte T ou →';pe.className='pace'}
+    else if(Math.abs(d)<5){pe.textContent='no ritmo';pe.className='pace ok-c'}
+    else if(d>0){pe.textContent=fmt(d,true)+' atrasado';pe.className='pace '+(d>20?'bad-c':'warn-c')}
+    else{pe.textContent=fmt(d,true)+' adiantado';pe.className='pace ok-c'}
+    $('#cPaused').hidden=running||elapsed===0;
+    $$('.seg').forEach(function(s,i){
+      var a=actual[i]/1000,b=STEPS[i].budget,r=a/b,f=s.firstElementChild.nextElementSibling;
+      s.classList.toggle('cur',i===cur);s.classList.toggle('done',i<cur);
+      f.style.width=Math.min(100,r*100)+'%';f.className=i<cur?'':(r>=1?'bad':r>=.8?'warn':'');
+    });
+  }
+  setInterval(function(){
+    var now=performance.now(),dt=now-last;last=now;
+    if(running){elapsed+=dt;actual[cur]+=dt}
+    tickUI();send();
+  },250);
+
+  /* ---------- pop-up do roteiro ---------- */
+  function metrics(){return $$('.metric').map(function(m){return {num:$('.num',m).textContent,lbl:$('.lbl',m).textContent,antes:$('.antes',m).textContent}})}
+  function state(){return {type:'liliai-state',cur:cur,running:running,elapsed:elapsed,actual:actual,total:TOTAL,steps:STEPS,video:{started:videoStarted,t:vid.currentTime||0,paused:vid.paused},metrics:metrics()}}
+  function send(){if(pop&&!pop.closed){try{pop.postMessage(state(),'*')}catch(e){}}}
+  function openPop(){
+    var w=Math.min(1100,screen.availWidth-40),h=Math.min(860,screen.availHeight-60);
+    pop=window.open('roteiro.html','liliai-roteiro','popup=yes,width='+w+',height='+h+',left=20,top=20');
+    if(!pop){toast('O navegador bloqueou o pop-up. Permita pop-ups para este arquivo e aperte P de novo.')}else{setTimeout(send,400)}
+  }
+  addEventListener('message',function(e){
+    var d=e.data||{};
+    if(d.type==='liliai-hello'){pop=e.source;send();return}
+    if(d.type!=='liliai-cmd')return;
+    if(e.source)pop=e.source;
+    var CMDS={next:next,prev:prev,toggle:toggle,reset:reset,video:function(){vid.paused?playVideo():vid.pause()},go:function(){go(+d.i)}};
+    if(CMDS[d.cmd])CMDS[d.cmd]();
+  });
+
+  /* ---------- edição das métricas (salva neste navegador) ---------- */
+  var KEY='liliai-pitch-edit';
+  try{var saved=JSON.parse(localStorage.getItem(KEY)||'{}');$$('[data-edit]').forEach(function(el){if(saved[el.dataset.edit]!=null)el.textContent=saved[el.dataset.edit]})}catch(e){}
+  var editing=false;
+  function toggleEdit(){
+    editing=!editing;stage.classList.toggle('editing',editing);$('#editflag').hidden=!editing;
+    $$('[data-edit]').forEach(function(el){el.contentEditable=editing?'true':'false'});
+    if(editing&&cur>2)go(2);
+    if(!editing){if(document.activeElement)document.activeElement.blur();try{var o={};$$('[data-edit]').forEach(function(el){o[el.dataset.edit]=el.textContent});localStorage.setItem(KEY,JSON.stringify(o))}catch(e){}send()}
+  }
+
+  /* ---------- teclado ---------- */
+  var lastR=0;
+  addEventListener('keydown',function(e){
+    if(editing){if(e.key==='Escape')toggleEdit();return}
+    var key=e.key.toLowerCase();
+    if(['arrowright','pagedown',' ','enter'].indexOf(e.key.toLowerCase())>=0){e.preventDefault();next()}
+    else if(['arrowleft','pageup','backspace'].indexOf(key)>=0){e.preventDefault();prev()}
+    else if(key==='t')toggle();
+    else if(key==='p')openPop();
+    else if(key==='f'){document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen()}
+    else if(key==='c')$('#clock').classList.toggle('off');
+    else if(key==='v'){vid.paused?playVideo():vid.pause()}
+    else if(key==='e'){e.preventDefault();toggleEdit()}
+    else if(key==='r'){var n=Date.now();if(n-lastR<1500){reset();toast('Cronômetro zerado.')}else toast('Aperte R de novo para zerar.');lastR=n}
+    else if(key==='h')$('#hint').classList.toggle('fade');
+  });
+
+  var tt;function toast(m){var t=$('#toast');t.textContent=m;t.hidden=false;clearTimeout(tt);tt=setTimeout(function(){t.hidden=true},3500)}
+  setTimeout(function(){$('#hint').classList.add('fade')},9000);
+
+  if(location.protocol==='file:'){$('#filewarn').hidden=false;$('#fwclose').addEventListener('click',function(){$('#filewarn').hidden=true})}
+
+  document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('button');if(b)b.blur()});
+  window.__pitch={go:go,next:next,state:state,start:start,toggle:toggle,reset:reset};
+  render();updChapters();
+})();
+</script>
+</body>
+</html>

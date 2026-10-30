@@ -1,6 +1,6 @@
 ---
 name: liliai-entrevista
-description: Conduz a entrevista de onboarding do LiliAI (você escolhe: modo rápido de 11 perguntas ou completo de 38), registra o consentimento de privacidade e entrega a instrução do projeto, o resumo de contexto e o diario.json inicial. Use com /liliai-entrevista.
+description: Conduz a entrevista de onboarding do LiliAI (você escolhe: modo rápido de 11 perguntas ou completo de 38), registra o consentimento de privacidade e entrega a instrução do projeto, o resumo de contexto, o diario.json inicial e o primeiro painel, com os próximos passos. Use com /liliai-entrevista.
 ---
 
 # LiliAI: entrevista de onboarding
@@ -51,7 +51,7 @@ Se a resposta do I1 for "nenhum" ou vazia, proponha este padrão e peça para ac
 
 ## Entrega final
 
-Entregue quatro itens, cada um num bloco de código separado:
+Entregue cinco itens, nesta ordem. Os quatro primeiros vão cada um num bloco de código separado:
 
 1. **Resumo do contexto** (`contexto.md`), com as respostas por bloco e a linha `Modo de privacidade: Anônimo|Contexto. Respondido em AAAA-MM-DD. Confirmação de política: sim|não se aplica.` Inclua a linha do modo da entrevista com as pendentes.
 2. **Instrução do projeto**, pronta para colar em Configurações do projeto > Instruções. Comece pelo bloco de privacidade abaixo e inclua: quem é a pessoa (A1, A2, A4), meta e prazo (B1, B2), mentoria (C1, C2), o que a mentoria deve mudar (C3), quem decide (D1), formato de leitura (G3), o que evitar na escrita (G4), política da empresa para IA (H3), o que nunca registrar (I1), termos bloqueados (I2), e estas regras:
@@ -64,6 +64,32 @@ Entregue quatro itens, cada um num bloco de código separado:
    - comandos do kit: /liliai-sessao, /liliai-semana, /liliai-painel e /liliai-privacidade
 3. **Termos bloqueados**, um por linha.
 4. **`diario.json` inicial**: o modelo vazio (`modelos/diario.json` ou o `diario.json` desta skill) com o bloco `perfil` preenchido: `pessoa` (A1), `meta` (B1), `prazo_meta` (B2), `mentoria` (C1 e C2), `modo_privacidade` (P1) e `revisao_semanal` (G2, ou vazio).
+5. **Primeiro painel**, gerado na hora a partir desse `diario.json` inicial, sem esperar o usuário pedir. Mesmo com pouca informação, o painel mostra a meta, o prazo e os espaços que vão ser preenchidos a cada sessão.
+   - Use `modelos/painel.html` do conhecimento do Projeto ou o `painel.html` que acompanha esta skill.
+   - Copie o modelo inteiro, sem mudar HTML, CSS ou script. Troque somente o conteúdo do bloco `<script type="application/json" id="dados">` por `{"exibicao": {"hoje": "AAAA-MM-DD", "audiencia": "pessoal", "exemplo": false}, "diario": { ...o diario.json inicial... }}`. Valide o JSON.
+   - Se você puder publicar páginas ou artefatos, publique. Se não puder, entregue o arquivo `painel-AAAA-MM-DD.html` completo num bloco de código, para salvar e abrir no navegador.
+   - Se nenhum modelo estiver disponível, pule este item e diga que o painel sai com `/liliai-painel` depois que o modelo estiver no Projeto.
+
+## Próximos passos (sempre no fim, depois dos cinco itens)
+
+Feche com este bloco, preenchido. Ele é o que a pessoa vai seguir, então não resuma e não troque por texto corrido:
+
+```
+PRÓXIMOS PASSOS (5 minutos, só uma vez)
+1. Salve no conhecimento do Projeto: contexto.md e diario.json (os blocos 1 e 4 acima).
+   Eu não consigo gravar arquivos no seu Projeto: esse passo é seu.
+2. Cole a instrução (bloco 2) em Configurações do projeto > Instruções.
+3. Seu painel já está acima. Para ver de novo, a qualquer momento: /liliai-painel
+
+DEPOIS DE CADA SESSÃO DE MENTORIA
+- /liliai-sessao e cole suas notas → eu devolvo o diario.json novo e o painel atualizado.
+- Substitua o diario.json no Projeto pela versão nova.
+
+TODA SEMANA
+- /liliai-semana → atrasos, evidências e a pauta da próxima sessão.
+```
+
+Se você conseguir editar o diário diretamente (documento vivo, artefato ou arquivo que você possa gravar), atualize lá, troque o passo 1 por "Já salvei o diário para você" e mantenha o resto. Se houver revisão semanal (G2) e você puder criar tarefas agendadas, ofereça agendar o `/liliai-semana` nesse horário.
 
 Bloco de privacidade da instrução, modo Anônimo:
 ```
@@ -80,5 +106,3 @@ Todo texto que sai do Projeto (painel para compartilhar, e-mail, post, mensagem)
 Termos bloqueados nunca aparecem em texto para compartilhar.
 Se eu disser "mudar para anônimo", anonimize o diario.json inteiro e devolva a versão nova para eu substituir.
 ```
-
-Depois dos quatro blocos, diga os próximos passos em três linhas: salvar `contexto.md` e `diario.json` no conhecimento do Projeto, colar a instrução nas configurações, e rodar `/liliai-sessao` depois da próxima sessão. Se houver revisão semanal (G2) e você puder criar tarefas agendadas, ofereça agendar o `/liliai-semana` nesse horário.

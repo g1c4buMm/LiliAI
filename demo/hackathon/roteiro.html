@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Roteiro · Pitch Lili.AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#13110f; --surface:#1d1a17; --surface2:#25211d; --ink:#ede7e0; --muted:#a59c92; --line:#332e29;
+  --accent:#ef7d3c; --accent-soft:#3a2416; --ok:#5cc08b; --warn:#e0a640; --bad:#ec6a5c;
+  --display:"Familjen Grotesk","Helvetica Neue",Arial,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--ink);font-family:var(--body)}
+body{min-height:100vh;display:flex;flex-direction:column}
+[hidden]{display:none!important}
+button{font:inherit;color:inherit;cursor:pointer}
+
+/* ---------- cronômetro ---------- */
+.bar{position:sticky;top:0;z-index:2;background:var(--bg);border-bottom:1px solid var(--line);padding:16px 22px 14px}
+.row{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.big{font-family:var(--mono);font-size:58px;font-weight:500;line-height:1;font-variant-numeric:tabular-nums}
+.big-lbl{font-family:var(--mono);font-size:14px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.stack{display:flex;flex-direction:column;gap:6px}
+.total{font-family:var(--mono);font-size:28px;font-variant-numeric:tabular-nums}
+.total span{color:var(--muted);font-size:18px}
+.pill{font-family:var(--mono);font-size:14px;padding:5px 11px;border-radius:999px;background:var(--surface2);color:var(--muted)}
+.spacer{flex:1}
+.conn{font-family:var(--mono);font-size:12px;color:var(--muted);display:flex;align-items:center;gap:8px}
+.conn i{width:9px;height:9px;border-radius:50%;background:var(--muted)}
+.conn.on i{background:var(--ok)}
+.segs{display:flex;gap:5px;margin-top:16px;height:30px}
+.seg{position:relative;border-radius:6px;background:var(--surface2);overflow:hidden;border:0;padding:0;text-align:left}
+.seg i{position:absolute;left:0;top:0;bottom:0;width:0;background:rgba(92,192,139,.35)}
+.seg.done i{background:rgba(165,156,146,.25)}
+.seg i.warn{background:rgba(224,166,64,.45)}.seg i.bad{background:rgba(236,106,92,.5)}
+.seg span{position:relative;display:block;padding:6px 9px;font-family:var(--mono);font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.seg.cur{outline:2px solid var(--accent);outline-offset:1px}
+.seg.cur span{color:var(--ink)}
+.ok-c{color:var(--ok)!important}.warn-c{color:var(--warn)!important}.bad-c{color:var(--bad)!important}
+
+/* ---------- corpo ---------- */
+main{flex:1;display:grid;grid-template-columns:1fr;gap:18px;padding:20px 22px 110px}
+@media (min-width:1000px){main{grid-template-columns:minmax(0,1fr) 300px}}
+.now .step{font-family:var(--mono);font-size:14px;color:var(--accent);text-transform:uppercase;letter-spacing:.08em}
+.now h1{font-family:var(--display);font-size:34px;font-weight:700;margin:6px 0 16px;letter-spacing:-.01em}
+.fala{font-size:27px;line-height:1.5;max-width:62ch}
+.fala p+p{margin-top:14px}
+.fala .pausa{font-family:var(--mono);font-size:16px;color:var(--warn);background:rgba(224,166,64,.12);padding:2px 8px;border-radius:6px;white-space:nowrap}
+.fala strong{color:var(--accent);font-weight:600}
+.box{margin-top:20px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.box h3{font-family:var(--mono);font-size:13px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+.box ul{list-style:none;display:grid;gap:8px}
+.box li{display:grid;grid-template-columns:22px 1fr;font-size:18px;line-height:1.4}
+.box li::before{content:"›";color:var(--accent);font-weight:600}
+.box.planb{border-style:dashed}
+.box.planb li::before{content:"B";font-family:var(--mono);font-size:13px;color:var(--warn)}
+.mtx{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.mtx div{background:var(--surface2);border-radius:10px;padding:10px 12px;font-size:16px;color:var(--muted)}
+.mtx b{display:block;font-family:var(--display);font-size:26px;color:var(--ok)}
+.side .box{margin-top:0;margin-bottom:14px}
+.next h4{font-family:var(--mono);font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.next p{margin-top:8px;font-size:17px;line-height:1.45;color:var(--muted)}
+.next b{display:block;color:var(--ink);font-size:20px;font-family:var(--display);margin-top:4px}
+table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:14px}
+td{padding:7px 4px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+td:last-child,td:nth-child(2){text-align:right}
+tr.cur td{color:var(--accent)}
+tr.done td:first-child{color:var(--muted)}
+.qa dt{font-weight:600;font-size:16px;margin-top:12px}
+.qa dt:first-child{margin-top:0}
+.qa dd{font-size:15px;color:var(--muted);line-height:1.45;margin-top:3px}
+
+/* ---------- controles ---------- */
+.ctrl{position:fixed;left:0;right:0;bottom:0;display:flex;gap:10px;padding:14px 22px;background:rgba(19,17,15,.96);border-top:1px solid var(--line)}
+.ctrl button{flex:1;padding:14px 10px;border-radius:12px;background:var(--surface);border:1px solid var(--line);font-family:var(--mono);font-size:16px}
+.ctrl button.main{background:var(--accent);color:#1c0e05;border-color:var(--accent);font-weight:500;flex:2}
+.ctrl button:active{transform:translateY(1px)}
+kbd{font-family:var(--mono);font-size:12px;color:var(--muted);margin-left:6px}
+.ctrl .main kbd{color:#1c0e05;opacity:.7}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="row">
+    <div class="stack"><span class="big-lbl" id="stepLbl">Etapa · restante</span><span class="big" id="big">0:45</span></div>
+    <div class="stack"><span class="big-lbl">Total</span><span class="total" id="total">0:00 <span>/ 5:00</span></span></div>
+    <span class="pill" id="pace">aperte iniciar</span>
+    <span class="spacer"></span>
+    <span class="conn" id="conn"><i></i><span>procurando o deck…</span></span>
+  </div>
+  <div class="segs" id="segs"></div>
+</header>
+
+<main>
+  <section class="now">
+    <p class="step" id="stepNo">Slide 1 · etapa 1 de 6</p>
+    <h1 id="title">Dor</h1>
+    <div class="fala" id="fala"></div>
+    <div class="box" id="mostrarBox"><h3>Mostrar e fazer</h3><ul id="mostrar"></ul></div>
+    <div class="box" id="metricBox" hidden><h3>Números no slide agora</h3><div class="mtx" id="mtx"></div></div>
+    <div class="box planb" id="planbBox"><h3>Se der errado</h3><ul id="planb"></ul></div>
+  </section>
+  <aside class="side">
+    <div class="box next" id="nextBox"><h4>Próxima etapa</h4><b id="nextTitle"></b><p id="nextFirst"></p></div>
+    <div class="box"><h3>Tempo por etapa</h3><table id="tbl"></table></div>
+    <div class="box"><h3>Perguntas prováveis</h3>
+      <dl class="qa">
+        <dt>Quem mais usaria isso?</dt><dd>Qualquer pessoa desta turma: todos estão numa mentoria agora.</dd>
+        <dt>Meus dados vão para o GitHub?</dt><dd>Não. O repositório só tem o kit. O diário fica no Projeto de cada um e está no .gitignore.</dd>
+        <dt>Preciso saber programar?</dt><dd>Não. São comandos e prompts. Sem Skills no plano, os prompts da pasta prompts/ fazem o mesmo.</dd>
+        <dt>A checagem de privacidade é garantida?</dt><dd>Não. É uma segunda leitura feita por um modelo. Eu sempre releio antes de compartilhar.</dd>
+        <dt>O que foi mais difícil?</dt><dd>Fazer a privacidade funcionar de verdade: anônimo por padrão, consentimento explícito e uma lista do que nunca pode ser registrado.</dd>
+        <dt>Próximo passo?</dt><dd>Beta com esta turma. A inscrição está no site.</dd>
+      </dl>
+    </div>
+  </aside>
+</main>
+
+<nav class="ctrl">
+  <button id="bPrev">◀ Voltar<kbd>←</kbd></button>
+  <button id="bToggle">⏯ Iniciar<kbd>T</kbd></button>
+  <button id="bVideo" hidden>🎬 Vídeo<kbd>V</kbd></button>
+  <button class="main" id="bNext">Avançar ▶<kbd>→</kbd></button>
+</nav>
+
+<script>
+(function(){
+  /* ---------- roteiro: edite as falas aqui ---------- */
+  var P='<span class="pausa">pausa</span>';
+  var SCRIPT={
+    dor:{
+      titulo:'Dor: a mentoria que evaporava',
+      fala:[
+        'Pergunta rápida: quantas lições do nosso <strong>primeiro encontro</strong> vocês conseguem citar agora, sem olhar o caderno? '+P,
+        'Esse era o meu problema. Eu faço mentoria de carreira, e toda sessão terminava com <strong>três palavras no caderno</strong>.',
+        'As ações ficavam sem dono e sem prazo. E quando chegava a conversa de promoção, eu não tinha evidência do que tinha mudado.'
+      ],
+      mostrar:['O primeiro → só inicia o cronômetro; o slide não muda','Faça a pergunta olhando para a plateia e espere uma resposta','A coluna "Dor" está acesa; as outras ainda apagadas'],
+      planb:['Se ninguém responder, responda você: "Eu também não lembraria."']
+    },
+    solucao:{
+      titulo:'Solução: comandos e memória',
+      fala:[
+        'Eu peguei o que o Marcel ensinou no <strong>segundo encontro</strong> ao pé da letra: comandos e memória.',
+        'O Lili.AI são <strong>cinco comandos no Claude</strong>, um para cada momento da mentoria: entrevista, sessão, revisão da semana, painel e privacidade.',
+        'E um diário, que é a memória: o Claude <strong>nunca recomeça do zero</strong>. E como eu sou de segurança, ele é anônimo por padrão.'
+      ],
+      mostrar:['Aponte os 5 comandos na coluna do meio','Destaque "anônimo por padrão": é a sua credibilidade de SA de segurança'],
+      planb:[]
+    },
+    ganhos:{
+      titulo:'Ganhos: o que mudou para mim',
+      fala:[
+        'O que mudou para mim: leia os quatro números do slide, um por um, com o "antes" de cada um.',
+        'E tudo isso virou um <strong>kit aberto</strong>. Qualquer pessoa desta turma pode usar amanhã.'
+      ],
+      mostrar:['Antes de apresentar: no deck, aperte E e troque pelos seus números reais (sessões registradas, ações, evidências)','Leia devagar: é o slide que a banca vai lembrar'],
+      planb:['Se não tiver número real, fale do "antes" com um exemplo seu concreto'],
+      metricas:true
+    },
+    demo:{
+      titulo:'Demo: do zero ao painel',
+      fala:[
+        'Em vez de explicar, eu vou mostrar. Este vídeo é a instalação <strong>do zero até o painel</strong>, acelerada.',
+        '<span class="pausa">aperte → para tocar · deixe a narração falar</span>',
+        'Depois do vídeo: "Doze minutos e meio para montar. Depois, <strong>menos de dez minutos por sessão</strong>."'
+      ],
+      mostrar:['O primeiro → toca o vídeo; o segundo → avança para o site','Os capítulos à direita acendem sozinhos; clique em um para pular','Se sobrar tempo e a banca pedir ao vivo: cole notas-sessao-3.txt com /liliai-sessao (cerca de 2 min)'],
+      planb:['Vídeo sem som: confira o volume do computador e da saída HDMI','Vídeo não toca: abra demo/painel-final.html e diga "é isto que sai"']
+    },
+    site:{
+      titulo:'Site: para quem quiser usar',
+      fala:[
+        'E para quem quiser usar: <strong>o site já está no ar</strong>.',
+        'Tem o passo a passo de 30 minutos, os cinco comandos, como a privacidade funciona e a demo.',
+        'E tem a <strong>inscrição para o beta</strong>.'
+      ],
+      mostrar:['Clique em "Passo a passo", depois "Os 5 comandos" e por fim "Beta aberto"','Dá para rolar o site dentro da moldura'],
+      planb:['Site não carregou: abra g1c4bumm.github.io/LiliAI numa aba']
+    },
+    fecho:{
+      titulo:'Fechamento: quem eu me tornei',
+      fala:[
+        'A Lilian disse que o mais importante é <strong>quem a gente se torna no processo</strong>.',
+        'Em poucos dias eu escrevi skills, montei uma esteira de build, publiquei um site e produzi um vídeo narrado. Coisas que eu nunca tinha feito.',
+        'E se eu ganhar a mentoria com o Marcel, ela vai ser a <strong>primeira registrada no Lili.AI</strong>. '+P+' Obrigado.'
+      ],
+      mostrar:['Pare de falar depois de "Obrigado" e deixe o QR na tela','Convide: "aponte a câmera e entre no beta"'],
+      planb:[]
+    }
+  };
+  var DEFAULT_STEPS=[
+    {id:'dor',slide:0,label:'Dor',budget:45},{id:'solucao',slide:0,label:'Solução',budget:45},{id:'ganhos',slide:0,label:'Ganhos',budget:45},
+    {id:'demo',slide:1,label:'Demo',budget:105},{id:'site',slide:2,label:'Site',budget:40},{id:'fecho',slide:2,label:'Fechamento',budget:20}
+  ];
+
+  var $=function(s){return document.querySelector(s)};
+  var S={cur:0,running:false,elapsed:0,actual:DEFAULT_STEPS.map(function(){return 0}),steps:DEFAULT_STEPS,total:300,metrics:null,video:null};
+  var deck=window.opener&&!window.opener.closed?window.opener:null, lastMsg=0, local=!deck, last=performance.now(), shownStep=-1;
+
+  function fmt(sec,signed){var neg=sec<0;sec=Math.abs(Math.round(sec));var m=Math.floor(sec/60),s=sec%60;return (signed?(neg?'−':'+'):(neg?'−':''))+m+':'+(s<10?'0':'')+s}
+  function cmd(c,extra){
+    if(!local&&deck&&!deck.closed){var m={type:'liliai-cmd',cmd:c};if(extra)for(var k in extra)m[k]=extra[k];deck.postMessage(m,'*');return}
+    // modo independente
+    if(c==='next'){if(!S.running&&S.elapsed===0)S.running=true;else S.cur=Math.min(S.steps.length-1,S.cur+1)}
+    if(c==='prev')S.cur=Math.max(0,S.cur-1);
+    if(c==='toggle')S.running=!S.running;
+    if(c==='go')S.cur=+extra.i;
+    if(c==='reset'){S.running=false;S.elapsed=0;S.actual=S.actual.map(function(){return 0});S.cur=0}
+    render();
+  }
+
+  /* ---------- conexão com o deck ---------- */
+  addEventListener('message',function(e){
+    var d=e.data||{};if(d.type!=='liliai-state')return;
+    deck=e.source;local=false;lastMsg=Date.now();
+    S.cur=d.cur;S.running=d.running;S.elapsed=d.elapsed;S.actual=d.actual;S.steps=d.steps;S.total=d.total;S.metrics=d.metrics;S.video=d.video;
+    render();
+  });
+  function hello(){if(deck&&!deck.closed){try{deck.postMessage({type:'liliai-hello'},'*')}catch(e){}}}
+  hello();
+  setInterval(function(){
+    var on=Date.now()-lastMsg<1500;
+    if(!on){local=true;hello()}
+    var c=$('#conn');c.classList.toggle('on',on);c.lastElementChild.textContent=on?'sincronizado com o deck':'modo independente';
+    if(local){var now=performance.now(),dt=now-last;if(S.running){S.elapsed+=dt;S.actual[S.cur]+=dt}render()}
+    last=performance.now();
+  },250);
+
+  /* ---------- tela ---------- */
+  var segs=$('#segs');
+  function buildSegs(){
+    segs.innerHTML='';
+    S.steps.forEach(function(s,i){var b=document.createElement('button');b.className='seg';b.style.flex=s.budget;b.innerHTML='<i></i><span>'+s.label+' · '+fmt(s.budget)+'</span>';b.addEventListener('click',function(){cmd('go',{i:i})});segs.appendChild(b)});
+  }
+  buildSegs();
+  function paceDelta(){var planned=0;for(var i=0;i<S.cur;i++)planned+=S.steps[i].budget;var se=S.actual[S.cur]/1000,b=S.steps[S.cur].budget;return (S.elapsed/1000-se-planned)+Math.max(0,se-b)}
+
+  function render(){
+    var st=S.steps[S.cur], sc=SCRIPT[st.id]||{}, se=S.actual[S.cur]/1000, rem=st.budget-se, r=se/st.budget;
+    if(segs.children.length!==S.steps.length)buildSegs();
+    var big=$('#big');big.textContent=fmt(rem);big.className='big '+(r>=1?'bad-c':r>=.8?'warn-c':'ok-c');
+    $('#stepLbl').textContent=st.label+(rem<0?' · estourou':' · restante');
+    var te=S.elapsed/1000;$('#total').innerHTML='<b class="'+(te>S.total?'bad-c':te>S.total*.9?'warn-c':'')+'" style="font-weight:500">'+fmt(te)+'</b> <span>/ '+fmt(S.total)+'</span>';
+    var d=paceDelta(),pe=$('#pace');
+    if(S.elapsed===0){pe.textContent='aperte iniciar ou avançar';pe.className='pill'}
+    else if(!S.running){pe.textContent='pausado';pe.className='pill warn-c'}
+    else if(Math.abs(d)<5){pe.textContent='no ritmo';pe.className='pill ok-c'}
+    else if(d>0){pe.textContent=fmt(d,true)+' atrasado';pe.className='pill '+(d>20?'bad-c':'warn-c')}
+    else{pe.textContent=fmt(d,true)+' adiantado';pe.className='pill ok-c'}
+    Array.prototype.forEach.call(segs.children,function(s,i){
+      var a=S.actual[i]/1000,b=S.steps[i].budget,rr=a/b,f=s.firstElementChild;
+      s.classList.toggle('cur',i===S.cur);s.classList.toggle('done',i<S.cur);
+      f.style.width=Math.min(100,rr*100)+'%';f.className=i<S.cur?'':(rr>=1?'bad':rr>=.8?'warn':'');
+    });
+    $('#bToggle').firstChild.nodeValue=S.running?'⏸ Pausar':(S.elapsed?'▶ Retomar':'⏯ Iniciar');
+    $('#bVideo').hidden=st.id!=='demo'||local;
+    var nextLbl=$('#bNext').firstChild;
+    nextLbl.nodeValue=(st.id==='demo'&&S.video&&!S.video.started)?'▶ Tocar vídeo':'Avançar ▶';
+
+    // tabela
+    var rows='';S.steps.forEach(function(s,i){var a=S.actual[i]/1000,diff=a-s.budget,c=i<S.cur?(diff>5?'bad-c':diff<-5?'':'ok-c'):'';rows+='<tr class="'+(i===S.cur?'cur':i<S.cur?'done':'')+'"><td>'+s.label+'</td><td>'+fmt(s.budget)+'</td><td class="'+c+'">'+(a>0?fmt(a):'·')+'</td></tr>'});
+    $('#tbl').innerHTML='<tr><td style="color:var(--muted)">etapa</td><td style="color:var(--muted)">plano</td><td style="color:var(--muted)">real</td></tr>'+rows;
+
+    // métricas ao vivo
+    var mb=$('#metricBox');mb.hidden=!(sc.metricas&&S.metrics);
+    if(!mb.hidden)$('#mtx').innerHTML=S.metrics.map(function(m){return '<div><b>'+esc(m.num)+'</b>'+esc(m.lbl)+'<br><small>'+esc(m.antes)+'</small></div>'}).join('');
+
+    if(shownStep===S.cur)return;
+    shownStep=S.cur;
+    $('#stepNo').textContent='Slide '+(st.slide+1)+' de 3 · etapa '+(S.cur+1)+' de '+S.steps.length+' · plano '+fmt(st.budget);
+    $('#title').textContent=sc.titulo||st.label;
+    $('#fala').innerHTML=(sc.fala||[]).map(function(p){return '<p>'+p+'</p>'}).join('');
+    $('#mostrar').innerHTML=(sc.mostrar||[]).map(function(x){return '<li>'+x+'</li>'}).join('');$('#mostrarBox').hidden=!(sc.mostrar||[]).length;
+    $('#planb').innerHTML=(sc.planb||[]).map(function(x){return '<li>'+x+'</li>'}).join('');$('#planbBox').hidden=!(sc.planb||[]).length;
+    var nx=S.steps[S.cur+1];
+    if(nx){var ns=SCRIPT[nx.id]||{};$('#nextTitle').textContent=ns.titulo||nx.label;$('#nextFirst').innerHTML=((ns.fala||[''])[0]).replace(/<[^>]+>/g,'')}
+    else{$('#nextTitle').textContent='Fim';$('#nextFirst').textContent='Deixe o QR na tela e abra para perguntas.'}
+    scrollTo(0,0);
+  }
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+
+  $('#bNext').addEventListener('click',function(){cmd('next')});
+  $('#bPrev').addEventListener('click',function(){cmd('prev')});
+  $('#bToggle').addEventListener('click',function(){cmd('toggle')});
+  $('#bVideo').addEventListener('click',function(){cmd('video')});
+  var lastR=0;
+  addEventListener('keydown',function(e){
+    var k=e.key.toLowerCase();
+    if(['arrowright','pagedown',' ','enter'].indexOf(k)>=0){e.preventDefault();cmd('next')}
+    else if(['arrowleft','pageup'].indexOf(k)>=0){e.preventDefault();cmd('prev')}
+    else if(k==='t')cmd('toggle');
+    else if(k==='v')cmd('video');
+    else if(k==='r'){var n=Date.now();if(n-lastR<1500)cmd('reset');lastR=n}
+  });
+
+  document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('button');if(b)b.blur()});
+  window.__roteiro={S:S,render:render};
+  render();
+})();
+</script>
+</body>
+</html>

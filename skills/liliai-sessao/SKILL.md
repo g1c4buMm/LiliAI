@@ -1,6 +1,6 @@
 ---
 name: liliai-sessao
-description: Registra uma sessão de mentoria no diario.json do LiliAI. Limpa as notas, extrai lições, ações e evidências, atualiza status, conta métricas e devolve o diário. Também registra evidência avulsa. Use com /liliai-sessao.
+description: Registra uma sessão de mentoria no diario.json do LiliAI. Limpa as notas, extrai lições, ações e evidências, atualiza status, conta métricas, devolve o diário e mostra o painel atualizado. Também registra evidência avulsa. Use com /liliai-sessao.
 ---
 
 # LiliAI: registrar uma sessão
@@ -50,7 +50,11 @@ Mostre uma tabela curta com os totais e confirme se a soma das ações por statu
 1. Em tabelas curtas: privacidade, lições novas, ações novas, status alterados, evidências propostas, métricas.
 2. Peça confirmação: "Confirma? Responda ok ou corrija." Use botões se a ferramenta existir.
 3. Após a confirmação, devolva o **`diario.json` completo**, num bloco `json`, com a sessão nova no fim de `sessoes`. Recalcule `prioridade` e `proximos_30_dias` a partir das ações abertas, atrasadas e com prazo mais próximo. Valide o JSON: aspas duplas, sem vírgula sobrando, ids únicos.
-4. Diga: "Substitua o diario.json no conhecimento do Projeto por esta versão." Se o diário estiver num documento vivo ou artefato que você consiga editar, atualize lá e diga que não há passo manual.
+4. Diga: "Substitua o diario.json no conhecimento do Projeto por esta versão. Eu não consigo gravar no seu Projeto: esse passo é seu." Se o diário estiver num documento vivo ou artefato que você consiga editar, atualize lá e diga que não há passo manual.
+5. **Painel atualizado.** Pergunte, com botões se a ferramenta existir: "Quer ver o painel com esta sessão?" Opções: "Ver agora" (recomendado) e "Depois".
+   - **Ver agora:** gere o painel pessoal com o `diario.json` que você acabou de devolver, sem esperar a troca no Projeto. Use `modelos/painel.html` do Projeto ou o `painel.html` desta skill, copie o modelo inteiro e troque só o bloco `<script type="application/json" id="dados">` por `{"exibicao": {"hoje": "AAAA-MM-DD", "audiencia": "pessoal", "exemplo": false}, "diario": {...}}`. Publique como página ou artefato, se puder; senão, entregue o HTML completo num bloco de código.
+   - **Depois:** diga "Quando quiser ver o painel, rode /liliai-painel."
+6. Feche com uma linha: "Próximo passo: substituir o diario.json no Projeto. Na revisão da semana, /liliai-semana."
 
 ## Evidência avulsa
 

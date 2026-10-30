@@ -33,8 +33,8 @@ SKILLS = [  # ordem do fluxo; número do prompt equivalente
     ('liliai-privacidade', '04-privacidade', 'Checagem de privacidade'),
 ]
 ANEXOS = {
-    'liliai-entrevista': [('onboarding/questionario.md', 'questionario.md'), ('modelos/diario.json', 'diario.json')],
-    'liliai-sessao': [('modelos/diario.json', 'diario.json')],
+    'liliai-entrevista': [('onboarding/questionario.md', 'questionario.md'), ('modelos/diario.json', 'diario.json'), ('modelos/painel.html', 'painel.html')],
+    'liliai-sessao': [('modelos/diario.json', 'diario.json'), ('modelos/painel.html', 'painel.html')],
     'liliai-painel': [('modelos/painel.html', 'painel.html')],
 }
 REMOVIDOS = ['liliai-preparar', 'liliai-pilares', 'liliai-dossie']
